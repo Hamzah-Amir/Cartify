@@ -26,3 +26,23 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Python bytecode + CPython artifacts
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.cpython-*
+*.so
+*.dll
+
+# SQLite DB
+*.sqlite3
+*.db
+*.sqlite
+
+# Virtual envs
+venv/
+*/venv/
+.env/
+*/.env/
