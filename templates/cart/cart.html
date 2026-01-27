@@ -10,12 +10,53 @@
 
 {% block body %}
 
-<section class='head'>
-    <div>
-        <a href="{% url "home" %}">
-            Continue to Shopping
-        </a>
-    </div>
+<section class='cart'>
+    <section class="head">
+        <div>
+            <a href="{% url "home" %}">
+                Continue to Shopping
+            </a>
+        </div>
+        <div class="heading">
+            Shopping Cart
+        </div>
+    </section>
+
+    <section class='products'>
+        {% for item in cart %}
+        <div class="product-card">
+            <div class="card-image">
+                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+            </div>
+            <div class="card-content">
+                <h3 class="product-name">{{ item.product.name }}</h3>
+                <p class="product-description">{{ item.product.description }}</p>
+                <div class="price-section">
+                    <span class="price">${{ item.product.price }}</span>
+                    <span class="per-unit">each</span>
+                </div>
+                <div class="quantity-section">
+                    <button class="qty-btn minus" data-id="{{ item.id }}">−</button>
+                    <input type="number" class="quantity" value="{{ item.quantity }}" min="1" data-id="{{ item.id }}">
+                    <button class="qty-btn plus" data-id="{{ item.id }}">+</button>
+                </div>
+            </div>
+            <button class="delete-btn" data-id="{{ item.id }}" title="Remove from cart">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                </svg>
+            </button>
+        </div>
+        {% empty %}
+        <div class="empty-cart">
+            <p>Your cart is empty</p>
+            <a href="{% url "home" %}" class="continue-shopping">Continue Shopping</a>
+        </div>
+        {% endfor %}
+    </section>
 </section>
 
 {% endblock body %}

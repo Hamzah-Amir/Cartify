@@ -1,7 +1,9 @@
 from django.shortcuts import render
+from .models import CartItem
 
 # Create your views here.
 
 def cart(request):
     if request.method == "GET":
-        return render(request, 'cart/cart.html')
+        cart = CartItem.objects.all()
+        return render(request, 'cart/cart.html', {"cart": cart})
