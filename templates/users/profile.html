@@ -1,0 +1,252 @@
+{% extends "base.html" %}
+
+{% block title %}User Profile{% endblock title %}
+
+{% load static %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static "users/profile.css" %}">
+{% endblock extra_head %}
+
+{% block body %}
+<div class="profile-container">
+    <!-- Profile Header -->
+    <section class="profile-head">
+        <div class="user-details">
+            <div class="user-img-container">
+                <img src="{{request.user.profile_image.url}}" alt="user profile" class="user-img">
+            </div>
+            <div class="user-info">
+                <div class="user-name">{{request.user.username}}</div>
+                <div class="user-email">{{request.user.email}}</div>
+                <div class="user-phone">{{request.user.phone_number}}</div>
+            </div>
+        </div>
+        <div class="edit-btn">
+            <button id="edit-profile-btn" class="btn-edit-toggle">Edit Profile</button>
+        </div>
+    </section>
+
+    <!-- Tabs Navigation -->
+    <div class="profile-tabs-section">
+        <div class="tabs-nav">
+            <button class="tab-button active" data-tab="personal-info">
+                <span class="tab-icon">👤</span>
+                Personal Info
+            </button>
+            <button class="tab-button" data-tab="order-history">
+                <span class="tab-icon">📦</span>
+                Order History
+            </button>
+            <button class="tab-button" data-tab="settings">
+                <span class="tab-icon">⚙️</span>
+                Settings
+            </button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tabs-content">
+            <!-- Personal Info Tab -->
+            <div id="personal-info" class="tab-pane active">
+                <div class="tab-header">
+                    <h2>Personal Information</h2>
+                </div>
+                
+                <!-- View Mode -->
+                <div id="info-view-mode" class="info-grid">
+                    <div class="info-row">
+                        <div class="info-field">
+                            <label>First Name</label>
+                            <p>{{request.user.first_name}}</p>
+                        </div>
+                        <div class="info-field">
+                            <label>Last Name</label>
+                            <p>{{request.user.last_name}}</p>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-field">
+                            <label>Username</label>
+                            <p>{{request.user.username}}</p>
+                        </div>
+                        <div class="info-field">
+                            <label>Phone Number</label>
+                            <p>{{request.user.phone_number}}</p>
+                        </div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-field">
+                            <label>Gender</label>
+                            <p>{{request.user.gender}}</p>
+                        </div>
+                        <div class="info-field">
+                            <label>Age</label>
+                            <p>{{request.user.age}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Edit Mode -->
+                <form action="{% url "profile" %}" method="post" id="info-edit-mode" class="edit-form" style="display: none;">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="first-name">First Name</label>
+                            <input type="text" id="first-name" name="first_name" value="{{request.user.first_name}}" placeholder="Enter first name">
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" id="last-name" name="last_name" value="{{request.user.last_name}}" placeholder="Enter last name">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="username">Email</label>
+                            <input type="text" id="username" name="username" value="{{request.user.username}}" placeholder="Enter Username">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone_number" value="{{request.user.phone_number}}" placeholder="Enter phone number">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select id="gender" name="gender">
+                                <option value="">Select Gender</option>
+                                <option value="Male" {% if request.user.gender == "Male" %}selected{% endif %}>Male</option>
+                                <option value="Female" {% if request.user.gender == "Female" %}selected{% endif %}>Female</option>
+                                <option value="Other" {% if request.user.gender == "Other" %}selected{% endif %}>Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" name="age" value="{{request.user.age}}" placeholder="Enter age" min="1" max="120">
+                        </div>
+                    </div>
+                    
+            <button id="cancel-edit-btn" class="btn-cancel" type='reset' style="display: none;">Cancel</button>
+            <button type="submit" id="save-profile-btn" class="btn-save" style="display: none;">Save Changes</button>
+                </form>
+
+                <!-- Wishlist Card -->
+                <div class="wishlist-card">
+                    <div class="wishlist-content">
+                        <div class="wishlist-icon">❤</div>
+                        <div class="wishlist-info">
+                            <div class="wishlist-title">My Wishlist</div>
+                            <div class="wishlist-count">5 items saved</div>
+                        </div>
+                    </div>
+                    <div class="wishlist-arrow">→</div>
+                </div>
+            </div>
+
+            <!-- Order History Tab -->
+            <div id="order-history" class="tab-pane">
+                <div class="tab-header">
+                    <h2>Order History</h2>
+                </div>
+                <div class="empty-state">
+                    <p>No orders yet</p>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="settings" class="tab-pane">
+                <div class="tab-header">
+                    <h2>Settings</h2>
+                </div>
+
+                <div class="settings-container">
+                    <!-- Change Password Section -->
+                    <div class="settings-card">
+                        <div class="card-header">
+                            <h3>Change Password</h3>
+                        </div>
+                        <form class="password-form">
+                            <div class="form-group">
+                                <label>Current Password</label>
+                                <input type="password" placeholder="Enter current password" required>
+                            </div>
+                            <div class="form-group">
+                                <label>New Password</label>
+                                <input type="password" placeholder="Enter new password" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm New Password</label>
+                                <input type="password" placeholder="Confirm new password" required>
+                            </div>
+                            <button type="submit" class="btn-primary">Update Password</button>
+                        </form>
+                    </div>
+
+                    <!-- Saved Addresses Section -->
+                    <div class="settings-card">
+                        <div class="card-header">
+                            <h3>Saved Addresses</h3>
+                        </div>
+                        <div class="addresses-list">
+                            <div class="address-item">
+                                <div class="address-label">Home</div>
+                                <div class="address-text">123 Main Street, Apt 4B</div>
+                                <div class="address-actions">
+                                    <button class="btn-link">Edit</button>
+                                    <button class="btn-link btn-danger">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-secondary">Edit Address</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Tab switching functionality
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const tabName = button.getAttribute('data-tab');
+            
+            // Remove active from all buttons and panes
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+            
+            // Add active to clicked button and corresponding pane
+            button.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        });
+    });
+
+    // Edit Profile Functionality
+    const editBtn = document.getElementById('edit-profile-btn');
+    const cancelBtn = document.getElementById('cancel-edit-btn');
+    const saveBtn = document.getElementById('save-profile-btn');
+    const viewMode = document.getElementById('info-view-mode');
+    const editMode = document.getElementById('info-edit-mode');
+
+    editBtn.addEventListener('click', () => {
+        // Show edit mode
+        viewMode.style.display = 'none';
+        editMode.style.display = 'block';
+        
+        // Toggle button visibility
+        editBtn.style.display = 'none';
+        cancelBtn.style.display = 'inline-block';
+        saveBtn.style.display = 'inline-block';
+    });
+
+    cancelBtn.addEventListener('click', () => {
+        // Show view mode
+        viewMode.style.display = 'block';
+        editMode.style.display = 'none';
+        
+        // Toggle button visibility
+        editBtn.style.display = 'inline-block';
+        cancelBtn.style.display = 'none';
+        saveBtn.style.display = 'none';
+    });
+
+</script>
+{% endblock body %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static "users/wishlist.css" %}">
+{% endblock extra_head %}
+
+
+{% block body %}
+<div class="wishlist-wrapper">
+    <div class="wishlist-header">
+        <div class="header-content">
+            <h1 class="heading">My Wishlist</h1>
+            <p class="wishlist-count">{{ wishlist|length }} items saved</p>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search wishlist..." id="wishlistSearch">
+        </div>
+    </div>
+
+    <div class="product-container">
+        {% if wishlist %}
+        {% for item in wishlist %}
+        <div class="product-card">
+            <div class="product-img">
+                {% comment %} <a href="{% url "productDetail" product.id %}"> {% endcomment %}
+                    <img src="{{item.product.image.url}}" alt="{{item.product.name}}">
+                {% comment %} </a> {% endcomment %}
+            </div>
+            <div class="product-info">
+                <div class="title">{{item.product.name}}</div>
+                <div class="price">PKR {{item.product.price}}</div>
+                <div class="desc">{{item.product.description|truncatechars:112}}</div>
+            </div>
+            <div class="cart-btn">
+                <button type="submit">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="no-products">No products found</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock body %}

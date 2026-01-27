@@ -1,0 +1,293 @@
+{% extends "base.html" %}
+
+{% block title  %}{{product.name}}{% endblock title  %}
+{% load static %}
+{% block extra_head  %}
+<link rel="stylesheet" href="{% static "products/productdetail.css" %}">
+{% endblock extra_head  %}
+
+{% block body  %}
+<div class="detail-page">
+    <div class="page-container">
+        <div class="back-link">
+            <a href="{% url 'home' %}">← Back to Products</a>
+        </div>
+        
+        <div class="product-container">
+            <!-- Product Images Section -->
+            <div class="product-gallery">
+                <div class="main-image">
+                    <img src="{{product.image.url}}" alt="{{product.name}}" id="mainProductImage">
+                </div>
+                <div class="thumbnail-images">
+                    <!-- Primary image -->
+                    <div class="thumbnail active" data-image="{{product.image.url}}">
+                        <img src="{{product.image.url}}" alt="{{product.name}}">
+                    </div>
+                    <!-- Additional images -->
+                    {% for prod_img in product.additional_images.all %}
+                    <div class="thumbnail" data-image="{{prod_img.image.url}}">
+                        <img src="{{prod_img.image.url}}" alt="{{product.name}}">
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Product Information Section -->
+            <div class="product-details">
+                <h1 class="product-title">{{product.name}}</h1>
+                
+                <div class="rating-section">
+                    <div class="stars">
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <span class="rating-text">4.7 (3 reviews)</span>
+                </div>
+
+                <div class="seller-section">
+                    <div class="seller-badge">
+                        <div class="seller-avatar"></div>
+                        <div>
+                            <div class="seller-label">Sold by</div>
+                            <div class="seller-name">{{product.seller.username}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="price-display">
+                    <span class="currency">$</span><span class="amount">{{product.price}}</span>
+                </div>
+
+                <div class="stock-info">
+                    {% if product.stock > 0 %}
+                    <span class="in-stock">In Stock ({{product.stock}} available)</span>
+                    {% else %}
+                    <span class="out-stock">Out of Stock</span>
+                    {% endif %}
+                </div>
+
+                <div class="product-summary">
+                    <p>{{product.description}}</p>
+                </div>
+
+                <div class="quantity-selector">
+                    <label for="quantity">Quantity</label>
+                    <div class="qty-controls">
+                        <button class="qty-btn minus" type="button">−</button>
+                        <input type="number" id="quantity" class="qty-input" value="1" min="1" max="{{product.stock}}">
+                        <button class="qty-btn plus" type="button">+</button>
+                    </div>
+                </div>
+
+                <div class="product-actions">
+                    <button class="btn-add-cart">Add to Cart</button>
+                    <button class="btn-wishlist" id="wishlistBtn" title="Add to Wishlist" data-product-id="{{product.id}}">
+                        <svg class="heart-icon" viewBox="0 0 24 24" width="24" height="24">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Trust Badges -->
+                <div class="trust-badges">
+                    <div class="badge">
+                        <div class="badge-icon">📦</div>
+                        <div class="badge-text">
+                            <div class="badge-title">Free Returns</div>
+                            <div class="badge-desc">30-day policy</div>
+                        </div>
+                    </div>
+                    <div class="badge">
+                        <div class="badge-icon">🚚</div>
+                        <div class="badge-text">
+                            <div class="badge-title">Fast Shipping</div>
+                            <div class="badge-desc">2-3 business days</div>
+                        </div>
+                    </div>
+                    <div class="badge">
+                        <div class="badge-icon">🛡️</div>
+                        <div class="badge-text">
+                            <div class="badge-title">Secure Payment</div>
+                            <div class="badge-desc">100% protected</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Details Tabs -->
+        <div class="details-tabs-section">
+            <div class="tabs-header">
+                <button class="tab-button active" data-tab="details">Details</button>
+                <button class="tab-button" data-tab="specifications">Specifications</button>
+                <button class="tab-button" data-tab="shipping">Shipping Info</button>
+            </div>
+
+            <div class="tabs-content">
+                <!-- Details Tab -->
+                <div id="details" class="tab-pane active">
+                    <div class="details-text">
+                        <p>{{product.description}}</p>
+                    </div>
+                </div>
+
+                <!-- Specifications Tab -->
+                <div id="specifications" class="tab-pane">
+                    <div class="specs-grid">
+                        <div class="spec-row">
+                            <div class="spec-name">Category</div>
+                            <div class="spec-val">{{product.get_category_display}}</div>
+                        </div>
+                        <div class="spec-row">
+                            <div class="spec-name">Stock Available</div>
+                            <div class="spec-val">{{product.stock}} units</div>
+                        </div>
+                        <div class="spec-row">
+                            <div class="spec-name">Seller</div>
+                            <div class="spec-val">{{product.seller.username}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Shipping Info Tab -->
+                <div id="shipping" class="tab-pane">
+                    <div class="shipping-content">
+                        <h3>Shipping & Delivery</h3>
+                        <div class="shipping-info-item">
+                            <div class="shipping-label">Standard Delivery</div>
+                            <div class="shipping-detail">2-3 business days</div>
+                        </div>
+                        <div class="shipping-info-item">
+                            <div class="shipping-label">Return Policy</div>
+                            <div class="shipping-detail">30-day return policy</div>
+                        </div>
+                        <div class="shipping-info-item">
+                            <div class="shipping-label">Shipping Cost</div>
+                            <div class="shipping-detail">Free on orders over PKR 5000</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Reviews Section -->
+        <div class="customer-reviews-section">
+            <h2 class="section-title">Customer Reviews</h2>
+            <div class="reviews-container">
+                <div class="review">
+                    <div class="review-top">
+                        <span class="review-author">Sarah M.</span>
+                        <span class="review-date">January 15, 2026</span>
+                    </div>
+                    <div class="review-rating">
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                    </div>
+                    <p class="review-text">Absolutely love this product! The quality is outstanding and it exceeded my expectations.</p>
+                </div>
+                <div class="review">
+                    <div class="review-top">
+                        <span class="review-author">Michael R.</span>
+                        <span class="review-date">January 10, 2026</span>
+                    </div>
+                    <div class="review-rating">
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star filled">★</span>
+                        <span class="star">★</span>
+                    </div>
+                    <p class="review-text">Perfect! Exactly what I was looking for. Fast shipping too.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Products Section -->
+        {% if related_products %}
+        <div class="related-products-section">
+            <h2 class="section-title">Related Products</h2>
+            <div class="related-grid">
+                {% for p in related_products %}
+                <a href="{% url 'productDetail' p.id %}" class="product-card">
+                    <div class="product-card-image">
+                        <img src="{{ p.image.url }}" alt="{{ p.name }}">
+                    </div>
+                    <div class="product-card-body">
+                        <p class="product-card-name">{{ p.name }}</p>
+                        <p class="product-card-price">PKR {{ p.price }}</p>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    // Quantity controls
+    const minusBtn = document.querySelector('.qty-btn.minus');
+    const plusBtn = document.querySelector('.qty-btn.plus');
+    const qtyInput = document.querySelector('.qty-input');
+    const maxStock = parseInt(qtyInput.getAttribute('max'));
+
+    minusBtn.addEventListener('click', () => {
+        if (parseInt(qtyInput.value) > 1) {
+            qtyInput.value = parseInt(qtyInput.value) - 1;
+        }
+    });
+
+    plusBtn.addEventListener('click', () => {
+        if (parseInt(qtyInput.value) < maxStock) {
+            qtyInput.value = parseInt(qtyInput.value) + 1;
+        }
+    });
+
+    // Thumbnail image switching
+    document.querySelectorAll('.thumbnail').forEach(thumb => {
+        thumb.addEventListener('click', () => {
+            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+            thumb.classList.add('active');
+            const imageUrl = thumb.getAttribute('data-image');
+            document.getElementById('mainProductImage').src = imageUrl;
+        });
+    });
+
+    // Tab switching
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.addEventListener('click', () => {
+            const tabName = button.getAttribute('data-tab');
+            
+            // Remove active from all buttons and panes
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+            
+            // Add active to clicked button and corresponding pane
+            button.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        });
+    });
+
+    // Wishlist toggle with AJAX
+    const wishlistBtn = document.getElementById('wishlistBtn');
+    const productId = wishlistBtn.getAttribute('data-product-id');
+    
+    // Check if product is in wishlist on page load
+    function updateWishlistUI(inWishlist) {
+        const heartIcon = wishlistBtn.querySelector('.heart-icon');
+        if (inWishlist) {
+            heartIcon.classList.add('filled');
+        } else {
+            heartIcon.classList.remove('filled');
+        }
+    }
+
+</script>
+{% endblock body  %}

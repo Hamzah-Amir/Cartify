@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block title  %}Register - Cartify{% endblock title  %}
+
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static "users/register.css" %}">
+{% endblock extra_head %}
+
+{% block body %}
+<div class="container">
+    <div class="logo">
+        <div class='img'>
+            <img src="{% static "svgs/cart.svg" %}" alt="">
+        </div>
+        <span>Cartify</span>
+    </div>
+    <div class="tagline">Buy smart. Sell faster.</div>
+    <form class='register-form' action="{% url "registerUser" %}" method="post">
+        {% csrf_token %}
+        <div class="form-group" style='display: flex; gap:10px; flex-direction: row;'>
+            <div class='input-group'>
+                
+                <label for="first-name">First Name</label>
+                <input 
+                type="text" 
+                id='first-name' 
+                name='first_name' 
+                required 
+                placeholder="Enter your first name" 
+                value='{{form_data.first_name}}'
+                >
+            </div>
+
+            <div class='input-group'>
+                <label for="last-name">Last Name</label>
+                <input 
+                type="text" 
+                id='last-name' 
+                name='last_name' 
+                required 
+                placeholder="Enter your last name" 
+                value='{{form_data.last_name}}'
+                >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input 
+            type="text" 
+            name="username" 
+            id="username" 
+            required 
+            placeholder="Choose a username"  
+            value='{{form_data.username}}'
+            >
+            {% if username_error %}
+            <p style='color: red; padding-bottom: 2px;'>{{ username_error }}</p>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="email">Enter your E-mail</label>
+            <input 
+            type="email" 
+            name="email" 
+            id="email" 
+            required 
+            placeholder="Enter your email address" 
+            value='{{form_data.email}}'
+            >
+            {% if email_error %}
+            <p style='color: red; padding-bottom: 2px;'>{{ email_error }}</p>
+            {% endif %}
+        </div>
+        
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input 
+            type="password" 
+            name="password" 
+            id="password" 
+            required 
+            placeholder="Create a password"
+            >
+        </div>
+        
+        <div class="form-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input 
+            type="password" 
+            name="confirm_password" 
+            id="confirm-password" 
+            required 
+            placeholder="Confirm your password"
+            >
+        </div>
+        <div class="form-group">
+
+            <label for="age">Age</label>
+            <input 
+            type="number" 
+            name="age" 
+            id="age" 
+            required 
+            placeholder="Enter your age"  
+            value='{{form_data.age}}'
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="gender">Gender</label>
+            <select name="gender" id="gender" required>
+                <option value="">Select your gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input
+            type="tel" 
+            name="phone"
+            id="phone" 
+            required 
+            placeholder="Enter your phone number" 
+            value='{{form_data.phone}}'
+            
+            >
+            {% if number_error %}
+            <p style='color: red; padding-bottom: 2px;'>{{ number_error }}</p>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <input type="hidden" name="role" id="role" value="{{ role }}" required>
+        </div>
+        <button type="submit" class="register-btn">Register</button>
+    </form>
+</div>
+{% endblock body %}

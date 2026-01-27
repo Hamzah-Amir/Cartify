@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    {% load static %}
+    <link rel="stylesheet" href={% static "base.css" %}>
+    {% block extra_head %}{% endblock extra_head %}
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <!-- Logo Section -->
+            <div class="navbar-brand">
+                <a href="{% url 'home' %}" class="logo-link">Cartify</a>
+            </div>
+
+            <!-- Center Navigation -->
+            <div class="navbar-center">
+                <a href="{% url 'home' %}" class="nav-link">Categories</a>
+            </div>
+
+            <!-- Right Navigation - Logged Out State -->
+            {% if not user.is_authenticated %}
+            <div class="navbar-right navbar-guest">
+                <a href="{% url 'loginUser' %}" class="nav-link login-link">Login</a>
+                <a href="{% url 'role' %}" class="nav-link register-link">Register</a>
+            </div>
+            {% else %}
+            <!-- Right Navigation - Logged In State -->
+            <div class="navbar-right navbar-user">
+                <a href="{% url "profile" %}" class="nav-link profile-link">
+                    <span class="icon">👤</span>
+                    Profile
+                </a>
+                <a href="{% url "wishlist" %}" class="nav-link wishlist-link">
+                    <span class="icon">❤</span>
+                    Wishlist
+                    {% if wishlist_count %}
+                    <span class="badge">{{ wishlist_count }}</span>
+                    {% endif %}
+                </a>
+                <a href="#cart" class="nav-link cart-link">
+                    <span class="icon">🛒</span>
+                    Cart
+                    {% if cart_count %}
+                    <span class="badge">{{ cart_count }}</span>
+                    {% endif %}
+                </a>
+                <button class="toggle-seller">Switch to Selling</button>
+            </div>
+            {% endif %}
+        </nav>
+    </header>
+    <main>
+        {% block body %}{% endblock body %}
+    </main>
+</body>
+</html>

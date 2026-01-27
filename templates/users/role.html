@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}role - Cartify{% endblock title %}
+
+{% load static %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static "users/role.css" %}">
+{% endblock extra_head %}
+
+{% block body  %}
+<div class="container">
+    <div class="logo">
+        <div class='img'>
+            <img src="{% static "svgs/cart.svg" %}" alt="">
+        </div>
+        <span>Cartify</span>
+    </div>
+    <div class="tagline">Choose Your Role</div>
+    <form action="{% url "registerUser" %}" method="get">
+        <div class="role-selection">
+            <div class="role-option">
+                <input type="radio" id="buyer" name="role" value="buyer" required>
+                <label for="buyer">Buyer</label>
+            </div>
+            <div class="role-option">
+                <input type="radio" id="seller" name="role" value="seller" required>
+                <label for="seller">Seller</label>
+            </div>
+        </div>
+        <button type="submit" class="continue-button">Continue</button>
+    </form>
+{% endblock body  %}

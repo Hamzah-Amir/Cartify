@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Cartify{% endblock title %}
+
+{% load static %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static "users/login.css" %}">
+{% endblock extra_head %}
+
+
+{% block body %}
+<div class="login-page">
+    <div class="header">
+        <div  class="logo">
+            <img src="{% static "svgs/cart.svg" %}" alt="">
+        </div>
+        <span>Cartify</span>
+    </div>
+    <div class="tagline">Buy smart. Sell faster.</div>
+    <form action="{% url "loginUser" %}" method="post">
+        {% csrf_token %}
+        <h2>Login to your account</h2>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required placeholder="Enter your email address">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" required placeholder="Enter your password">
+        </div>
+        <button type="submit" class="login-btn">Login</button>
+    </form>
+    <div class="signup-link">
+        <p>Don't have an account? <a href="{% url "registerUser" %}">Sign Up</a></p>
+    </div>
+        
+</div>
+{% endblock body %}

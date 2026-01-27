@@ -1,0 +1,639 @@
+*{
+    background-color: whitesmoke;
+}
+
+.profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.profile-head {
+    width: 100%;
+    padding: 30px;
+    margin-bottom: 40px;
+    border: 1px solid #e8e8e8;
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+.user-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-img-container {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #e8e8e8;
+    flex-shrink: 0;
+}
+
+.user-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.user-info .user-name {
+    font-size: 28px;
+    font-weight: 700;
+    color: #000;
+}
+
+.user-info .user-email {
+    font-weight: 400;
+    font-size: 14px;
+    color: #666;
+}
+
+.user-info .user-phone {
+    font-weight: 400;
+    font-size: 14px;
+    color: #666;
+}
+
+.edit-btn button {
+    padding: 10px 28px;
+    border-radius: 8px;
+    background-color: #000;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.edit-btn button:hover {
+    background-color: #1a1a1a;
+}
+
+/* Tabs Section */
+.profile-tabs-section {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e8e8e8;
+    overflow: hidden;
+}
+
+.tabs-nav {
+    display: flex;
+    border-bottom: 1px solid #e8e8e8;
+    background: #f9f9f9;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 16px 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #999;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-bottom: 3px solid transparent;
+    position: relative;
+}
+
+.tab-icon {
+    font-size: 16px;
+}
+
+.tab-button:hover {
+    color: #333;
+    background: #f0f0f0;
+}
+
+.tab-button.active {
+    color: #000;
+    background: #ffffff;
+    border-bottom-color: #000;
+}
+
+.tabs-content {
+    padding: 40px;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.tab-header {
+    margin-bottom: 30px;
+}
+
+.tab-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+    margin: 0;
+}
+
+/* Personal Information Grid */
+.info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.info-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.info-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.info-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.info-field label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-field p {
+    font-size: 16px;
+    font-weight: 500;
+    color: #000;
+    margin: 0;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.empty-state p {
+    font-size: 16px;
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-head {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .user-details {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .edit-btn {
+        width: 100%;
+    }
+
+    .edit-btn button {
+        width: 100%;
+    }
+
+    .tabs-nav {
+        flex-wrap: wrap;
+    }
+
+    .tab-button {
+        flex: 1 1 auto;
+        min-width: 120px;
+        padding: 12px 16px;
+        font-size: 12px;
+    }
+
+    .tabs-content {
+        padding: 20px;
+    }
+
+    .info-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .tab-header h2 {
+        font-size: 20px;
+    }
+
+    .info-field label {
+        font-size: 11px;
+    }
+
+    .info-field p {
+        font-size: 14px;
+    }
+}
+
+/* Settings Styles */
+.settings-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.settings-card {
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 30px;
+    background: #ffffff;
+}
+
+.card-header {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.card-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    margin: 0;
+}
+
+/* Form Styles */
+.password-form,
+.addresses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #666;
+}
+
+.form-group input {
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #000;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.form-group input::placeholder {
+    color: #999;
+}
+
+/* Button Styles */
+.btn-primary {
+    align-self: flex-start;
+    padding: 10px 28px;
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #1a1a1a;
+}
+
+.btn-secondary {
+    align-self: flex-start;
+    padding: 10px 20px;
+    background-color: transparent;
+    color: #000;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+}
+
+.btn-secondary:hover {
+    border-color: #999;
+    background-color: #f9f9f9;
+}
+
+/* Address Item */
+.address-item {
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    padding: 16px;
+    background: #f9f9f9;
+}
+
+.address-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 8px;
+}
+
+.address-text {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.address-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-link {
+    background: none;
+    border: none;
+    color: #0066cc;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.3s ease;
+}
+
+.btn-link:hover {
+    color: #0052a3;
+}
+
+.btn-link.btn-danger {
+    color: #dc3545;
+}
+
+.btn-link.btn-danger:hover {
+    color: #c82333;
+}
+
+/* Responsive */
+.edit-btn {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-edit-toggle,
+.btn-cancel,
+.btn-save {
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-edit-toggle {
+    background-color: #000;
+    color: white;
+}
+
+.btn-edit-toggle:hover {
+    background-color: #1a1a1a;
+}
+
+.btn-save {
+    background-color: #000;
+    color: white;
+}
+
+.btn-save:hover {
+    background-color: #1a1a1a;
+}
+
+.btn-cancel {
+    background-color: transparent;
+    color: #666;
+    border: 1.5px solid #ddd;
+}
+
+.btn-cancel:hover {
+    border-color: #999;
+    background-color: #f9f9f9;
+}
+
+/* Edit Form Styles */
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.form-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 12px 16px;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    color: #333;
+}
+
+.form-group input::placeholder {
+    color: #999;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #000;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.form-group select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 20px;
+    padding-right: 40px;
+}
+
+/* Wishlist Card Styles */
+.wishlist-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border: 1.5px solid #e8e8e8;
+    border-radius: 10px;
+    background: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 40px;
+}
+
+.wishlist-card:hover {
+    border-color: #ddd;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+.wishlist-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.wishlist-icon {
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wishlist-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.wishlist-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
+}
+
+.wishlist-count {
+    font-size: 13px;
+    color: #999;
+    font-weight: 500;
+}
+
+.wishlist-arrow {
+    font-size: 18px;
+    color: #999;
+    transition: all 0.3s ease;
+}
+
+.wishlist-card:hover .wishlist-arrow {
+    color: #000;
+    transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .btn-edit-toggle,
+    .btn-cancel,
+    .btn-save {
+        width: 100%;
+        padding: 12px 16px;
+    }
+
+    .form-group input,
+    .form-group select {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .wishlist-card {
+        padding: 16px 20px;
+        margin-top: 30px;
+    }
+
+    .wishlist-icon {
+        font-size: 28px;
+    }
+
+    .wishlist-title {
+        font-size: 15px;
+    }
+
+    .wishlist-count {
+        font-size: 12px;
+    }
+}

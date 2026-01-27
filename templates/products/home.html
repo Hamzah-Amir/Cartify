@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% block title %}Cartify - Your All in one Store{% endblock title %}
+
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'products/home.css' %}">
+{% endblock extra_head %}
+
+{% block body %}
+<section class='overview'>
+    <div class='head'>
+        <div class="heading">
+            <span>
+                Discover Premium Products.
+            </span>
+        </div>
+        <div class="sub-head">
+            <span>Curated selection of high-quality products for your lifestyle.</span>
+        </div>
+        <div class="search-bar">
+            <form action="{% url "home" %}" method="get">
+                <input type="search" name="search" id="search" placeholder="Search products">
+            </form>
+        </div>
+    </div>
+</section>
+
+<section class="categories">
+    <div class="cat-capsules">
+        <a href="{% url "home" %}?category=all">    
+            <span>All</span>
+        </a>
+    </div>
+
+    <div class="cat-capsules">
+        <a href="{% url "home" %}?category=electronics">    
+            <span>Electronics</span>
+        </a>
+    </div>
+
+    <div class="cat-capsules">
+        <a href="{% url "home" %}?category=fashion-apparel">    
+            <span>Fashion & Apparel</span>
+        </a>
+    </div>
+
+    <div class="cat-capsules">
+        <a href="{% url "home" %}?category=home-kitchen">    
+            <span>Home & Kitchen</span>
+        </a>
+    </div>
+
+    <div class="cat-capsules">
+        <a href="{% url "home" %}?category=toys-games">    
+            <span>Toys & Games</span>
+        </a>
+    </div>
+
+    <div class="cat-capsules">
+        <a href="{% url "home" %}?category=beauty-personal-care">    
+            <span>Beauty & Personal Care</span>
+        </a>
+    </div>
+
+    <div class="cat-capsules">
+        <a href="{% url "home" %}?category=sports-outdoor">    
+            <span>Sports & Outdoors</span>
+        </a>
+    </div>
+
+    <div class="cat-capsules">
+        <a href="{% url "home" %}?category=books-media">    
+            <span>Books & Media</span>
+        </a>
+    </div>
+
+    <div class="cat-capsules">
+        <a href="{% url "home" %}?category=grocery-essentials">    
+            <span>Grocery & Essentials</span>
+        </a>
+    </div>
+
+    <div class="cat-capsules">
+        <a href="{% url "home" %}?category=automotive">    
+            <span>Automotive</span>
+        </a>
+    </div>
+
+    <div class="cat-capsules">
+        <a href="{% url "home" %}?category=misc/other">    
+            <span>Misc/Other</span>
+        </a>
+    </div>
+</section>
+
+<section class="products-listing">
+    <div class="product-qty">
+        {% if total_products %}
+            Showing {{ page_obj.start_index }} - {{ page_obj.end_index }} of {{ total_products }} products
+        {% else %}
+            No products found
+        {% endif %}
+    </div>
+    <div class="product-container">
+
+        {% if products %}
+        {% for product in products %}
+        <div class="product-card">
+            <div class="product-img">
+                <a href="{% url "productDetail" product.id %}">
+                    <img src="{{product.image.url}}" alt="{{product.name}}">
+                </a>
+            </div>
+            <div class="product-info">
+                <div class="title">{{product.name}}</div>
+                <div class="price">PKR {{product.price}}</div>
+                <div class="desc">{{product.description|truncatechars:112}}</div>
+            </div>
+            <div class="cart-btn">
+                <button type="submit">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div>No products found</div>
+        {% endif %}
+        
+    </div>
+
+    <!-- Pagination Controls -->
+    {% if page_obj.has_other_pages %}
+    <div class="pagination">
+        <div class="pagination-info">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </div>
+        <nav class="pagination-nav">
+            {% if page_obj.has_previous %}
+                <a href="?page=1{% if search_query %}&search={{ search_query }}{% endif %}{% if category %}&category={{ category }}{% endif %}" class="page-link">
+                    First
+                </a>
+                <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if category %}&category={{ category }}{% endif %}" class="page-link">
+                    ← Previous
+                </a>
+            {% else %}
+                <span class="page-link disabled">First</span>
+                <span class="page-link disabled">← Previous</span>
+            {% endif %}
+
+            <!-- Page Numbers -->
+            <div class="page-numbers">
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <span class="page-link active">{{ num }}</span>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <a href="?page={{ num }}{% if search_query %}&search={{ search_query }}{% endif %}{% if category %}&category={{ category }}{% endif %}" class="page-link">
+                            {{ num }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if category %}&category={{ category }}{% endif %}" class="page-link">
+                    Next →
+                </a>
+                <a href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&search={{ search_query }}{% endif %}{% if category %}&category={{ category }}{% endif %}" class="page-link">
+                    Last
+                </a>
+            {% else %}
+                <span class="page-link disabled">Next →</span>
+                <span class="page-link disabled">Last</span>
+            {% endif %}
+        </nav>
+    </div>
+    {% endif %}
+
+</section>
+{% endblock body %}
