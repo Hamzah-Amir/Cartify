@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from products.models import Product
+from users.models import WishlistItem
 from django.db.models import Q
 from django.core.paginator import Paginator
-from users.models import WishlistItem
 
 # Create your views here.
 
@@ -32,6 +32,7 @@ def home(request):
         
         context = {
             "products": page_obj,
+            "wishlist_count": wishlist_count,
             "page_obj": page_obj,
             "total_products": paginator.count,
             "category": category,
@@ -56,5 +57,5 @@ def productDetail(request, uuid):
     return render(request, 'products/productdetail.html', {
         "product": product, 
         "related_products": related_products,
-        "in_wishlist": in_wishlist
+        "in_wishlist": in_wishlist,
     })
