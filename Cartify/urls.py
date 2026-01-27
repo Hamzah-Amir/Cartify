@@ -25,7 +25,7 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('users/', include('users.urls')),
     path('seller/', include('seller.urls')),
-    # path('cart/', include('cart.urls')),
+    path('cart/', include('cart.urls')),
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Serving Media Files during development

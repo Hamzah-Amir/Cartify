@@ -41,7 +41,7 @@
                     <span class="badge">{{ wishlist_count }}</span>
                     {% endif %}
                 </a>
-                <a href="#cart" class="nav-link cart-link">
+                <a href="{% url "cart" %}" class="nav-link cart-link">
                     <span class="icon">🛒</span>
                     Cart
                     {% if cart_count %}

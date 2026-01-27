@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Cart{% endblock title %}
+
+{% load static %}
+
+{% block extra_head  %}
+<link rel="stylesheet" href="{% static "cart/cart.css" %}">
+{% endblock extra_head  %}
+
+{% block body %}
+
+<section class='head'>
+    <div>
+        <a href="{% url "home" %}">
+            Continue to Shopping
+        </a>
+    </div>
+</section>
+
+{% endblock body %}
