@@ -23,21 +23,22 @@
         {% if wishlist %}
         {% for item in wishlist %}
         <div class="product-card">
-            <div class="product-img">
-                {% comment %} <a href="{% url "productDetail" product.id %}"> {% endcomment %}
+            <div class="product-img-wrapper">
+                <div class="product-img">
                     <img src="{{item.product.image.url}}" alt="{{item.product.name}}">
-                {% comment %} </a> {% endcomment %}
+                </div>
+                <button class="wishlist-remove-btn" title="Remove from wishlist">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                </button>
             </div>
             <div class="product-info">
                 <div class="title">{{item.product.name}}</div>
                 <div class="price">PKR {{item.product.price}}</div>
-                <div class="desc">{{item.product.description|truncatechars:112}}</div>
+                <div class="desc">{{item.product.description|truncatechars:80}}</div>
             </div>
-            <div class="cart-btn">
-                <button type="submit">
-                    Add to Cart
-                </button>
-            </div>
+            <button class="cart-btn" type="submit">Add to Cart</button>
         </div>
         {% endfor %}
         {% else %}
