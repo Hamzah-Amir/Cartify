@@ -54,9 +54,13 @@
 
             <div class="checkout-actions">
                 <a href="{% url 'checkout' %}" class="btn-back">Back</a>
+                {% if orders %}
+                {% for order in orders %}
                 <a href="{% url "order_detail" order.id %}">
                     <button class="btn-review">Review Order →</button>
                 </a>
+                {% endfor %}
+                {% endif %}
             </div>
         </div>
 
@@ -64,42 +68,51 @@
         <div class="order-summary-section">
             <h2 class="summary-title">Order Summary</h2>
             
-            <div class="summary-items">
-                {% if order_items %}
-                    {% for item in order_items %}
-                    <div class="summary-item">
-                        <div class="item-details">
-                            <span class="item-name">{{ item.product.name }}</span>
-                            <span class="item-qty">x{{ item.quantity }}</span>
+            {% if orders %}
+                {% for order in orders %}
+                <div class="order-group">
+                    <div class="seller-info">
+                        <span class="seller-label">Sold by:</span>
+                        <span class="seller-name">{{ order.items.first.product.seller.username }}</span>
+                    </div>
+                    
+                    <div class="summary-items">
+                        {% for item in order.items.all %}
+                        <div class="summary-item">
+                            <div class="item-details">
+                                <span class="item-name">{{ item.product.name }}</span>
+                                <span class="item-qty">x{{ item.quantity }}</span>
+                            </div>
+                            <span class="item-price">PKR {{ item.price }}</span>
                         </div>
-                        <span class="item-price">PKR {{ item.price }}</span>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
-                {% else %}
-                    <div class="summary-item">
-                        <span class="item-name">No items</span>
+
+                    <div class="summary-divider"></div>
+
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span class="summary-value">PKR {{ order.total_price }}</span>
                     </div>
-                {% endif %}
-            </div>
 
-            <div class="summary-divider"></div>
+                    <div class="summary-row">
+                        <span>Delivery Fee</span>
+                        <span class="summary-value">PKR {{ delivery_fee }}</span>
+                    </div>
 
-            <div class="summary-row">
-                <span>Subtotal</span>
-                <span class="summary-value">PKR {{ order.total_price }}</span>
-            </div>
+                    <div class="summary-divider"></div>
 
-            <div class="summary-row">
-                <span>Delivery Fee</span>
-                <span class="summary-value">PKR {{ delivery_fee }}</span>
-            </div>
-
-            <div class="summary-divider"></div>
-
-            <div class="summary-total">
-                <span>Total</span>
-                <span class="total-amount">PKR {{ order.total_price|add:delivery_fee }}</span>
-            </div>
+                    <div class="summary-total">
+                        <span>Total</span>
+                        <span class="total-amount">PKR {{ order.total_price|add:delivery_fee }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="summary-item">
+                    <span class="item-name">No orders</span>
+                </div>
+            {% endif %}
         </div>
     </div>
 </div>
