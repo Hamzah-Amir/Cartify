@@ -108,21 +108,19 @@
         {% if products %}
         {% for product in products %}
         <div class="product-card">
-            <div class="product-img">
-                <a href="{% url "productDetail" product.id %}">
+            <div class="product-img-wrapper">
+                <a href="{% url "productDetail" product.id %}" class="product-link">
                     <img src="{{product.image.url}}" alt="{{product.name}}">
                 </a>
             </div>
             <div class="product-info">
                 <div class="title">{{product.name}}</div>
                 <div class="price">PKR {{product.price}}</div>
-                <div class="desc">{{product.description|truncatechars:112}}</div>
+                <div class="desc">{{product.description|truncatechars:80}}</div>
             </div>
-            <div class="cart-btn">
-                <a href="{% url "productDetail" product.id %}">
-                    <button type="submit">View Product</button> 
-                </a>
-            </div>
+            <a href="{% url "productDetail" product.id %}" class="cart-btn">
+                View Product
+            </a>
         </div>
         {% endfor %}
         {% else %}
