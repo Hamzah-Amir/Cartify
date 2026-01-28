@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %}Order Confirmed{% endblock title %}
+
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static "cart/order_placed.css" %}">
+{% endblock extra_head %}
+
+{% block body %}
+<div class="order-placed-container">
+    <!-- Success Header -->
+    <div class="success-header">
+        <div class="success-icon">
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+                <circle cx="32" cy="32" r="30" fill="#d4f4dd" stroke="#10b981" stroke-width="2"/>
+                <path d="M20 32l8 8 16-16" stroke="#10b981" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <h1 class="success-title">Order Confirmed!</h1>
+        <p class="success-subtitle">Thank you for your purchase</p>
+    </div>
+
+    <!-- Order Details Container -->
+    <div class="order-details-container">
+        <!-- Order Header Info -->
+        <div class="order-header-info">
+            <div class="info-item">
+                <span class="info-label">Order Number</span>
+                <span class="info-value">{{ order.id|stringformat:"010d"|add:"1000000000000" }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Order Date</span>
+                <span class="info-value">{{ order.created_at|date:"F d, Y" }}</span>
+            </div>
+        </div>
+
+        <!-- Shipping Information -->
+        <div class="info-section">
+            <div class="section-header">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+                </svg>
+                <h2 class="section-title">Shipping Information</h2>
+            </div>
+            
+            <div class="shipping-details">
+                <p class="detail-name">{{ order.user.first_name }} {{ order.user.last_name }}</p>
+                <p class="detail-text">{{ order.user.email }}</p>
+                <p class="detail-text">{{ order.user.address }}</p>
+                <p class="detail-text">{{ order.user.city }}, {{ order.user.state }} {{ order.user.postal_code }}</p>
+                <p class="detail-text">{{ order.user.phone_number }}</p>
+            </div>
+        </div>
+
+        <!-- Order Items -->
+        <div class="info-section">
+            <h2 class="section-title">Order Items</h2>
+            
+            <div class="order-items">
+                {% for item in order_items %}
+                <div class="order-item-row">
+                    <div class="item-image">
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">{{ item.product.name }}</h3>
+                        <p class="item-qty">Quantity: {{ item.quantity }}</p>
+                    </div>
+                    <div class="item-price">PKR {{ item.price }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="order-summary">
+            <div class="summary-row">
+                <span class="summary-label">Subtotal</span>
+                <span class="summary-value">PKR {{ order.total_price }}</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Tax</span>
+                <span class="summary-value">PKR 0</span>
+            </div>
+            <div class="summary-divider"></div>
+            <div class="summary-row total">
+                <span class="summary-label">Total</span>
+                <span class="summary-value">PKR {{ order.total_price }}</span>
+            </div>
+        </div>
+
+        <!-- Confirmation Message -->
+        <div class="confirmation-message">
+            <p>A confirmation email has been sent to <strong>{{ order.user.email }}</strong></p>
+        </div>
+
+        <!-- Back to Shopping Button -->
+        <div class="action-button">
+            <a href="{% url 'home' %}" class="btn-shopping">Back to Shopping</a>
+        </div>
+    </div>
+</div>
+{% endblock body %}
