@@ -9,65 +9,41 @@
 
 {% block body %}
 <div class="checkout-container">
-    <h1 class="checkout-heading">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 11l3 3L22 4"/><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-        </svg>
-        Order Review
-    </h1>
-    
     <div class="checkout-content">
         <!-- Left Section - Order Details -->
         <div class="order-details-section">
+            <!-- Order Review Header -->
+            <div class="order-header">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 11l3 3L22 4"/><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <h1 class="header-title">Order Review</h1>
+            </div>
+
             <!-- Shipping Information -->
-            <div class="detail-card">
-                <h2 class="card-title">Shipping Information</h2>
+            <div class="info-section">
+                <h2 class="section-title">Shipping Information</h2>
                 
-                <div class="info-group">
-                    <div class="info-row">
-                        <span class="info-label">Name:</span>
-                        <span class="info-value">{{ order.user.first_name }} {{ order.user.last_name }}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Email:</span>
-                        <span class="info-value">{{ order.user.email }}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Address:</span>
-                        <span class="info-value">{{ order.user.address }}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">City:</span>
-                        <span class="info-value">{{ order.user.city }}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">State:</span>
-                        <span class="info-value">{{ order.user.state }}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Postal Code:</span>
-                        <span class="info-value">{{ order.user.postal_code }}</span>
-                    </div>
-                    <div class="info-row">
-                        <span class="info-label">Phone:</span>
-                        <span class="info-value">{{ order.user.phone_number }}</span>
-                    </div>
+                <div class="shipping-info">
+                    <p class="info-text name">{{ order.user.first_name }} {{ order.user.last_name }}</p>
+                    <p class="info-text">{{ order.user.email }}</p>
+                    <p class="info-text">{{ order.user.address }}</p>
+                    <p class="info-text">{{ order.user.city }}, {{ order.user.state|default:"" }} {{ order.user.postal_code|default:"" }}</p>
+                    <p class="info-text">{{ order.user.phone_number }}</p>
                 </div>
                 <a href="#" class="edit-link">Edit</a>
             </div>
 
             <!-- Payment Method -->
-            <div class="detail-card">
-                <h2 class="card-title">Payment Method</h2>
-                <div class="payment-display">
-                    <span class="payment-value">{{ order.status|upper }}</span>
-                </div>
+            <div class="info-section">
+                <h2 class="section-title">Payment Method</h2>
+                <p class="payment-method-text">Credit / Debit Card (Stripe)</p>
                 <a href="#" class="edit-link">Edit</a>
             </div>
 
             <!-- Order Items -->
-            <div class="detail-card">
-                <h2 class="card-title">Order Items</h2>
+            <div class="info-section">
+                <h2 class="section-title">Order Items</h2>
                 
                 <div class="order-items-list">
                     {% for item in order_items %}
@@ -87,7 +63,7 @@
 
             <!-- Action Buttons -->
             <div class="action-buttons">
-                <a href="{% url 'process_checkout' %}" class="btn-back">Back</a>
+                <a href="{% url 'checkout' %}" class="btn-back">Back</a>
                 <button class="btn-place-order">Place Order</button>
             </div>
         </div>
@@ -99,10 +75,7 @@
             <div class="summary-items">
                 {% for item in order_items %}
                 <div class="summary-item">
-                    <div class="item-details">
-                        <span class="item-name">{{ item.product.name }}</span>
-                        <span class="item-qty">x{{ item.quantity }}</span>
-                    </div>
+                    <span class="item-name">{{ item.product.name }} x{{ item.quantity }}</span>
                     <span class="item-price">PKR {{ item.price }}</span>
                 </div>
                 {% endfor %}

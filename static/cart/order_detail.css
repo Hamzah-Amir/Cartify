@@ -5,27 +5,11 @@
     background-color: #fff;
 }
 
-.checkout-heading {
-    font-size: 32px;
-    font-weight: 600;
-    margin: 0 0 40px 0;
-    color: #222;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.checkout-heading svg {
-    width: 32px;
-    height: 32px;
-    color: #000;
-}
-
 .checkout-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 /* Order Details Section */
@@ -35,98 +19,105 @@
     gap: 25px;
 }
 
-.detail-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 24px;
-    background-color: #fff;
+.order-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
 }
 
-.card-title {
-    font-size: 16px;
+.order-header svg {
+    width: 24px;
+    height: 24px;
+    color: #000;
+}
+
+.header-title {
+    font-size: 24px;
     font-weight: 600;
-    margin: 0 0 16px 0;
+    margin: 0;
     color: #222;
 }
 
-.info-group {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    margin-bottom: 16px;
+/* Info Sections */
+.info-section {
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 20px;
+    background-color: #fff;
 }
 
-.info-row {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.info-label {
-    font-size: 12px;
-    color: #888;
+.section-title {
+    font-size: 15px;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    margin: 0 0 14px 0;
+    color: #222;
 }
 
-.info-value {
+.shipping-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.info-text {
     font-size: 14px;
-    color: #333;
-    line-height: 1.5;
+    color: #555;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.info-text.name {
+    color: #0066cc;
+    font-weight: 500;
+}
+
+.payment-method-text {
+    font-size: 14px;
+    color: #0066cc;
+    margin: 0 0 14px 0;
 }
 
 .edit-link {
     color: #0066cc;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
-    text-decoration: none;
+    text-decoration: underline;
     cursor: pointer;
     transition: color 0.3s ease;
 }
 
 .edit-link:hover {
     color: #0052a3;
-    text-decoration: underline;
-}
-
-.payment-display {
-    padding: 16px;
-    background-color: #f9f9f9;
-    border-radius: 6px;
-    margin-bottom: 16px;
-}
-
-.payment-value {
-    font-size: 14px;
-    font-weight: 600;
-    color: #222;
 }
 
 /* Order Items */
 .order-items-list {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    margin-bottom: 16px;
+    gap: 12px;
 }
 
 .order-item {
     display: flex;
-    gap: 16px;
+    gap: 12px;
     align-items: flex-start;
-    padding: 16px;
-    background-color: #f9f9f9;
-    border-radius: 6px;
-    border: 1px solid #e8e8e8;
+    padding-top: 12px;
+    border-top: 1px solid #e8e8e8;
+}
+
+.order-item:first-child {
+    border-top: none;
+    padding-top: 0;
 }
 
 .item-image {
-    width: 80px;
-    height: 80px;
-    background-color: #fff;
+    width: 70px;
+    height: 70px;
+    background-color: #f5f5f5;
     border: 1px solid #e0e0e0;
-    border-radius: 6px;
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -138,14 +129,14 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    padding: 8px;
+    padding: 6px;
 }
 
 .item-info {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 
 .item-title {
@@ -157,30 +148,29 @@
 
 .item-qty {
     font-size: 12px;
-    color: #666;
+    color: #888;
     margin: 0;
 }
 
 .item-price {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
     color: #000;
     white-space: nowrap;
-    margin-left: 12px;
 }
 
 /* Action Buttons */
 .action-buttons {
     display: flex;
-    gap: 15px;
-    margin-top: 20px;
+    gap: 12px;
+    margin-top: 10px;
 }
 
 .btn-back {
     flex: 1;
-    padding: 14px 20px;
+    padding: 12px 20px;
     border: 1px solid #ddd;
-    border-radius: 6px;
+    border-radius: 4px;
     background-color: #f5f5f5;
     color: #222;
     font-size: 14px;
@@ -198,9 +188,9 @@
 
 .btn-place-order {
     flex: 1;
-    padding: 14px 20px;
+    padding: 12px 20px;
     border: none;
-    border-radius: 6px;
+    border-radius: 4px;
     background-color: #000;
     color: #fff;
     font-size: 14px;
@@ -215,9 +205,9 @@
 
 /* Order Summary Section */
 .order-summary-section {
-    background-color: #f9f9f9;
-    padding: 30px;
-    border-radius: 8px;
+    background-color: #fff;
+    padding: 24px;
+    border-radius: 6px;
     height: fit-content;
     position: sticky;
     top: 20px;
@@ -225,17 +215,17 @@
 }
 
 .summary-title {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
-    margin: 0 0 25px 0;
+    margin: 0 0 20px 0;
     color: #222;
 }
 
 .summary-items {
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    margin-bottom: 20px;
+    gap: 12px;
+    margin-bottom: 16px;
 }
 
 .summary-item {
@@ -244,28 +234,19 @@
     align-items: center;
     font-size: 14px;
     color: #555;
-    padding-bottom: 14px;
+    padding-bottom: 12px;
     border-bottom: 1px solid #f0f0f0;
 }
 
-.item-details {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    flex: 1;
+.summary-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
 }
 
 .item-name {
     font-size: 14px;
     font-weight: 500;
     color: #222;
-    line-height: 1.4;
-}
-
-.item-qty {
-    font-size: 12px;
-    color: #888;
-    font-weight: 400;
 }
 
 .item-price {
@@ -277,8 +258,8 @@
 
 .summary-divider {
     height: 1px;
-    background: linear-gradient(to right, #e0e0e0, #e0e0e0);
-    margin: 16px 0;
+    background-color: #e0e0e0;
+    margin: 12px 0;
 }
 
 .summary-row {
@@ -287,12 +268,12 @@
     align-items: center;
     font-size: 14px;
     color: #555;
-    margin-bottom: 14px;
+    margin-bottom: 10px;
 }
 
 .summary-value {
-    color: #222;
-    font-weight: 500;
+    color: #0066cc;
+    font-weight: 600;
 }
 
 .summary-total {
@@ -302,8 +283,7 @@
     font-size: 16px;
     font-weight: 700;
     color: #000;
-    margin-top: 12px;
-    padding-top: 12px;
+    margin-top: 8px;
 }
 
 .total-amount {
