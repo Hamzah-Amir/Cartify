@@ -257,9 +257,11 @@
     border: none;
     color: white;
     font-size: 18px;
+    cursor: pointer;
     width: 100%;
 }
 
 .checkout-box .checkout-btn {
     padding: 24px;
+    cursor: pointer;
 }

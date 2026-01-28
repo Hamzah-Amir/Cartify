@@ -77,7 +77,9 @@
             <div>PKR {{total_price }}</div>
         </div>
         <div class="checkout-btn">
-            <button class='checkout-btn'>Proceed to Checkout</button>
+            <a href="{% url "checkout" %}">
+                <button class='checkout-btn'>Proceed to Checkout</button>
+            </a>
         </div>
     </div>
     </section>
