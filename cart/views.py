@@ -29,3 +29,7 @@ def add_to_cart(request):
         item.save
     
     return redirect(request.META.get('HTTP_REFERER', 'home'))
+
+def process_checkout(request):
+    if request.method == "GET":
+        return render(request, 'cart/checkout.html')

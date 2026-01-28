@@ -1,0 +1,113 @@
+.checkout-section {
+    display: flex;
+    max-width: 70vw;
+    margin: auto;
+}
+
+.checkout-info {
+    flex: 2;
+    margin-right: 20px;
+    border: 2px solid gainsboro;
+    max-width: 70%;
+    padding: 20px;
+    margin: 20px;
+}
+
+.checkout-info h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: gray;
+}
+
+.form-group input {
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+}
+
+.city-state-post {
+    display: flex;
+    gap: 20px;
+}
+
+.city-state-post input {
+    margin-bottom: 8px;
+    flex: 1;
+    padding: 5px;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+}
+
+.checkout-form button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 6px;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.checkout-summary {
+    flex: 2;
+    margin-right: 20px;
+    border: 2px solid gainsboro;
+    max-width: 40%;
+    height: 50%;
+    padding: 20px;
+    margin: 20px;
+}
+
+.checkout-summary .checkout-head {
+    font-size: 20px;
+    padding: 20px;
+    font-weight: 600;
+}
+
+.checkout-summary .sub-total {
+    display: flex;
+    padding: 5px 20px;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 500;
+}
+.checkout-summary .total {
+    display: flex;
+    padding: 10px 20px;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.seperation {
+    border: 2px solid gainsboro;
+    margin: 0 15px;
+}
+
+.checkout-summary .checkout-btn button {
+    padding: 15px;
+    background-color: black;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-size: 18px;
+    width: 100%;
+}
+
+.checkout-summary .checkout-btn {
+    padding: 24px;
+}

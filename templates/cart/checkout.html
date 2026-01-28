@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Checkout{% endblock title %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static "cart/checkout.css" %}">
+{% endblock extra_head %}
+
+{% block body %}
+<section class='checkout-section'>
+    <section class="checkout-info">
+        <h2>Shipping Information</h2>
+        <form method="post" action="{% url 'process_checkout' %}" class="checkout-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="full_name">Full Name</label>
+                <input type="text" id="full_name" name="full_name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+                </div>
+
+            <div class="form-group">
+                <label for="shipping_address">Shipping Address</label>
+                <input type="text" id="shipping_address" name="shipping_address" required>
+                </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+                </div>
+                <div class="city-state-post">
+                    <div>
+                        <label for="city">City</label>
+                        <input type="text" id="city" name="city" required>
+                    </div>
+                    
+                    <div>
+                        <label for="state">State</label>
+                        <input type="text" id="state" name="state" required>
+                    </div>
+                    
+                    <div>
+                        <label for="post_code">Post Code</label>
+                        <input type="number" id="post_code" name="post_code" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="phone_number">Phone Number</label>
+                    <input type="tel" id="phone_number" name="phone_number" required>
+                </div>
+            <button type="submit" class="btn btn-primary">Place Order</button>
+        </form>
+    </section>
+    <section class="checkout-summary">
+           <div class="checkout-head">
+            Order Summary
+        </div>
+        <div class="sub-total">
+            <div>Subtotal</div>
+            <div>PKR {{total_price}}</div>
+        </div>
+        <div class="sub-total">
+            <div>Delivery Fee</div>
+            <div>PKR 150</div>
+        </div>
+        <div class="seperation"></div>
+        <div class="total">
+            <div>Total</div>
+            <div>PKR {{total_price }}</div>
+        </div>
+        <div class="checkout-btn">
+            <button class='checkout-btn'>Proceed to Checkout</button>
+        </div>
+    </section>
+</section>
+{% endblock body %}
