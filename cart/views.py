@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import CartItem
+from .models import CartItem, Order, OrderItem
 from users.models import CustomUser
 from products.models import Product
 
@@ -19,11 +19,13 @@ def add_to_cart(request):
         return redirect("loginUser")
     
     product = get_object_or_404(Product, id=request.POST.get('product_id'))
+    print(request.POST)
 
     item, created = CartItem.objects.get_or_create(
         user=request.user, 
-        product=product
-            )
+        product=product,
+        quantity=request.POST.get('quantity')
+        )
     
     if not created:
         item.quantity += 1
@@ -43,9 +45,25 @@ def checkout(request):
         return render(request, 'cart/checkout.html', {"user": user, "total_price": price})
     
 def process_checkout(request):
-    if request.method == "POST":
-        # Here you would typically handle payment processing and order creation
-        # For simplicity, we'll just clear the cart and redirect to a success page
+    if request.method == "POST" and request.user.is_authenticated:
+        user = request.user
+        cart_items = CartItem.objects.filter(user=request.user)
+
+        if not cart_items.exists():
+            return redirect('cart')
         
-        CartItem.objects.filter(user=request.user).delete()
-        return render(request, 'cart/checkout.html')
+        order =  Order.objects.create(
+            user=user,
+            total_price = sum(ci.product.price * ci.quantity for ci in cart_items),
+            status='unpaid'
+        )
+
+        for ci in cart_items:
+            OrderItem.objects.create(
+                order=order,
+                product=ci.product,
+                quantity=ci.quantity,
+                price=ci.product.price
+            )
+        cart_items.delete()
+        return render(request, 'cart/process_checkout.html')

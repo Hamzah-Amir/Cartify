@@ -7,4 +7,3 @@ urlpatterns = [
     path("checkout/", checkout, name='checkout'),
     path('process_checkout/', process_checkout, name='process_checkout'),
 ]
-
