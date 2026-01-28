@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import CustomUser
+from django.db.models import Max
 from products.models import Product
 
 # Create your models here.
@@ -16,6 +17,13 @@ class Order(models.Model):
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=20, default="unpaid")   # unpaid | paid | shipped | cancelled
     created_at = models.DateTimeField(auto_now_add=True)
+    order_number = models.CharField(max_length=20, unique=True, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.order_number:
+            last_order = Order.objects.aggregate(max_id=Max('id'))['max_id'] or 0
+            self.order_number = f"ORD-{last_order + 1:05d}"  # ORD-00001, ORD-00002
+        super().save(*args, **kwargs)
 
 
 class OrderItem(models.Model):
