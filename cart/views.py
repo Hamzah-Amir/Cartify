@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import CartItem
+from users.models import CustomUser
 from products.models import Product
 
 # Create your views here.
@@ -32,7 +33,14 @@ def add_to_cart(request):
 
 def checkout(request):
     if request.method == "GET":
-        return render(request, 'cart/checkout.html')
+        user = CustomUser.objects.get(user_id=request.user.user_id)
+        price = 0
+        cart_items = CartItem.objects.filter(user=request.user)
+        for item in cart_items:
+            price += item.product.price * item.quantity
+
+        print(user.email, user.user_id)
+        return render(request, 'cart/checkout.html', {"user": user, "total_price": price})
     
 def process_checkout(request):
     if request.method == "POST":

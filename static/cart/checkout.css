@@ -35,6 +35,12 @@
     padding: 10px;
     border: 1px solid lightgray;
     border-radius: 6px;
+    font-size: 16px;
+}
+
+.form-group input::placeholder {
+    color: lightgray;
+    font-size: 14px;
 }
 
 .city-state-post {
