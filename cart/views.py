@@ -66,4 +66,4 @@ def process_checkout(request):
                 price=ci.product.price
             )
         cart_items.delete()
-        return render(request, 'cart/process_checkout.html')
+    return render(request, 'cart/process_checkout.html')
