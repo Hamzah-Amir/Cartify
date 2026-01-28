@@ -7,3 +7,97 @@
 {% block extra_head %}
 <link rel="stylesheet" href="{% static "cart/process_checkout.css" %}">
 {% endblock extra_head %}
+
+{% block body %}
+<div class="checkout-container">
+    <h1 class="checkout-heading">Checkout</h1>
+    
+    <div class="checkout-content">
+        <!-- Payment Method Section -->
+        <div class="payment-section">
+            <h2 class="section-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>
+                </svg>
+                Payment Method
+            </h2>
+            
+            <div class="payment-options">
+                <!-- Credit/Debit Card -->
+                <label class="payment-option">
+                    <input type="radio" name="payment_method" value="card" checked>
+                    <div class="payment-content">
+                        <div class="payment-method">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>
+                            </svg>
+                            Credit / Debit Card
+                        </div>
+                        <div class="payment-subtitle">Powered by Stripe</div>
+                    </div>
+                </label>
+
+                <!-- Cash on Delivery -->
+                <label class="payment-option">
+                    <input type="radio" name="payment_method" value="cash_on_delivery">
+                    <div class="payment-content">
+                        <div class="payment-method">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="1"/><path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24"/>
+                            </svg>
+                            Cash on Delivery
+                        </div>
+                        <div class="payment-subtitle">Pay cash on delivery</div>
+                    </div>
+                </label>
+            </div>
+
+            <div class="checkout-actions">
+                <a href="{% url 'checkout' %}" class="btn-back">Back</a>
+                <button class="btn-review">Review Order →</button>
+            </div>
+        </div>
+
+        <!-- Order Summary Section -->
+        <div class="order-summary-section">
+            <h2 class="summary-title">Order Summary</h2>
+            
+            <div class="summary-items">
+                <!-- Item will be populated from cart -->
+                <div class="summary-item">
+                    <span class="item-name">Product Details</span>
+                    <span class="item-price">Price</span>
+                </div>
+            </div>
+
+            <div class="summary-divider"></div>
+
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span class="summary-value">PKR 0</span>
+            </div>
+
+            <div class="summary-row">
+                <span>Delivery Fee</span>
+                <span class="summary-value">PKR 150</span>
+            </div>
+
+            <div class="summary-divider"></div>
+
+            <div class="summary-total">
+                <span>Total</span>
+                <span class="total-amount">PKR 0</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Handle payment method selection
+    document.querySelectorAll('input[name="payment_method"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            console.log('Selected payment method:', this.value);
+        });
+    });
+</script>
+{% endblock body %}
