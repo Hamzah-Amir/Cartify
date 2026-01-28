@@ -74,17 +74,22 @@
                     <p>{{product.description}}</p>
                 </div>
 
+                <form action="{% url 'add_to_cart' %}" method="post">
+                    {% csrf_token %}
                 <div class="quantity-selector">
                     <label for="quantity">Quantity</label>
                     <div class="qty-controls">
                         <button class="qty-btn minus" type="button">−</button>
-                        <input type="number" id="quantity" class="qty-input" value="1" min="1" max="{{product.stock}}">
+                        <input type="number" id="quantity" class="qty-input" value="1" name='quantity' min="1" max="{{product.stock}}">
                         <button class="qty-btn plus" type="button">+</button>
                     </div>
                 </div>
 
                 <div class="product-actions">
-                    <button class="btn-add-cart">Add to Cart</button>
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    <button class='btn-add-cart' type="submit">Add to Cart</button>
+                </form>
+                    
                     <button class="btn-wishlist" id="wishlistBtn" title="Add to Wishlist" data-product-id="{{product.id}}">
                         <svg class="heart-icon" viewBox="0 0 24 24" width="24" height="24">
                             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
