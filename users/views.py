@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from users.models import CustomUser, WishlistItem
 from products.models import Product
 from django.http import HttpResponse
@@ -109,6 +109,19 @@ def wishlist(request):
             WishlistItem.objects.filter(user=request.user, product=product).delete()
         else:
             wishlists = WishlistItem.objects.create(user=request.user, product=product)
-        return redirect("wishlist")
+        return redirect(request.META.get('HTTP_REFERER', 'home'))
     else:
         redirect("loginUser")
+
+def add_to_wishlist(request):
+    if not request.user.is_authenticated:
+        return redirect("loginUser")
+    
+    product = get_object_or_404(Product, id=request.POST.get('product_id'))
+
+    item, created = WishlistItem.objects.get_or_create(
+        user=request.user, 
+        product=product,
+        )
+    
+    return redirect(request.META.get('HTTP_REFERER', 'productDetail'))
