@@ -58,12 +58,26 @@ def process_checkout(request):
             status='unpaid'
         )
 
+        order_items = []
         for ci in cart_items:
-            OrderItem.objects.create(
+            oi = OrderItem.objects.create(
                 order=order,
                 product=ci.product,
                 quantity=ci.quantity,
                 price=ci.product.price
             )
+            order_items.append(oi)
+
         cart_items.delete()
-    return render(request, 'cart/process_checkout.html')
+
+        return render(request, 'cart/process_checkout.html', {
+            "order": order,
+            "order_items": order_items,
+            "delivery_fee": 150,
+        })
+    
+    return render(request, 'cart/process_checkout.html', {
+            "order": order,
+            "order_items": order_items,
+            "delivery_fee": 150,
+        })

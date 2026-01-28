@@ -47,7 +47,7 @@
                             </svg>
                             Cash on Delivery
                         </div>
-                        <div class="payment-subtitle">Pay cash on delivery</div>
+                        <div class="payment-subtitle">Pay on delivery</div>
                     </div>
                 </label>
             </div>
@@ -63,30 +63,40 @@
             <h2 class="summary-title">Order Summary</h2>
             
             <div class="summary-items">
-                <!-- Item will be populated from cart -->
-                <div class="summary-item">
-                    <span class="item-name">Product Details</span>
-                    <span class="item-price">Price</span>
-                </div>
+                {% if order_items %}
+                    {% for item in order_items %}
+                    <div class="summary-item">
+                        <div class="item-details">
+                            <span class="item-name">{{ item.product.name }}</span>
+                            <span class="item-qty">x{{ item.quantity }}</span>
+                        </div>
+                        <span class="item-price">PKR {{ item.price }}</span>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="summary-item">
+                        <span class="item-name">No items</span>
+                    </div>
+                {% endif %}
             </div>
 
             <div class="summary-divider"></div>
 
             <div class="summary-row">
                 <span>Subtotal</span>
-                <span class="summary-value">PKR 0</span>
+                <span class="summary-value">PKR {{ order.total_price }}</span>
             </div>
 
             <div class="summary-row">
                 <span>Delivery Fee</span>
-                <span class="summary-value">PKR 150</span>
+                <span class="summary-value">PKR {{ delivery_fee }}</span>
             </div>
 
             <div class="summary-divider"></div>
 
             <div class="summary-total">
                 <span>Total</span>
-                <span class="total-amount">PKR 0</span>
+                <span class="total-amount">PKR {{ order.total_price|add:delivery_fee }}</span>
             </div>
         </div>
     </div>
