@@ -30,6 +30,14 @@ def add_to_cart(request):
     
     return redirect(request.META.get('HTTP_REFERER', 'home'))
 
-def process_checkout(request):
+def checkout(request):
     if request.method == "GET":
+        return render(request, 'cart/checkout.html')
+    
+def process_checkout(request):
+    if request.method == "POST":
+        # Here you would typically handle payment processing and order creation
+        # For simplicity, we'll just clear the cart and redirect to a success page
+        
+        CartItem.objects.filter(user=request.user).delete()
         return render(request, 'cart/checkout.html')
