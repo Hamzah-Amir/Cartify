@@ -32,7 +32,6 @@ def home(request):
         
         context = {
             "products": page_obj,
-            "wishlist_count": wishlist_count,
             "page_obj": page_obj,
             "total_products": paginator.count,
             "category": category,

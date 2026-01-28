@@ -22,8 +22,9 @@
         </div>
     </section>
 
-    <section class='products'>
-        {% for item in cart %}
+    <section class='cart-hero'>
+        <section class='products'>
+            {% for item in cart %}
         <div class="product-card">
             <div class="card-image">
                 <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
@@ -56,6 +57,29 @@
             <a href="{% url "home" %}" class="continue-shopping">Continue Shopping</a>
         </div>
         {% endfor %}
+    </section>
+
+    <div class="checkout-box">
+        <div class="checkout-head">
+            Order Summary
+        </div>
+        <div class="sub-total">
+            <div>Subtotal</div>
+            <div>PKR {{total_price}}</div>
+        </div>
+        <div class="sub-total">
+            <div>Delivery Fee</div>
+            <div>PKR 150</div>
+        </div>
+        <div class="seperation"></div>
+        <div class="total">
+            <div>Total</div>
+            <div>PKR {{total_price }}</div>
+        </div>
+        <div class="checkout-btn">
+            <button class='checkout-btn'>Proceed to Checkout</button>
+        </div>
+    </div>
     </section>
 </section>
 

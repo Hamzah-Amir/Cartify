@@ -33,11 +33,20 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    width: 70vw;
+}
+
+.cart-hero {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 75vw;
 }
 
 .product-card {
     display: grid;
     grid-template-columns: 120px 1fr 50px;
+    max-width: 45vw;
     gap: 20px;
     align-items: center;
     padding: 20px;
@@ -203,4 +212,54 @@
 
 .continue-shopping:hover {
     background: #0056b3;
+}
+
+.cart-hero .checkout-box {
+    width: 40vw;
+    height: 36vh;
+    border: 2px solid gainsboro;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    /* padding: 24px; */
+}
+
+.checkout-box .checkout-head {
+    font-size: 20px;
+    padding: 20px;
+    font-weight: 600;
+}
+
+.checkout-box .sub-total {
+    display: flex;
+    padding: 5px 20px;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 500;
+}
+.checkout-box .total {
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.seperation {
+    border: 2px solid gainsboro;
+    margin: 0 15px;
+}
+
+.checkout-box .checkout-btn button {
+    padding: 24px;
+    background-color: black;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-size: 18px;
+    width: 100%;
+}
+
+.checkout-box .checkout-btn {
+    padding: 24px;
 }
