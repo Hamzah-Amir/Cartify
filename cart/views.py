@@ -13,7 +13,9 @@ def cart(request):
         price = 0
         for item in cart:
             price += item.product.price * item.quantity
-        return render(request, 'cart/cart.html', {"cart": cart, "total_price": price})
+            delivery_fee = calculate_delivery_fee(item.product.seller, cart)
+            print("Delivery Fee:", delivery_fee)
+        return render(request, 'cart/cart.html', {"cart": cart, "total_price": price, "delivery_fee": delivery_fee})
     
 
 def add_to_cart(request):
@@ -66,12 +68,12 @@ def process_checkout(request):
 
     orders_created = []
 
-    delivery_fee = calculate_delivery_fee(request.user, cart_items)
 
     for seller, items in seller_groups.items():
         # calculate total for this seller
         total = sum(ci.product.price * ci.quantity for ci in items)
 
+        delivery_fee = calculate_delivery_fee(seller, cart_items)
         # create Order per seller
         order = Order.objects.create(
             user=user,

@@ -69,12 +69,12 @@
         </div>
         <div class="sub-total">
             <div>Delivery Fee</div>
-            <div>PKR 150</div>
+            <div>PKR {{delivery_fee}}</div>
         </div>
         <div class="seperation"></div>
         <div class="total">
             <div>Total</div>
-            <div>PKR {{total_price }}</div>
+            <div>PKR {{total_price|add:delivery_fee }}</div>
         </div>
         <div class="checkout-btn">
             <a href="{% url "checkout" %}">
