@@ -64,7 +64,9 @@
             <!-- Action Buttons -->
             <div class="action-buttons">
                 <a href="{% url 'checkout' %}" class="btn-back">Back</a>
-                <button class="btn-place-order">Place Order</button>
+                <a href="{% url "order_placed" order.id %}">
+                    <button class="btn-place-order">Place Order</button>
+                </a>
             </div>
         </div>
 
@@ -103,10 +105,4 @@
     </div>
 </div>
 
-<script>
-    document.querySelector('.btn-place-order').addEventListener('click', function() {
-        alert('Order placed successfully!');
-        window.location.href = "{% url 'home' %}";
-    });
-</script>
 {% endblock body %}
