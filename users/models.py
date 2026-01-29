@@ -12,6 +12,7 @@ class CustomUser(AbstractUser):
     user_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(unique=True, null=False, blank=False)
     profile_image = models.ImageField(upload_to='users/', default='uunn')
+    base_delivery_fee = models.DecimalField(max_digits=10, decimal_places=2, default=100, null=True, blank=True)
     first_name = models.CharField(max_length=30, null=True, blank=True)
     last_name = models.CharField(max_length=30, null=True, blank=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True, blank=True)
