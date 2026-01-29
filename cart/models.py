@@ -13,10 +13,15 @@ class CartItem(models.Model):
 
 
 class Order(models.Model):
+    PAYMENT_METHODS = [
+        ('online', 'Online Payment'),
+        ('cod', 'Cash on Delivery'),
+    ]
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='orders')
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=20, default="unpaid")   # unpaid | paid | shipped | cancelled
     delivery_fee = models.DecimalField(max_digits=10, decimal_places=2, default=0, null=True, blank=True)
+    payment_method = models.CharField(max_length=10, choices=PAYMENT_METHODS, default='online')
     created_at = models.DateTimeField(auto_now_add=True)
     order_number = models.CharField(max_length=20, unique=True, blank=True, null=True)
 
