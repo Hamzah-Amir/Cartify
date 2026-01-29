@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import CartItem, Order, OrderItem
+from .services.pricing import calculate_delivery_fee
 from collections import defaultdict
 from users.models import CustomUser
 from products.models import Product
@@ -65,6 +66,8 @@ def process_checkout(request):
 
     orders_created = []
 
+    delivery_fee = calculate_delivery_fee(request.user, cart_items)
+
     for seller, items in seller_groups.items():
         # calculate total for this seller
         total = sum(ci.product.price * ci.quantity for ci in items)
@@ -73,8 +76,10 @@ def process_checkout(request):
         order = Order.objects.create(
             user=user,
             total_price=total,
+            delivery_fee=delivery_fee,
             status="unpaid"
         )
+    
 
         # create OrderItems
         for ci in items:
@@ -92,7 +97,6 @@ def process_checkout(request):
 
     return render(request, 'cart/process_checkout.html', {
         "orders": orders_created,   # list of orders (one per seller)
-        "delivery_fee": 150
     })
 
 def order_detail(request, order_id):
