@@ -44,9 +44,10 @@ def checkout(request):
         cart_items = CartItem.objects.filter(user=request.user)
         for item in cart_items:
             price += item.product.price * item.quantity
+            delivery_fee = calculate_delivery_fee(item.product.seller, cart_items)
 
         print(user.email, user.user_id)
-        return render(request, 'cart/checkout.html', {"user": user, "total_price": price})
+        return render(request, 'cart/checkout.html', {"user": user, "total_price": price, "delivery_fee": delivery_fee})
     
 from collections import defaultdict
 from django.db.models import Sum
