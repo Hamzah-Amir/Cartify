@@ -5,6 +5,7 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static "cart/checkout.css" %}">
+<link rel="stylesheet" href="{% static "cart/process_checkout.css" %}">
 {% endblock extra_head %}
 
 {% block body %}
@@ -15,48 +16,95 @@
             {% csrf_token %}
             <div class="form-group">
                 <label for="full_name">Full Name</label>
-                <input type="text" id="full_name" value="{{ user.first_name }} {{ user.last_name }}" name="full_name" required>
+                <input type="text" id="full_name" value="{{ user.first_name }} {{ user.last_name }}" name="full_name"
+                    required>
             </div>
 
             <div class="form-group">
                 <label for="email">Email Address</label>
                 <input type="email" id="email" name="email" required value="{{ user.email }}">
-                </div>
+            </div>
 
             <div class="form-group">
                 <label for="shipping_address">Shipping Address</label>
                 <input type="text" id="shipping_address" name="shipping_address" required value="{{ user.address }}">
-                </div>
+            </div>
 
             <div class="form-group">
                 <label for="email">Email Address</label>
                 <input type="email" id="email" name="email" required value="{{ user.email }}">
+            </div>
+            <div class="city-state-post">
+                <div>
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city" required>
                 </div>
-                <div class="city-state-post">
-                    <div>
-                        <label for="city">City</label>
-                        <input type="text" id="city" name="city" required >
-                    </div>
-                    
-                    <div>
-                        <label for="state">State</label>
-                        <input type="text" id="state" name="state" required>
-                    </div>
-                    
-                    <div>
-                        <label for="post_code">Post Code</label>
-                        <input type="number" id="post_code" name="post_code" required>
-                    </div>
+
+                <div>
+                    <label for="state">State</label>
+                    <input type="text" id="state" name="state" required>
                 </div>
-                <div class="form-group">
-                    <label for="phone_number">Phone Number</label>
-                    <input type="tel" id="phone_number" name="phone_number" required value="{{ user.phone_number }}">
+
+                <div>
+                    <label for="post_code">Post Code</label>
+                    <input type="number" id="post_code" name="post_code" required>
                 </div>
+            </div>
+            <div class="form-group">
+                <label for="phone_number">Phone Number</label>
+                <input type="tel" id="phone_number" name="phone_number" required value="{{ user.phone_number }}">
+            </div>
+            <div class="payment-options">
+                <!-- Credit/Debit Card -->
+                <label class="payment-option">
+                    <input type="radio" name="payment_method" value="online" checked>
+                    <div class="payment-content">
+                        <div class="payment-method">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <rect x="2" y="5" width="20" height="14" rx="2" />
+                                <path d="M2 10h20" />
+                            </svg>
+                            Credit / Debit Card
+                        </div>
+                        <div class="payment-subtitle">Powered by Stripe</div>
+                    </div>
+                </label>
+
+                <!-- Cash on Delivery -->
+                <label class="payment-option">
+                    <input type="radio" name="payment_method" value="cod">
+                    <div class="payment-content">
+                        <div class="payment-method">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="1" />
+                                <path
+                                    d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24" />
+                            </svg>
+                            Cash on Delivery
+                        </div>
+                        <div class="payment-subtitle">Pay on delivery</div>
+                    </div>
+                </label>
+            </div>
+
+            <div class="checkout-actions">
+                <a href="{% url 'checkout' %}" class="btn-back">Back</a>
+                {% if orders %}
+                {% for order in orders %}
+                <a href="{% url " order_detail" order.id %}">
+                    <button class="btn-review">Review Order →</button>
+                </a>
+                {% endfor %}
+                {% endif %}
+            </div>
+            </div>
             <button type="submit" class="btn btn-primary">Place Order</button>
         </form>
     </section>
     <section class="checkout-summary">
-           <div class="checkout-head">
+        <div class="checkout-head">
             Order Summary
         </div>
         <div class="sub-total">
@@ -73,9 +121,9 @@
             <div>PKR {{total_price|add:delivery_fee }}</div>
         </div>
         <div class="checkout-btn">
-            <a href="{% url "process_checkout" %}">
+            {% comment %} <a href="{% url " process_checkout" %}"> {% endcomment %}
                 <button class='checkout-btn'>Proceed to Checkout</button>
-            </a>
+            {% comment %} </a> {% endcomment %}
         </div>
     </section>
 </section>

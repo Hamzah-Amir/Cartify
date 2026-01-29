@@ -11,7 +11,7 @@
 {% block body %}
 <div class="checkout-container">
     <h1 class="checkout-heading">Checkout</h1>
-    
+{% comment %}     
     <div class="checkout-content">
         <!-- Payment Method Section -->
         <div class="payment-section">
@@ -21,11 +21,12 @@
                 </svg>
                 Payment Method
             </h2>
-            
-            <div class="payment-options">
-                <!-- Credit/Debit Card -->
-                <label class="payment-option">
-                    <input type="radio" name="payment_method" value="card" checked>
+            <form action="{% url "process_checkout" %}" method="post">
+                {% csrf_token %}
+                <div class="payment-options">
+                    <!-- Credit/Debit Card -->
+                    <label class="payment-option">
+                        <input type="radio" name="payment_method" value="card" checked>
                     <div class="payment-content">
                         <div class="payment-method">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -51,7 +52,7 @@
                     </div>
                 </label>
             </div>
-
+             {% endcomment %}
             <div class="checkout-actions">
                 <a href="{% url 'checkout' %}" class="btn-back">Back</a>
                 {% if orders %}
@@ -63,6 +64,7 @@
                 {% endif %}
             </div>
         </div>
+    </form>
 
         <!-- Order Summary Section -->
         <div class="order-summary-section">

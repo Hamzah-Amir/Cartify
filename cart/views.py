@@ -9,14 +9,27 @@ from products.models import Product
 
 def cart(request):
     if request.method == "GET":
-        cart = CartItem.objects.all()
-        price = 0
-        for item in cart:
-            price += item.product.price * item.quantity
-            delivery_fee = calculate_delivery_fee(item.product.seller, cart)
-            print("Delivery Fee:", delivery_fee)
-        return render(request, 'cart/cart.html', {"cart": cart, "total_price": price, "delivery_fee": delivery_fee})
-    
+        cart_items = CartItem.objects.filter(user=request.user)  # get only the current user's cart
+        total_price = 0
+        delivery_fees = defaultdict(int)
+
+        # Group items by seller
+        seller_groups = defaultdict(list)
+        for item in cart_items:
+            seller_groups[item.product.seller].append(item)
+            total_price += item.product.price * item.quantity
+
+        # Calculate delivery fee per seller
+        for seller, items in seller_groups.items():
+            delivery_fees[seller] = calculate_delivery_fee(seller, items)
+
+        total_delivery_fee = sum(delivery_fees.values())
+
+        return render(request, 'cart/cart.html', {
+            "cart": cart_items,
+            "total_price": total_price,
+            "delivery_fee": total_delivery_fee
+        })
 
 def add_to_cart(request):
     if not request.user.is_authenticated:
@@ -73,6 +86,7 @@ def process_checkout(request):
     for seller, items in seller_groups.items():
         # calculate total for this seller
         total = sum(ci.product.price * ci.quantity for ci in items)
+        print("Seller:", seller, "Total:", total)
 
         delivery_fee = calculate_delivery_fee(seller, cart_items)
         # create Order per seller
@@ -80,6 +94,7 @@ def process_checkout(request):
             user=user,
             total_price=total,
             delivery_fee=delivery_fee,
+            payment_method=request.POST.get('payment_method'),
             status="unpaid"
         )
     
