@@ -37,17 +37,17 @@
             <div class="city-state-post">
                 <div>
                     <label for="city">City</label>
-                    <input type="text" id="city" name="city" required>
+                    <input type="text" id="city" name="city" required value="{{ user.city }}">
                 </div>
 
                 <div>
                     <label for="state">State</label>
-                    <input type="text" id="state" name="state" required>
+                    <input type="text" id="state" name="state" required value="{{ user.state }}">
                 </div>
 
                 <div>
                     <label for="post_code">Post Code</label>
-                    <input type="number" id="post_code" name="post_code" required>
+                    <input type="number" id="post_code" name="post_code" value="{{ user.postal_code }}" required>
                 </div>
             </div>
             <div class="form-group">
