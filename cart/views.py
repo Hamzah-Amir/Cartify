@@ -82,36 +82,25 @@ def process_checkout(request):
 
     orders_created = []
 
-
     for seller, items in seller_groups.items():
         # calculate total for this seller
         total = sum(ci.product.price * ci.quantity for ci in items)
-        print("Seller:", seller, "Total:", total)
 
         delivery_fee = calculate_delivery_fee(seller, cart_items)
-        # create Order per seller
+        
+        # Create Order with status "pending_review" to indicate it's awaiting confirmation
         order = Order.objects.create(
             user=user,
             total_price=total,
             delivery_fee=delivery_fee,
             payment_method=request.POST.get('payment_method'),
-            status="unpaid"
+            status="pending_review"
         )
-    
-
-        # create OrderItems
-        for ci in items:
-            OrderItem.objects.create(
-                order=order,
-                product=ci.product,
-                quantity=ci.quantity,
-                price=ci.product.price
-            )
-
+        
+        # Store cart items in order temporarily (we'll create OrderItems in order_detail)
+        # Add a reference to the cart items for later processing
+        order._pending_cart_items = items
         orders_created.append(order)
-
-    # clear cart
-    cart_items.delete()
 
     return render(request, 'cart/process_checkout.html', {
         "orders": orders_created,   # list of orders (one per seller)
@@ -120,6 +109,27 @@ def process_checkout(request):
 def order_detail(request, order_id):
     if request.method == "GET" and request.user.is_authenticated:
         order = get_object_or_404(Order, id=order_id, user=request.user)
+        
+        # Create OrderItems when order_detail is first accessed (if not already created)
+        if order.items.count() == 0 and order.status == "pending_review":
+            # Get the cart items for this user that haven't been cleared yet
+            cart_items = CartItem.objects.filter(user=request.user)
+            
+            if cart_items.exists():
+                # Create OrderItems from cart items
+                for ci in cart_items:
+                    # Only add items that belong to this order's seller
+                    if ci.product.seller == cart_items.first().product.seller:
+                        OrderItem.objects.create(
+                            order=order,
+                            product=ci.product,
+                            quantity=ci.quantity,
+                            price=ci.product.price
+                        )
+                
+                # Clear cart after creating order items
+                cart_items.delete()
+        
         order_items = OrderItem.objects.filter(order=order)
 
         return render(request, 'cart/order_detail.html', {
