@@ -89,6 +89,8 @@
                 <form action="{% url "profile" %}" method="post" id="info-edit-mode" class="edit-form" style="display: none;">
                     {% csrf_token %}
                     <div class="form-row">
+                        
+                        <input type="hidden" name="method" id="method" value="update_profile">
                         <div class="form-group">
                             <label for="first-name">First Name</label>
                             <input type="text" id="first-name" name="first_name" value="{{request.user.first_name}}" placeholder="Enter first name">
@@ -159,25 +161,27 @@
 
                 <div class="settings-container">
                     <!-- Change Password Section -->
-                    <div class="settings-card">
-                        <div class="card-header">
-                            <h3>Change Password</h3>
-                        </div>
-                        <form class="password-form">
-                            <div class="form-group">
-                                <label>Current Password</label>
-                                <input type="password" placeholder="Enter current password" required>
-                            </div>
-                            <div class="form-group">
-                                <label>New Password</label>
-                                <input type="password" placeholder="Enter new password" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Confirm New Password</label>
-                                <input type="password" placeholder="Confirm new password" required>
-                            </div>
-                            <button type="submit" class="btn-primary">Update Password</button>
-                        </form>
+                         <div class="settings-card">
+                             <div class="card-header">
+                                 <h3>Change Password</h3>
+                                </div>
+                                <form action="{% url "profile" %}" method="post" class="password-form">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <input type="hidden" name="method" id="method" value='update_password'>
+                                        <label>Current Password</label>
+                                        <input name="current_password" type="password" placeholder="Enter current password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>New Password</label>
+                                        <input name="new_password" type="password" placeholder="Enter new password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Confirm New Password</label>
+                                        <input name="confirm_password" type="password" placeholder="Confirm new password" required>
+                                    </div>
+                                    <button type="submit" class="btn-primary">Update Password</button>
+                                </form>
                     </div>
 
                     <!-- Saved Addresses Section -->
