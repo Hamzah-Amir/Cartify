@@ -85,7 +85,7 @@ def profile(request):
     if request.method == "GET":
         return render(request, 'users/profile.html')
     
-    if request.method == "POST":
+    if request.method == "POST" and request.POST.get("method") == "update_profile":
         user = request.user
         user.username = request.POST.get('username')
         user.first_name = request.POST.get('first_name')
@@ -95,6 +95,18 @@ def profile(request):
         user.phone_number = request.POST.get('phone_number')
         user.save()
         return render(request, "users/profile.html")
+    elif request.method == "POST" and request.POST.get("method") == "update_password":
+        user = request.user
+        current_password = request.POST.get("current_password")
+        new_password = request.POST.get("new_password")
+        confirm_password = request.POST.get("confirm_password")
+        if (user.check_password(current_password)) and (new_password == confirm_password):
+            user.set_password(new_password)
+            user.save()
+        elif user.check_password(current_password) == False:
+            return render(request, "users/profile.html", {"current_password_error": "Current Password is incorrect"})
+        elif new_password != confirm_password:
+            return render(request, "users/profile.html", {"new_password_error": "Password does not match"})
     
 def wishlist(request):
     if request.method == "GET" and request.user.is_authenticated:

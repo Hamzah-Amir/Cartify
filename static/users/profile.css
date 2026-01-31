@@ -99,6 +99,12 @@
     background: #f9f9f9;
 }
 
+.error-message {
+    color: #dc3545;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
 .tab-button {
     flex: 1;
     padding: 16px 24px;

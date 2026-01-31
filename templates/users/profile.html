@@ -171,15 +171,24 @@
                                         <input type="hidden" name="method" id="method" value='update_password'>
                                         <label>Current Password</label>
                                         <input name="current_password" type="password" placeholder="Enter current password" required>
+                                        {% if current_password_error %}
+                                        <div class="error-message">{{ current_password_error }}</div>
+                                        {% endif %}
                                     </div>
                                     <div class="form-group">
                                         <label>New Password</label>
                                         <input name="new_password" type="password" placeholder="Enter new password" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Confirm New Password</label>
-                                        <input name="confirm_password" type="password" placeholder="Confirm new password" required>
-                                    </div>
+                                            {% if current_password_error %}
+                                            <div class="error-message">{{ current_password_error }}</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Confirm New Password</label>
+                                            <input name="confirm_password" type="password" placeholder="Confirm new password" required>
+                                        </div>
+                                        {% if current_password_error %}
+                                        <div class="error-message">{{ current_password_error }}</div>
+                                        {% endif %}
                                     <button type="submit" class="btn-primary">Update Password</button>
                                 </form>
                     </div>
