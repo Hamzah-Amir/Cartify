@@ -98,8 +98,12 @@ def process_checkout(request):
         )
         
         # Store cart items in order temporarily (we'll create OrderItems in order_detail)
-        # Add a reference to the cart items for later processing
-        order._pending_cart_items = items
+        # Add a reference to the cart items for later processing.
+        # NOTE: Django templates disallow attribute names starting with an underscore,
+        # so use a non-underscored name `pending_cart_items` instead of `_pending_cart_items`.
+        order.pending_cart_items = items
+        # Attach seller for template display
+        order.seller = seller
         orders_created.append(order)
 
     return render(request, 'cart/process_checkout.html', {

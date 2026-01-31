@@ -33,17 +33,17 @@
                 <div class="order-group">
                     <div class="seller-info">
                         <span class="seller-label">Sold by:</span>
-                        <span class="seller-name">{{ order.user }}</span>
+                        <span class="seller-name">{{ order.seller }}</span>
                     </div>
-                    
+
                     <div class="summary-items">
-                        {% for item in order.items.all %}
+                        {% for item in order.pending_cart_items %}
                         <div class="summary-item">
                             <div class="item-details">
                                 <span class="item-name">{{ item.product.name }}</span>
                                 <span class="item-qty">x{{ item.quantity }}</span>
                             </div>
-                            <span class="item-price">PKR {{ item.price }}</span>
+                            <span class="item-price">PKR {{ item.product.price }}</span>
                         </div>
                         {% endfor %}
                     </div>
