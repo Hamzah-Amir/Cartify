@@ -11,16 +11,6 @@
 {% block body %}
 <div class="checkout-container">
     <h1 class="checkout-heading">Checkout</h1>
-            <div class="checkout-actions">
-                <a href="{% url 'checkout' %}" class="btn-back">Back</a>
-                {% if orders %}
-                {% for order in orders %}
-                <a href="{% url "order_detail" order.id %}">
-                    <button class="btn-review">Review Order →</button>
-                </a>
-                {% endfor %}
-                {% endif %}
-            </div>
         </div>
     </form>
 
@@ -73,7 +63,20 @@
                     <span class="item-name">No orders</span>
                 </div>
             {% endif %}
+            <!-- Actions (moved below summary) -->
+            <div class="order-actions">
+                <a href="{% url 'checkout' %}" class="btn btn-back">Back</a>
+                {% if orders %}
+                <div class="btn-group">
+                    {% for order in orders %}
+                    <a href="{% url 'order_detail' order.id %}" class="btn btn-review">Review Order →</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
         </div>
+
+
     </div>
 </div>
 

@@ -1,14 +1,83 @@
-.order-summary-section {
-    background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
-    padding: 32px;
-    border-radius: 12px;
-    height: fit-content;
-    position: sticky;
-    top: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e8eef5;
-    transition: all 0.3s ease;
+/* Compact order summary card styled like the example image */
+
+:root{
+    --card-bg: #ffffff;
+    --muted: #6b7280;
+    --accent: #111827;
+    --border: #eef2f6;
+    --radius: 8px;
 }
+
+.order-summary-section{
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    width: 480px; /* increased width as requested */
+    margin: 40px auto; /* center horizontally and give vertical offset */
+}
+
+.summary-title{
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--accent);
+    margin: 0 0 12px 0;
+}
+
+.order-group{ padding: 0; }
+
+.seller-info{ margin-bottom: 8px; }
+.seller-label{ display:block; font-size:10px; color:var(--muted); font-weight:700; text-transform:uppercase; letter-spacing:0.6px }
+.seller-name{ font-size:14px; font-weight:800; color:var(--accent); margin-top:3px }
+
+.summary-items{ display:block; }
+
+.summary-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 0;
+    color: var(--muted);
+    border-bottom: 1px solid #f4f7fb;
+}
+
+.item-details{ display:flex; flex-direction:column }
+.item-name{ font-weight:700; color:var(--accent); font-size:14px }
+.item-qty{ font-size:13px; color:var(--muted); margin-top:4px }
+.item-price{ font-weight:800; color:var(--accent) }
+
+.summary-divider{ height:1px; background:var(--border); margin:12px 0 }
+
+.summary-row{ display:flex; justify-content:space-between; align-items:center; padding:8px 0; color:var(--muted); font-size:14px }
+.summary-value{ color:var(--accent); font-weight:800 }
+
+.summary-total{ display:flex; justify-content:space-between; align-items:center; margin-top:10px; padding-top:8px }
+.total-amount{ font-size:20px; font-weight:900; color:var(--accent) }
+
+/* Actions area below the card */
+
+.order-actions{ display:flex; justify-content:center; align-items:center; gap:12px; margin-top:18px }
+.btn{ display:inline-block; padding:10px 16px; border-radius:8px; text-decoration:none; font-weight:800; font-size:15px }
+.btn-back{ background:transparent; color:var(--accent); border:1px solid var(--border); padding:8px 12px }
+.btn-review{ background:var(--accent); color:#fff; box-shadow: 0 6px 18px rgba(17,24,39,0.08) }
+
+/* FORCE reset for any global fixed/positioned button styles that conflict */
+.order-actions .btn, .order-actions .btn-review, .order-actions .btn-back {
+    position: static !important;
+    right: auto !important;
+    bottom: auto !important;
+}
+
+/* Center the page heading above the card */
+.checkout-heading{ text-align:center; margin-top:28px; font-size:28px; font-weight:900 }
+
+@media (max-width:768px){
+    .order-summary-section{ width:100%; }
+    .order-actions{ flex-direction:column; align-items:stretch }
+    .btn{ width:100% }
+}
+
+
 
 .summary-title {
     font-size: 20px;
@@ -134,6 +203,46 @@
     font-size: 18px;
 }
 
+/* Buttons and actions */
+.order-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+    align-items: flex-end;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-back {
+    background: transparent;
+    color: #334155;
+    border: 1px solid rgba(51,65,85,0.08);
+    padding: 8px 14px;
+    border-radius: 8px;
+}
+
+.btn-review {
+    background: #0f172a;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.btn-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
 /* Responsive Design */
 @media (max-width: 1200px) {
     .checkout-container {
@@ -181,6 +290,17 @@
     .order-summary-section {
         padding: 20px;
     }
+}
+
+@media (min-width: 769px) {
+    /* On wider screens keep actions aligned horizontally below the box */
+    .order-actions {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .order-actions .btn-group { order: 2; }
+    .order-actions .btn-back { order: 1; }
 }
 
 @media (max-width: 480px) {
