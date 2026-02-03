@@ -46,7 +46,7 @@ def orders(request):
         print(context)
         return render(request, "seller/orders.html", context)
 
-def order_detail(request, order_id):
+def manage_order(request, order_id):
     if request.user.is_anonymous:
         return redirect('loginUser')
     if request.user.role != 'seller':

@@ -48,6 +48,7 @@
  
              <div class="products-rows">
                  {% for order in orders %}
+                 <a href="{% url 'manage_order' order.id %}">
                  <div class="product-row order-row">
                     <div>
                         <div class="product-name">{{ order.order_number }}</div>
@@ -75,6 +76,7 @@
                         </span>
                     </div>
                 </div>
+                </a>
                 {% endfor %}
             </div>
         </section>
