@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from products.models import Product
+from cart.models import Order
 
 
 def dashboard(request):
@@ -37,44 +38,10 @@ def orders(request):
     if request.user.role != 'seller':
         return redirect('home')
 
-    context = {
-        "orders": [
-            {
-                "order_id": "ORD-001",
-                "buyer_name": "John Smith",
-                "buyer_email": "john.smith@email.com",
-                "items": 2,
-                "total": "$459.97",
-                "date": "2024-01-20",
-                "status": "completed",
-            },
-            {
-                "order_id": "ORD-002",
-                "buyer_name": "Sarah Johnson",
-                "buyer_email": "sarah.j@email.com",
-                "items": 1,
-                "total": "$149.99",
-                "date": "2024-01-22",
-                "status": "shipped",
-            },
-            {
-                "order_id": "ORD-003",
-                "buyer_name": "Michael Brown",
-                "buyer_email": "mbrown@email.com",
-                "items": 1,
-                "total": "$89.97",
-                "date": "2024-01-23",
-                "status": "processing",
-            },
-            {
-                "order_id": "ORD-004",
-                "buyer_name": "Emily Davis",
-                "buyer_email": "emily.davis@email.com",
-                "items": 1,
-                "total": "$299.99",
-                "date": "2024-01-24",
-                "status": "pending",
-            },
-        ]
-    }
-    return render(request, "seller/orders.html", context)
+    if request.method == "GET" and request.user.is_authenticated and request.user.role == 'seller':
+        orders = Order.objects.filter(user=request.user)
+        context = {
+            "orders": orders
+        }
+        print(context)
+        return render(request, "seller/orders.html", context)

@@ -37,40 +37,36 @@
             </div>
         </section>
 
-        <section class="products-table">
-            <div class="products-header-row">
-                <div>Order ID</div>
-                <div>Buyer</div>
-                <div>Items</div>
-                <div>Total</div>
-                <div>Date</div>
-                <div>Status</div>
-            </div>
-
-            <div class="products-rows">
-                {% for order in orders %}
-                <div class="product-row">
+         <section class="products-table">
+             <div class="products-header-row orders-header-row">
+                 <div>Order ID</div>
+                 <div>Buyer</div>
+                 <div>Total</div>
+                 <div>Date</div>
+                 <div>Status</div>
+             </div>
+ 
+             <div class="products-rows">
+                 {% for order in orders %}
+                 <div class="product-row order-row">
                     <div>
-                        <div class="product-name">{{ order.order_id }}</div>
+                        <div class="product-name">{{ order.order_number }}</div>
                     </div>
 
                     <div>
                         <div class="product-text">
-                            <div class="product-name">{{ order.buyer_name }}</div>
-                            <div class="product-category">{{ order.buyer_email }}</div>
+                            <div class="product-name">{{ order.user.username }}</div>
+                            <div class="product-category">{{ order.user.email }}</div>
                         </div>
                     </div>
 
+
                     <div>
-                        <span class="product-price">{{ order.items }}</span>
+                        <span class="product-price">{{ order.total_price }}</span>
                     </div>
 
                     <div>
-                        <span class="product-price">{{ order.total }}</span>
-                    </div>
-
-                    <div>
-                        <span class="product-created">{{ order.date }}</span>
+                        <span class="product-created">{{ order.created_at }}</span>
                     </div>
 
                     <div>
