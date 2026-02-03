@@ -5,13 +5,15 @@ from uuid import uuid4
 
 CATEGORY = [("electronics", "Electronics"), ("fashion-apparel", "Fashion & Apparel"), ("home-kitchen", "Home & Kitchen"), ("toys-games", "Toys & Games"), ("beauty-personal-care", "Beauty & Personal Care"), ("sports-outdoors", "Sports & Outdoors"), ("books-media", "Books & Media"), ("grocery-essentials", "Grocery & Essentials"), ("automotive", "Automotive"), ("misc/other", "Misc / Other")]
 
-class Product(models.Model): 
+class Product(models.Model):
+    STATUS = [("active", "Active"), ("closed", "Closed")]
     seller = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE, related_name='products')
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     name = models.CharField(max_length=200)
     image = models.ImageField(upload_to='products/')
     description = models.TextField()
     category = models.CharField(max_length=100, null=False, choices=CATEGORY)
+    status = models.CharField(max_length=15, null=False, choices=STATUS, default="active")
     price = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
