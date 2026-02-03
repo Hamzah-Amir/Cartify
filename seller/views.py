@@ -9,10 +9,13 @@ def dashboard(request):
         return redirect('home')
     if request.method == "GET" and request.user.is_authenticated and request.user.role == 'seller':
         products = Product.objects.filter(seller=request.user)
+        active_listing = Product.objects.filter(status="active")
         context = {
             "products" : products,
-            "total_products" : len(products) 
+            "total_products" : len(products),
+            "active_listing": len(active_listing),
         }
+        print(context)
         return render(request, 'seller/dashboard.html', context)
 
 
