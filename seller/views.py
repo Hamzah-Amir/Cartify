@@ -67,4 +67,45 @@ def orders(request):
         return redirect('loginUser')
     if request.user.role != 'seller':
         return redirect('home')
-    return render(request, 'seller/orders.html')
+
+    context = {
+        "orders": [
+            {
+                "order_id": "ORD-001",
+                "buyer_name": "John Smith",
+                "buyer_email": "john.smith@email.com",
+                "items": 2,
+                "total": "$459.97",
+                "date": "2024-01-20",
+                "status": "completed",
+            },
+            {
+                "order_id": "ORD-002",
+                "buyer_name": "Sarah Johnson",
+                "buyer_email": "sarah.j@email.com",
+                "items": 1,
+                "total": "$149.99",
+                "date": "2024-01-22",
+                "status": "shipped",
+            },
+            {
+                "order_id": "ORD-003",
+                "buyer_name": "Michael Brown",
+                "buyer_email": "mbrown@email.com",
+                "items": 1,
+                "total": "$89.97",
+                "date": "2024-01-23",
+                "status": "processing",
+            },
+            {
+                "order_id": "ORD-004",
+                "buyer_name": "Emily Davis",
+                "buyer_email": "emily.davis@email.com",
+                "items": 1,
+                "total": "$299.99",
+                "date": "2024-01-24",
+                "status": "pending",
+            },
+        ]
+    }
+    return render(request, "seller/orders.html", context)
