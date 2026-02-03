@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Seller Products{% endblock title %}
+{% load static %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static "seller/dashboard.css" %}">
+{% endblock extra_head %}
+
+{% block body %}
+<section class="seller-dashboard">
+    {% include "ui/sidebar.html" %}
+
+    <main class="main-dashboard">
+        <header class="dashboard-header">
+            <div>
+                <h1 class="dashboard-title">Products</h1>
+                <p class="dashboard-subtitle">
+                    Manage your product catalog
+                </p>
+            </div>
+
+            <a href="#" class="btn btn-primary">
+                + Add Product
+            </a>
+        </header>
+
+        <section class="products-toolbar">
+            <div class="products-search">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Search products..." />
+            </div>
+
+            <div class="products-filters">
+                <select>
+                    <option>All Status</option>
+                    <option>Active</option>
+                    <option>Inactive</option>
+                    <option>Out of stock</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="products-table">
+            <div class="products-header-row">
+                <div class="column-product">Product</div>
+                <div class="column-price">Price</div>
+                <div class="column-stock">Stock</div>
+                <div class="column-status">Status</div>
+                <div class="column-created">Created</div>
+                <div class="column-actions">Actions</div>
+            </div>
+
+            <div class="products-rows">
+                {% for product in products %}
+                <div class="product-row">
+                    <div class="column-product">
+                        <div class="product-info">
+                            <div class="product-image-placeholder">
+                                <span>No image</span>
+                            </div>
+                            <div class="product-text">
+                                <div class="product-name">{{ product.name }}</div>
+                                <div class="product-category">{{ product.category }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column-price">
+                        <span class="product-price">{{ product.price }}</span>
+                    </div>
+
+                    <div class="column-stock">
+                        <span class="product-stock {% if product.stock == 0 %}stock-zero{% endif %}">
+                            {{ product.stock }}
+                        </span>
+                    </div>
+
+                    <div class="column-status">
+                        <span class="status-pill status-{{ product.status }}">
+                            {{ product.status }}
+                        </span>
+                    </div>
+
+                    <div class="column-created">
+                        <span class="product-created">{{ product.created }}</span>
+                    </div>
+
+                    <div class="column-actions">
+                        <button class="icon-button" title="View">👁</button>
+                        <button class="icon-button" title="Edit">✏️</button>
+                        <button class="icon-button icon-danger" title="Delete">🗑</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</section>
+{% endblock body %}
+

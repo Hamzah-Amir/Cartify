@@ -9,7 +9,7 @@
             <span class="nav-icon">▢</span>
             <span class="nav-text">Dashboard</span>
         </a>
-        <a href="#" class="nav-link">
+        <a href="{% url 'seller_products' %}" class="nav-link {% if request.resolver_match.url_name == 'seller_products' %}active{% endif %}">
             <span class="nav-icon">📦</span>
             <span class="nav-text">Products</span>
         </a>
