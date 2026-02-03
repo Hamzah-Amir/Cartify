@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from products.models import Product
 
 
 def dashboard(request):
@@ -6,7 +7,13 @@ def dashboard(request):
         return redirect('loginUser')
     if request.user.role != 'seller':
         return redirect('home')
-    return render(request, 'seller/dashboard.html')
+    if request.method == "GET" and request.user.is_authenticated and request.user.role == 'seller':
+        products = Product.objects.filter(seller=request.user)
+        context = {
+            "products" : products,
+            "total_products" : len(products) 
+        }
+        return render(request, 'seller/dashboard.html', contextsent)
 
 
 def inventory(request):
