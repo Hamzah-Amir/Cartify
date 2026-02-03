@@ -45,3 +45,17 @@ def orders(request):
         }
         print(context)
         return render(request, "seller/orders.html", context)
+
+def order_detail(request, order_id):
+    if request.user.is_anonymous:
+        return redirect('loginUser')
+    if request.user.role != 'seller':
+        return redirect('home')
+
+    if request.method == "GET" and request.user.is_authenticated and request.user.role == 'seller':
+        order = Order.objects.get(id=order_id)
+        context = {
+            "order": order
+        }
+        print(context)
+        return render(request, "seller/order_detail.html", context)
