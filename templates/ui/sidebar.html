@@ -13,7 +13,7 @@
             <span class="nav-icon">📦</span>
             <span class="nav-text">Inventory</span>
         </a>
-        <a href="#" class="nav-link">
+        <a href="{% url 'orders' %}" class="nav-link {% if request.resolver_match.url_name == 'orders' %}active{% endif %}">
             <span class="nav-icon">🧾</span>
             <span class="nav-text">Orders</span>
         </a>

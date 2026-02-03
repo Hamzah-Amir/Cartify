@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Seller Orders{% endblock title %}
+{% load static %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static "seller/dashboard.css" %}">
+{% endblock extra_head %}
+
+{% block body %}
+<section class="seller-dashboard">
+    {% include "ui/sidebar.html" %}
+
+    <main class="main-dashboard">
+        <header class="dashboard-header">
+            <div>
+                <h1 class="dashboard-title">Orders</h1>
+                <p class="dashboard-subtitle">
+                    Manage your customer orders
+                </p>
+            </div>
+        </header>
+
+        <section class="products-toolbar">
+            <div class="products-search">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Search by order ID or buyer name..." />
+            </div>
+
+            <div class="products-filters">
+                <select>
+                    <option>All Status</option>
+                    <option>Completed</option>
+                    <option>Shipped</option>
+                    <option>Processing</option>
+                    <option>Pending</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="products-table">
+            <div class="products-header-row">
+                <div>Order ID</div>
+                <div>Buyer</div>
+                <div>Items</div>
+                <div>Total</div>
+                <div>Date</div>
+                <div>Status</div>
+            </div>
+
+            <div class="products-rows">
+                {% for order in orders %}
+                <div class="product-row">
+                    <div>
+                        <div class="product-name">{{ order.order_id }}</div>
+                    </div>
+
+                    <div>
+                        <div class="product-text">
+                            <div class="product-name">{{ order.buyer_name }}</div>
+                            <div class="product-category">{{ order.buyer_email }}</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="product-price">{{ order.items }}</span>
+                    </div>
+
+                    <div>
+                        <span class="product-price">{{ order.total }}</span>
+                    </div>
+
+                    <div>
+                        <span class="product-created">{{ order.date }}</span>
+                    </div>
+
+                    <div>
+                        <span class="status-pill status-{{ order.status }}">
+                            {{ order.status }}
+                        </span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</section>
+{% endblock body %}
+
