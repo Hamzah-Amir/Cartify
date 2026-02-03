@@ -48,7 +48,9 @@
                     <span class="badge">{{ cart_count }}</span>
                     {% endif %}
                 </a>
-                <button class="toggle-seller">Switch to Selling</button>
+                <a href="{% url "dashboard" %}">
+                    <button class="toggle-seller">Switch to Selling</button>
+                </a>
             </div>
             {% endif %}
         </nav>
