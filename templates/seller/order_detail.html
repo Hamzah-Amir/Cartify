@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block title %}Order Detail{% endblock title %}
+{% load static %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static "seller/dashboard.css" %}">
+{% endblock extra_head %}
+
+{# Sample context keys (replace with your real context in the view):
+   order: {
+     order_number, status, created_at, user: { username, email },
+     items: [{ product_name, quantity, price, subtotal }],
+     subtotal, shipping, total
+   }
+#}
+
+{% block body %}
+<section class="seller-dashboard">
+    {% include "ui/sidebar.html" %}
+
+    <main class="main-dashboard">
+        <div class="order-detail-header">
+            <div class="order-detail-back">
+                <button class="btn btn-outline order-back-btn">
+                    ← Back to Orders
+                </button>
+            </div>
+
+            <div class="order-detail-title-row">
+                <div>
+                    <h1 class="dashboard-title">
+                        Order {{ order.order_number|default:"ORD-00001" }}
+                    </h1>
+                    <p class="dashboard-subtitle">
+                        Order placed on {{ order.created_at|date:"Y-m-d"|default:"2024-01-20" }}
+                    </p>
+                </div>
+
+                <div class="order-detail-actions">
+                    <span class="status-pill status-completed order-detail-status-pill">
+                        {{ order.status|default:"completed" }}
+                    </span>
+
+                    {% if order.status != "completed" %}
+                    <form method="post" action="{% url 'orders' %}" class="confirm-shipment-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="order_id" value="{{ order.id }}">
+                        <input type="hidden" name="action" value="confirm_shipment">
+                        <button type="submit" class="btn btn-primary confirm-shipment-btn">
+                            Confirm Shipment
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <section class="order-detail-grid">
+            <div class="order-card">
+                <h2 class="order-card-title">Order Information</h2>
+
+                <div class="order-card-row">
+                    <div>
+                        <div class="order-card-label">Order ID</div>
+                        <div class="order-card-value">
+                            {{ order.order_number|default:"ORD-00001" }}
+                        </div>
+                    </div>
+                    <div>
+                        <div class="order-card-label">Order Date</div>
+                        <div class="order-card-value">
+                            {{ order.created_at|date:"Y-m-d"|default:"2024-01-20" }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-card-row">
+                    <div>
+                        <div class="order-card-label">Status</div>
+                        <span class="status-pill status-completed">
+                            {{ order.status|default:"completed" }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-card">
+                <h2 class="order-card-title">Buyer Information</h2>
+
+                <div class="order-card-row">
+                    <div>
+                        <div class="order-card-label">Name</div>
+                        <div class="order-card-value">
+                            {{ order.user.username|default:"John Smith" }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-card-row">
+                    <div>
+                        <div class="order-card-label">Email</div>
+                        <div class="order-card-value">
+                            {{ order.user.email|default:"john.smith@email.com" }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="order-card order-items-card">
+            <h2 class="order-card-title">Order Items</h2>
+
+            <div class="order-items-table">
+                <div class="order-items-header">
+                    <div>Product</div>
+                    <div>Quantity</div>
+                    <div>Price</div>
+                    <div>Subtotal</div>
+                </div>
+
+                <div class="order-items-rows">
+                    {% for item in order.items.all %}
+                    <div class="order-items-row">
+                        <div>{{ item.product_name|default:item.product.name }}</div>
+                        <div>{{ item.quantity|default:1 }}</div>
+                        <div>${{ item.price|default:"299.99" }}</div>
+                        <div>${{ item.subtotal|default:"299.99" }}</div>
+                    </div>
+                    {% empty %}
+                    <div class="order-items-row">
+                        <div>Premium Wireless Headphones</div>
+                        <div>1</div>
+                        <div>$299.99</div>
+                        <div>$299.99</div>
+                    </div>
+                    <div class="order-items-row">
+                        <div>Minimalist Desk Lamp</div>
+                        <div>2</div>
+                        <div>$79.99</div>
+                        <div>$159.98</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+
+        <section class="order-card order-summary-card">
+            <h2 class="order-card-title">Order Summary</h2>
+
+            <div class="order-summary-row">
+                <span class="order-card-label">Subtotal</span>
+                <span class="order-card-value">
+                    ${{ order.subtotal|default:"459.97" }}
+                </span>
+            </div>
+            <div class="order-summary-row">
+                <span class="order-card-label">Shipping</span>
+                <span class="order-card-value">
+                    ${{ order.shipping|default:"0.00" }}
+                </span>
+            </div>
+            <div class="order-summary-row order-summary-total">
+                <span class="order-card-label">Total</span>
+                <span class="order-card-total">
+                    ${{ order.total|default:"459.97" }}
+                </span>
+            </div>
+        </section>
+    </main>
+</section>
+{% endblock body %}
+
