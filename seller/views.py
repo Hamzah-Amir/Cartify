@@ -13,7 +13,7 @@ def dashboard(request):
             "products" : products,
             "total_products" : len(products) 
         }
-        return render(request, 'seller/dashboard.html', contextsent)
+        return render(request, 'seller/dashboard.html', context)
 
 
 def inventory(request):
