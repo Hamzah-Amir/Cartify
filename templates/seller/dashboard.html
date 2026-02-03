@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title  %}Seller Dashboard{% endblock title  %}
+{% load static %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static "seller/dashboard.css" %}">
+{% endblock extra_head %}
+
+{% block body  %}
+<section class="seller-dashboard">
+    {% include "ui/sidebar.html" %}
+
+    <main class="main-dashboard">
+        <header class="dashboard-header">
+            <div>
+                <h1 class="dashboard-title">Dashboard</h1>
+                <p class="dashboard-subtitle">
+                    Welcome back! Here's an overview of your store.
+                </p>
+            </div>
+        </header>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total Products</div>
+                <div class="stat-value">5</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Active Listings</div>
+                <div class="stat-value">4</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Pending Orders</div>
+                <div class="stat-value">1</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Completed Orders</div>
+                <div class="stat-value">1</div>
+            </div>
+        </section>
+
+        <div class="dashboard-actions">
+            <a href="#" class="btn btn-primary">Add Product</a>
+            <a href="#" class="btn btn-outline">View Orders</a>
+        </div>
+
+        <section class="recent-activity">
+            <div class="recent-header">
+                <h2>Recent Activity</h2>
+            </div>
+
+            <div class="activity-list">
+                <div class="activity-item">
+                    <div class="activity-main">
+                        <p class="activity-title">New order ORD-003 from Michael Brown</p>
+                        <p class="activity-date">2024-01-23</p>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-main">
+                        <p class="activity-title">New order ORD-002 from Sarah Johnson</p>
+                        <p class="activity-date">2024-01-22</p>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-main">
+                        <p class="activity-title">New order ORD-001 from John Smith</p>
+                        <p class="activity-date">2024-01-20</p>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-main">
+                        <p class="activity-title">Added product: Premium Wireless Headphones</p>
+                        <p class="activity-date">2024-01-15</p>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-main">
+                        <p class="activity-title">Added product: Leather Laptop Bag</p>
+                        <p class="activity-date">2024-01-14</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</section>
+{% endblock body  %}
