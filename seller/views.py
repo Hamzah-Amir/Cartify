@@ -61,3 +61,10 @@ def inventory(request):
         ]
     }
     return render(request, "seller/products.html", context)
+
+def orders(request):
+    if request.user.is_anonymous:
+        return redirect('loginUser')
+    if request.user.role != 'seller':
+        return redirect('home')
+    return render(request, 'seller/orders.html')
