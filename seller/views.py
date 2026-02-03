@@ -9,7 +9,7 @@ def dashboard(request):
     return render(request, 'seller/dashboard.html')
 
 
-def products(request):
+def inventory(request):
     if request.user.is_anonymous:
         return redirect('loginUser')
     if request.user.role != 'seller':
