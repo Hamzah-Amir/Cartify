@@ -2,7 +2,6 @@ from django.db import models
 from users.models import CustomUser
 from django.db.models import Max
 from products.models import Product
-import uuid
 
 # Create your models here.
 
@@ -25,7 +24,6 @@ class Order(models.Model):
         ('shipped', 'Shipped'),
         ('cancelled', 'Cancelled'),
     ]
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='orders')
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending_review")
