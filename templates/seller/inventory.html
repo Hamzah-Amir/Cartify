@@ -56,7 +56,7 @@
                     <div class="column-product">
                         <div class="product-info">
                             <div class="product-image-placeholder">
-                                <span>No image</span>
+                                <img class="inventory-img" src="{{ product.image.ul }}" alt="{{ product.name }}">
                             </div>
                             <div class="product-text">
                                 <div class="product-name">{{ product.name }}</div>
@@ -82,7 +82,7 @@
                     </div>
 
                     <div class="column-created">
-                        <span class="product-created">{{ product.created }}</span>
+                        <span class="product-created">{{ product.created_at }}</span>
                     </div>
 
                     <div class="column-actions">
