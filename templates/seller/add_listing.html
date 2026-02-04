@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block title %}Add Product{% endblock title %}
+{% load static %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static "seller/dashboard.css" %}">
+{% endblock extra_head %}
+
+{% block body %}
+<section class="seller-dashboard">
+    {% include "ui/sidebar.html" %}
+
+    <main class="main-dashboard">
+        <header class="dashboard-header">
+            <div>
+                <h1 class="dashboard-title">Add Product</h1>
+                <p class="dashboard-subtitle">
+                    Create a new product listing
+                </p>
+            </div>
+        </header>
+
+        <form method="post" enctype="multipart/form-data" class="add-product-form">
+            {% csrf_token %}
+
+            <section class="product-form-card">
+                <h2 class="product-form-title">Product Information</h2>
+
+                <div class="form-field">
+                    <label for="name" class="form-label">Product Name *</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        class="form-input"
+                        placeholder="Enter product name"
+                        required
+                    />
+                </div>
+
+                <div class="form-field">
+                    <label for="description" class="form-label">Description *</label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        class="form-textarea"
+                        rows="4"
+                        placeholder="Enter product description"
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="form-field">
+                    <label for="category" class="form-label">Category</label>
+                    <select
+                        id="category"
+                        name="category"
+                        class="form-input"
+                        required
+                    >
+                        <option value="" disabled selected>Select a category</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="fashion-apparel">Fashion &amp; Apparel</option>
+                        <option value="home-kitchen">Home &amp; Kitchen</option>
+                        <option value="toys-games">Toys &amp; Games</option>
+                        <option value="beauty-personal-care">Beauty &amp; Personal Care</option>
+                        <option value="sports-outdoors">Sports &amp; Outdoors</option>
+                        <option value="books-media">Books &amp; Media</option>
+                        <option value="grocery-essentials">Grocery &amp; Essentials</option>
+                        <option value="automotive">Automotive</option>
+                        <option value="misc/other">Misc / Other</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="product-form-card">
+                <h2 class="product-form-title">Pricing &amp; Stock</h2>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="price" class="form-label">Price *</label>
+                        <div class="input-with-prefix">
+                            <span class="input-prefix">$</span>
+                            <input
+                                type="number"
+                                step="0.01"
+                                min="0"
+                                id="price"
+                                name="price"
+                                class="form-input"
+                                placeholder="0.00"
+                                required
+                            />
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="stock" class="form-label">Stock Quantity *</label>
+                        <input
+                            type="number"
+                            min="0"
+                            id="stock"
+                            name="stock"
+                            class="form-input"
+                            placeholder="0"
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label for="status" class="form-label">Status</label>
+                    <select id="status" name="status" class="form-input">
+                        <option value="active" selected>Active</option>
+                        <option value="closed">Closed</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="product-form-card">
+                <h2 class="product-form-title">Product Images</h2>
+
+                <div class="form-field">
+                    <label for="image" class="form-label">Main Image *</label>
+                    <input
+                        type="file"
+                        id="image"
+                        name="image"
+                        class="form-input"
+                        accept="image/*"
+                        required
+                    />
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label">Additional Images</label>
+                    <label for="additional_images" class="image-upload-dropzone">
+                        <div class="upload-icon">⬆</div>
+                        <div class="upload-text">
+                            <div>Click to upload images</div>
+                            <div class="upload-subtext">PNG, JPG up to 10MB</div>
+                        </div>
+                        <input
+                            type="file"
+                            id="additional_images"
+                            name="additional_images"
+                            accept="image/*"
+                            multiple
+                            hidden
+                        />
+                    </label>
+                </div>
+            </section>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Create Product</button>
+                <a href="{% url 'inventory' %}" class="btn btn-outline">Cancel</a>
+            </div>
+        </form>
+    </main>
+</section>
+{% endblock body %}
+

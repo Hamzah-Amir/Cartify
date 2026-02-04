@@ -577,6 +577,133 @@
     color: #111827;
 }
 
+/* Add product / listing form */
+.add-product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.product-form-card {
+    background-color: #ffffff;
+    border-radius: 18px;
+    border: 1px solid #e5e7eb;
+    padding: 18px 20px 20px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+}
+
+.product-form-title {
+    margin: 0 0 16px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.form-label {
+    font-size: 13px;
+    color: #4b5563;
+}
+
+.form-input,
+.form-textarea,
+.form-input[type="file"],
+.input-with-prefix input {
+    border-radius: 12px;
+    border: 1px solid #d1d5db;
+    padding: 10px 12px;
+    font-size: 14px;
+    outline: none;
+    width: 100%;
+    color: #111827;
+    background-color: #ffffff;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.input-with-prefix input:focus {
+    border-color: #111827;
+    box-shadow: 0 0 0 1px #11182710;
+}
+
+.form-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.input-with-prefix {
+    display: flex;
+    align-items: center;
+    border-radius: 12px;
+    border: 1px solid #d1d5db;
+    padding-inline: 10px;
+    background-color: #ffffff;
+}
+
+.input-with-prefix .input-prefix {
+    font-size: 14px;
+    color: #6b7280;
+    margin-right: 4px;
+}
+
+.input-with-prefix input {
+    border: none;
+    padding-left: 4px;
+}
+
+.image-upload-dropzone {
+    border-radius: 16px;
+    border: 2px dashed #d1d5db;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #f9fafb;
+    gap: 8px;
+}
+
+.upload-icon {
+    font-size: 24px;
+    color: #9ca3af;
+}
+
+.upload-text {
+    text-align: center;
+    font-size: 14px;
+    color: #111827;
+}
+
+.upload-subtext {
+    font-size: 12px;
+    color: #9ca3af;
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
 @media (max-width: 1024px) {
     .stats-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
