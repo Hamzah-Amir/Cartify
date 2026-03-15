@@ -42,7 +42,7 @@
                     </span>
 
                     {% if order.status != "completed" %}
-                    <form method="post" action="{% url 'orders' %}" class="confirm-shipment-form">
+                    <form method="post" action="{% url 'confirm_shipment' %}" class="confirm-shipment-form">
                         {% csrf_token %}
                         <input type="hidden" name="order_id" value="{{ order.id }}">
                         <input type="hidden" name="action" value="confirm_shipment">

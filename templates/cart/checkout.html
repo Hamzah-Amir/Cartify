@@ -100,7 +100,7 @@
                 {% endif %}
             </div>
             </div>
-            <button type="submit" class="btn btn-primary">Place Order</button>
+            <button type="submit" class="btn btn-primary">Process Order</button>
         </form>
     </section>
     <section class="checkout-summary">
@@ -119,11 +119,6 @@
         <div class="total">
             <div>Total</div>
             <div>PKR {{total_price|add:delivery_fee }}</div>
-        </div>
-        <div class="checkout-btn">
-            {% comment %} <a href="{% url " process_checkout" %}"> {% endcomment %}
-                <button class='checkout-btn'>Proceed to Checkout</button>
-            {% comment %} </a> {% endcomment %}
         </div>
     </section>
 </section>
