@@ -144,6 +144,10 @@ def order_detail(request, order_id):
 def order_placed(request, order_id):
     if request.method == "GET":
         order = get_object_or_404(Order, id=order_id, user=request.user)
+        order_item = get_object_or_404(OrderItem, order_id=order_id, order__user=request.user)
+        product = order_item.product
+        product.stock -= order_item.quantity
+        product.save()
 
         return render(request, 'cart/order_placed.html', {"order": order})
     
