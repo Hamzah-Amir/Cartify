@@ -38,7 +38,9 @@
                 <div class="price">PKR {{item.product.price}}</div>
                 <div class="desc">{{item.product.description|truncatechars:80}}</div>
             </div>
-            <button class="cart-btn" type="submit">Add to Cart</button>
+            <a href="{% url "productDetail" item.product.id %}">
+                <button class="cart-btn" type="submit">View Product</button>
+            </a>
         </div>
         {% endfor %}
         {% else %}
