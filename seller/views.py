@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from products.models import Product, ProductImage
 from cart.models import Order
+
 
 
 def dashboard(request):
@@ -11,10 +12,17 @@ def dashboard(request):
     if request.method == "GET" and request.user.is_authenticated and request.user.role == 'seller':
         products = Product.objects.filter(seller=request.user)
         active_listing = Product.objects.filter(status="active")
+        orders = Order.objects.filter(user=request.user)
+        pending_orders = orders.filter(status="pending_review")
+        completed_orders = orders.filter(status="shipped")
+
         context = {
             "products" : products,
             "total_products" : len(products),
+            "orders": orders,
             "active_listing": len(active_listing),
+            "pending_orders": pending_orders,
+            "completed_orders": completed_orders
         }
         print(context)
         return render(request, 'seller/dashboard.html', context)

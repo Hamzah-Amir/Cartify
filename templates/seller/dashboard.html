@@ -33,12 +33,12 @@
 
             <div class="stat-card">
                 <div class="stat-label">Pending Orders</div>
-                <div class="stat-value">1</div>
+                <div class="stat-value">{{ pending_orders.count }}</div>
             </div>
 
             <div class="stat-card">
                 <div class="stat-label">Completed Orders</div>
-                <div class="stat-value">1</div>
+                <div class="stat-value">{{ completed_orders.count }}</div>
             </div>
         </section>
 
@@ -52,41 +52,15 @@
                 <h2>Recent Activity</h2>
             </div>
 
+            {% for order in orders %}
             <div class="activity-list">
                 <div class="activity-item">
                     <div class="activity-main">
-                        <p class="activity-title">New order ORD-003 from Michael Brown</p>
-                        <p class="activity-date">2024-01-23</p>
+                        <p class="activity-title">New order {{ order.order_number }} from {{ order.user.first_name }} {{ order.user.last_name }} </p>
+                        <p class="activity-date">{{ order.created_at }}</p>
                     </div>
                 </div>
-
-                <div class="activity-item">
-                    <div class="activity-main">
-                        <p class="activity-title">New order ORD-002 from Sarah Johnson</p>
-                        <p class="activity-date">2024-01-22</p>
-                    </div>
-                </div>
-
-                <div class="activity-item">
-                    <div class="activity-main">
-                        <p class="activity-title">New order ORD-001 from John Smith</p>
-                        <p class="activity-date">2024-01-20</p>
-                    </div>
-                </div>
-
-                <div class="activity-item">
-                    <div class="activity-main">
-                        <p class="activity-title">Added product: Premium Wireless Headphones</p>
-                        <p class="activity-date">2024-01-15</p>
-                    </div>
-                </div>
-
-                <div class="activity-item">
-                    <div class="activity-main">
-                        <p class="activity-title">Added product: Leather Laptop Bag</p>
-                        <p class="activity-date">2024-01-14</p>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </section>
     </main>
