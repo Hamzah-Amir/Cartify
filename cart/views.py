@@ -146,3 +146,12 @@ def order_placed(request, order_id):
         order = get_object_or_404(Order, id=order_id, user=request.user)
 
         return render(request, 'cart/order_placed.html', {"order": order})
+    
+def confirm_shipment(request):
+    order_id = request.POST.get("order_id")
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    print(order.status)
+    order.status = "shipped"
+    print(order.status)
+    order.save()
+    return redirect("dashboard")
