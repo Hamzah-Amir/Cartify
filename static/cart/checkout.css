@@ -1,81 +1,135 @@
+/* Checkout Page - Modern Redesign */
+
 .checkout-section {
     display: flex;
-    max-width: 70vw;
-    margin: auto;
+    max-width: 1200px;
+    margin: 40px auto;
+    gap: 32px;
+    padding: 0 24px;
 }
 
 .checkout-info {
     flex: 2;
     margin-right: 20px;
-    border: 2px solid gainsboro;
-    max-width: 70%;
-    padding: 20px;
-    margin: 20px;
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 32px;
+    margin: 0;
 }
 
 .checkout-info h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    font-weight: 600;
+    margin-bottom: 24px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #f8fafc;
 }
 
 .form-group {
-    margin-bottom: 8px;
+    margin-bottom: 16px;
     display: flex;
     flex-direction: column;
 }
 
 .form-group label {
-    margin-bottom: 5px;
-    font-weight: 500;
-    color: gray;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #94a3b8;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .form-group input {
-    padding: 10px;
-    border: 1px solid lightgray;
-    border-radius: 6px;
+    padding: 16px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
     font-size: 16px;
+    background: rgba(15, 23, 42, 0.8);
+    color: #f8fafc;
+    transition: all 0.3s ease;
 }
 
 .form-group input::placeholder {
-    color: lightgray;
-    font-size: 14px;
+    color: #64748b;
+}
+
+.form-group input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+    outline: none;
 }
 
 .city-state-post {
     display: flex;
-    gap: 20px;
+    gap: 16px;
 }
 
 .city-state-post input {
     margin-bottom: 8px;
     flex: 1;
-    padding: 5px;
-    border: 1px solid lightgray;
-    border-radius: 6px;
+    padding: 16px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    background: rgba(15, 23, 42, 0.8);
+    color: #f8fafc;
+    transition: all 0.3s ease;
+}
+
+.city-state-post input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+    outline: none;
 }
 
 .checkout-form button {
     width: 100%;
-    padding: 15px;
+    padding: 18px;
     border: none;
-    border-radius: 6px;
-    background-color: black;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
     color: white;
     font-size: 16px;
-    margin-top: 5px;
+    font-weight: 700;
+    margin-top: 16px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+}
+
+.checkout-form button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(99, 102, 241, 0.4);
 }
 
 .checkout-summary {
-    flex: 2;
-    margin-right: 20px;
-    border: 2px solid gainsboro;
-    max-width: 40%;
-    height: 50%;
-    padding: 20px;
-    margin: 20px;
+    flex: 1;
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 32px;
+    margin: 0;
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .checkout-section {
+        flex-direction: column;
+    }
+    
+    .checkout-info,
+    .checkout-summary {
+        width: 100%;
+    }
+    
+    .checkout-summary {
+        position: static;
+    }
 }
 
 .checkout-summary .checkout-head {

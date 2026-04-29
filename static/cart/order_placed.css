@@ -1,46 +1,51 @@
+/* Order Placed Page - Modern Redesign */
+
 .order-placed-container {
     max-width: 700px;
-    margin: 0 auto;
-    padding: 60px 30px;
-    background-color: #fff;
+    margin: 60px auto;
+    padding: 48px 32px;
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* Success Header */
 .success-header {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 48px;
 }
 
 .success-icon {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .success-icon svg {
     width: 80px;
     height: 80px;
+    filter: drop-shadow(0 8px 24px rgba(16, 185, 129, 0.4));
 }
 
 .success-title {
     font-size: 36px;
     font-weight: 700;
-    color: #222;
-    margin: 0 0 8px 0;
+    color: #f8fafc;
+    margin: 0 0 12px 0;
 }
 
 .success-subtitle {
     font-size: 16px;
-    color: #666;
+    color: #64748b;
     margin: 0;
 }
 
 /* Order Details Container */
 .order-details-container {
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
     padding: 40px;
-    background-color: #f9f9f9;
+    background: rgba(51, 65, 85, 0.3);
 }
 
 /* Order Header Info */
@@ -50,13 +55,13 @@
     gap: 30px;
     margin-bottom: 40px;
     padding-bottom: 30px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .info-item {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
 }
 
 .info-label {
