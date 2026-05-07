@@ -5,3 +5,4 @@ dj_database_url
 python-dotenv
 gunicorn
 whitenoise
+django-import-export
