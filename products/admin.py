@@ -1,4 +1,6 @@
 from django.contrib import admin
+from import_export.admin import ImportExportModelAdmin
+from import_export import resources
 from products.models import *
 
 # Register your models here.
@@ -11,7 +13,7 @@ class ProductImageInline(admin.TabularInline):
     verbose_name_plural = "Additional Product Images (Max 4)"
 
 
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(ImportExportModelAdmin):
     list_display = ('name', 'seller', 'price', 'stock', 'category', 'created_at')
     list_filter = ('category', 'created_at', 'seller')
     search_fields = ('name', 'description', 'seller__username')
@@ -36,6 +38,9 @@ class ProductAdmin(admin.ModelAdmin):
     )
     inlines = [ProductImageInline]
 
+class ProductResource(resources.ModelResource):
+    class Meta:
+        model = Product
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductImage)
