@@ -53,7 +53,7 @@ def dump_products_data():
 
         df['category'] = df['category'].apply(map_category)
 
-        df.to_csv(os.path.join(os.getcwd(), 'static', 'products', 'data', "products data.csv"), index=False)
+        df.to_csv(os.path.join(os.getcwd(), 'media', 'data', "Products.csv"), index=False)
         print("Data dumped successfully.")
     except Exception as e:
         print(f"An error occurred: {e}")
