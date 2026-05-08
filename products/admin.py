@@ -42,9 +42,9 @@ class ProductAdmin(ImportExportModelAdmin):
 
 class ProductResource(resources.ModelResource):
 
-    seller = fields.Field(attribute='seller', column_name='Seller Username', widget=ForeignKeyWidget(CustomUser, 'username'))
+    seller = fields.Field(attribute='seller', column_name='seller', widget=ForeignKeyWidget(CustomUser, 'username'))
     def before_import_row(self, row, **kwargs):
-        seller_username = row.get('Seller Username')
+        seller_username = row.get('seller')
         if seller_username:
             try:
                 seller = CustomUser.objects.get(username=seller_username)
