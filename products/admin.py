@@ -58,6 +58,8 @@ class ProductResource(resources.ModelResource):
         model = Product
         fields = ('name', 'price', 'description', 'category', 'image', 'stock', 'seller')
         export_order = ('name', 'price', 'description', 'category', 'image', 'stock', 'seller')
+        skip_unchanged = True
+        report_skipped = False
 
 ProductAdmin.resource_class = ProductResource
 
