@@ -24,6 +24,8 @@ def dump_products_data():
         for index, row in df.iterrows():
             df.at[index, 'stock'] = int(random.randint(1, 100))
         
+        df['Seller Username'] = None
+        
         # mapping category values to match the database schema choices
         def map_category(cat):
             if not isinstance(cat, str):
