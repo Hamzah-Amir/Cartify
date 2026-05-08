@@ -1,0 +1,8 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'admin/admin_custom.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% endblock %}

@@ -1,11 +1,29 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.db.models import CharField
-from django.forms import Select
+from django.forms import Select, ModelForm
 from .models import CustomUser, WishlistItem
 
+
+class CustomUserForm(ModelForm):
+    """Custom form to ensure Gender and Role fields display properly"""
+    class Meta:
+        model = CustomUser
+        fields = '__all__'
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Ensure gender field shows current value
+        if self.instance and self.instance.pk:
+            if 'gender' in self.fields:
+                self.fields['gender'].initial = self.instance.gender
+            if 'role' in self.fields:
+                self.fields['role'].initial = self.instance.role
+
+
 class CustomUserAdmin(BaseUserAdmin):
-    list_display = ('username', 'email', 'role', 'is_active', 'date_joined')
+    form = CustomUserForm
+    list_display = ('username', 'email', 'role', 'gender', 'is_active', 'date_joined')
     list_filter = ('role', 'is_active', 'date_joined', 'gender')
     search_fields = ('username', 'email', 'first_name', 'last_name', 'phone_number')
     list_per_page = 25
@@ -36,20 +54,11 @@ class CustomUserAdmin(BaseUserAdmin):
     
     add_fieldsets = (
         ('Create User', {
-            'fields': ('username', 'email', 'password1', 'password2', 'role'),
+            'fields': ('username', 'email', 'password1', 'password2', 'role', 'gender'),
         }),
     )
     
     readonly_fields = ('date_joined', 'last_login')
-    
-    # Fix dropdown display for role
-    def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
-        if 'role' in form.base_fields:
-            form.base_fields['role'].widget.attrs.update({'class': 'form-control'})
-        if 'gender' in form.base_fields:
-            form.base_fields['gender'].widget.attrs.update({'class': 'form-control'})
-        return form
 
 
 class WishlistItemAdmin(admin.ModelAdmin):
