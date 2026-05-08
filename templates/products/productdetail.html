@@ -17,12 +17,12 @@
             <!-- Product Images Section -->
             <div class="product-gallery">
                 <div class="main-image">
-                    <img src="{{product.image.url}}" alt="{{product.name}}" id="mainProductImage">
+                    <img src="{{product.image}}" alt="{{product.name}}" id="mainProductImage">
                 </div>
                 <div class="thumbnail-images">
                     <!-- Primary image -->
-                    <div class="thumbnail active" data-image="{{product.image.url}}">
-                        <img src="{{product.image.url}}" alt="{{product.name}}">
+                    <div class="thumbnail active" data-image="{{product.image}}">
+                        <img src="{{product.image}}" alt="{{product.name}}">
                     </div>
                     <!-- Additional images -->
                     {% for prod_img in product.additional_images.all %}
