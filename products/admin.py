@@ -1,6 +1,8 @@
 from django.contrib import admin
+from users.models import CustomUser
 from import_export.admin import ImportExportModelAdmin
-from import_export import resources
+from import_export import resources, fields
+from import_export.widgets import ForeignKeyWidget
 from products.models import *
 
 # Register your models here.
@@ -39,6 +41,18 @@ class ProductAdmin(ImportExportModelAdmin):
     inlines = [ProductImageInline]
 
 class ProductResource(resources.ModelResource):
+
+    seller = fields.Field(attribute='seller', column_name='Seller Username', widget=ForeignKeyWidget(CustomUser, 'username'))
+    def before_import_row(self, row, **kwargs):
+        seller_username = row.get('Seller Username')
+        if seller_username:
+            try:
+                seller = CustomUser.objects.get(username=seller_username)
+                if seller.role != "seller":
+                    raise ValueError(f"User '{seller_username} on row {row}' is not a seller.")
+            except CustomUser.DoesNotExist:
+                raise ValueError(f"User '{seller_username} on row {row}' does not exist.")
+
     class Meta:
         model = Product
 
