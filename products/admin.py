@@ -16,6 +16,7 @@ class ProductImageInline(admin.TabularInline):
 
 
 class ProductAdmin(ImportExportModelAdmin):
+    resource_class = None  # Will be set after ProductResource is defined
     list_display = ('name', 'seller', 'price', 'stock', 'category', 'created_at')
     list_filter = ('category', 'created_at', 'seller')
     search_fields = ('name', 'description', 'seller__username')
@@ -41,20 +42,24 @@ class ProductAdmin(ImportExportModelAdmin):
     inlines = [ProductImageInline]
 
 class ProductResource(resources.ModelResource):
-
     seller = fields.Field(attribute='seller', column_name='seller', widget=ForeignKeyWidget(CustomUser, 'username'))
+
     def before_import_row(self, row, **kwargs):
         seller_username = row.get('seller')
         if seller_username:
             try:
                 seller = CustomUser.objects.get(username=seller_username)
                 if seller.role != "seller":
-                    raise ValueError(f"User '{seller_username} on row {row}' is not a seller.")
+                    raise ValueError(f"User '{seller_username}' is not a seller.")
             except CustomUser.DoesNotExist:
-                raise ValueError(f"User '{seller_username} on row {row}' does not exist.")
+                raise ValueError(f"User '{seller_username}' does not exist.")
 
     class Meta:
         model = Product
+        fields = ('name', 'price', 'description', 'category', 'image', 'stock', 'seller')
+        export_order = ('name', 'price', 'description', 'category', 'image', 'stock', 'seller')
+
+ProductAdmin.resource_class = ProductResource
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductImage)
