@@ -58,6 +58,7 @@ class ProductResource(resources.ModelResource):
         model = Product
         fields = ('name', 'price', 'description', 'category', 'image', 'stock', 'seller')
         export_order = ('name', 'price', 'description', 'category', 'image', 'stock', 'seller')
+        import_id_fields = ()  # No unique field for matching on import
         skip_unchanged = True
         report_skipped = False
 
