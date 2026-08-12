@@ -58,10 +58,10 @@
             <h2 class="section-title">Order Items</h2>
             
             <div class="order-items">
-                {% for item in order_items %}
+                {% for item in order.items.all %}
                 <div class="order-item-row">
                     <div class="item-image">
-                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                        <img src="{{ item.product.image }}" alt="{{ item.product.name }}">
                     </div>
                     <div class="item-details">
                         <h3 class="item-name">{{ item.product.name }}</h3>

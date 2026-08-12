@@ -56,7 +56,7 @@
                     <div class="column-product">
                         <div class="product-info">
                             <div class="product-image-placeholder">
-                                <img class="inventory-img" src="{{ product.image.ul }}" alt="{{ product.name }}">
+                                <img class="inventory-img" src="{{ product.image }}" alt="{{ product.name }}">
                             </div>
                             <div class="product-text">
                                 <div class="product-name">{{ product.name }}</div>
@@ -66,7 +66,7 @@
                     </div>
 
                     <div class="column-price">
-                        <span class="product-price">{{ product.price }}</span>
+                        <span class="product-price">PKR {{ product.price }}</span>
                     </div>
 
                     <div class="column-stock">
@@ -82,15 +82,15 @@
                     </div>
 
                     <div class="column-created">
-                        <span class="product-created">{{ product.created_at }}</span>
+                        <span class="product-created">{{ product.created_at|date:"d M Y" }}</span>
                     </div>
 
                     <div class="column-actions">
-                        <button class="icon-button" title="View">👁</button>
-                        <button class="icon-button" title="Edit">✏️</button>
-                        <button class="icon-button icon-danger" title="Delete">🗑</button>
+                        <a href="{% url 'productDetail' product.id %}" class="icon-button" title="View">👁</a>
                     </div>
                 </div>
+                {% empty %}
+                <p class="empty-text">No products yet. Add your first product to get started.</p>
                 {% endfor %}
             </div>
         </section>

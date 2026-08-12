@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %}My Wishlist - Cartify{% endblock title %}
+
 {% load static %}
 
 {% block extra_head %}
@@ -22,25 +24,27 @@
     <div class="product-container">
         {% if wishlist %}
         {% for item in wishlist %}
-        <div class="product-card">
+        <div class="product-card" data-name="{{ item.product.name|lower }}">
             <div class="product-img-wrapper">
                 <div class="product-img">
-                    <img src="{{item.product.image.url}}" alt="{{item.product.name}}">
+                    <img src="{{ item.product.image }}" alt="{{ item.product.name }}">
                 </div>
-                <button class="wishlist-remove-btn" title="Remove from wishlist">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                    </svg>
-                </button>
+                <form action="{% url 'wishlist' %}" method="post" class="wishlist-remove-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ item.product.id }}">
+                    <button class="wishlist-remove-btn" type="submit" title="Remove from wishlist">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </button>
+                </form>
             </div>
             <div class="product-info">
                 <div class="title">{{item.product.name}}</div>
                 <div class="price">PKR {{item.product.price}}</div>
                 <div class="desc">{{item.product.description|truncatechars:80}}</div>
             </div>
-            <a href="{% url "productDetail" item.product.id %}">
-                <button class="cart-btn" type="submit">View Product</button>
-            </a>
+            <a href="{% url "productDetail" item.product.id %}" class="cart-btn">View Product</a>
         </div>
         {% endfor %}
         {% else %}
@@ -48,4 +52,21 @@
         {% endif %}
     </div>
 </div>
+
+<script>
+    // Simple search that hides the cards that do not match
+    const searchBox = document.getElementById('wishlistSearch');
+
+    searchBox.addEventListener('keyup', () => {
+        const text = searchBox.value.toLowerCase();
+
+        document.querySelectorAll('.product-card').forEach(card => {
+            if (card.dataset.name.includes(text)) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+</script>
 {% endblock body %}

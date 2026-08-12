@@ -1,6 +1,4 @@
 from django.contrib import admin
-from django.db.models import CharField
-from django.forms import Select
 from users.models import CustomUser
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources, fields
@@ -47,20 +45,6 @@ class ProductAdmin(ImportExportModelAdmin):
     
     readonly_fields = ('id', 'created_at')
     inlines = [ProductImageInline]
-    
-    # Fix dropdown display issue
-    formfield_overrides = {
-        CharField: {'widget': Select},
-    }
-    
-    def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
-        # Ensure category and status dropdowns display selected values
-        if 'category' in form.base_fields:
-            form.base_fields['category'].widget.attrs.update({'class': 'form-control'})
-        if 'status' in form.base_fields:
-            form.base_fields['status'].widget.attrs.update({'class': 'form-control'})
-        return form
 
 
 class ProductResource(resources.ModelResource):

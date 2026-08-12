@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Checkout{% endblock title %}
+{% block title %}Confirm Order{% endblock title %}
 
 {% load static %}
 
@@ -11,81 +11,61 @@
 {% block body %}
 <div class="checkout-container">
     <h1 class="checkout-heading">Checkout</h1>
-        </div>
-    </form>
 
-        <!-- Order Summary Section -->
-        <div class="order-summary-section">
-            <h2 class="summary-title">Order Summary</h2>
-            
-            {% if orders %}
-                {% for order in orders %}
-                <div class="order-group">
-                    <div class="seller-info">
-                        <span class="seller-label">Sold by:</span>
-                        <span class="seller-name">{{ order.seller }}</span>
+    <div class="order-summary-section">
+        <h2 class="summary-title">Order Summary</h2>
+
+        {% if orders %}
+        {% for order in orders %}
+        <div class="order-group">
+            <div class="seller-info">
+                <span class="seller-label">Sold by:</span>
+                <span class="seller-name">{{ order.seller }}</span>
+            </div>
+
+            <div class="summary-items">
+                {% for item in order.pending_cart_items %}
+                <div class="summary-item">
+                    <div class="item-details">
+                        <span class="item-name">{{ item.product.name }}</span>
+                        <span class="item-qty">x{{ item.quantity }}</span>
                     </div>
-
-                    <div class="summary-items">
-                        {% for item in order.pending_cart_items %}
-                        <div class="summary-item">
-                            <div class="item-details">
-                                <span class="item-name">{{ item.product.name }}</span>
-                                <span class="item-qty">x{{ item.quantity }}</span>
-                            </div>
-                            <span class="item-price">PKR {{ item.product.price }}</span>
-                        </div>
-                        {% endfor %}
-                    </div>
-
-                    <div class="summary-divider"></div>
-
-                    <div class="summary-row">
-                        <span>Subtotal</span>
-                        <span class="summary-value">PKR {{ order.total_price }}</span>
-                    </div>
-
-                    <div class="summary-row">
-                        <span>Delivery Fee</span>
-                        <span class="summary-value">PKR {{ order.delivery_fee }}</span>
-                    </div>
-
-                    <div class="summary-divider"></div>
-
-                    <div class="summary-total">
-                        <span>Total</span>
-                        <span class="total-amount">PKR {{ order.total_price|add:order.delivery_fee }}</span>
-                    </div>
+                    <span class="item-price">PKR {{ item.product.price }}</span>
                 </div>
                 {% endfor %}
-            {% else %}
-                <div class="summary-item">
-                    <span class="item-name">No orders</span>
-                </div>
-            {% endif %}
-            <!-- Actions (moved below summary) -->
+            </div>
+
+            <div class="summary-divider"></div>
+
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span class="summary-value">PKR {{ order.total_price }}</span>
+            </div>
+
+            <div class="summary-row">
+                <span>Delivery Fee</span>
+                <span class="summary-value">PKR {{ order.delivery_fee }}</span>
+            </div>
+
+            <div class="summary-divider"></div>
+
+            <div class="summary-total">
+                <span>Total</span>
+                <span class="total-amount">PKR {{ order.total_price|add:order.delivery_fee }}</span>
+            </div>
+
             <div class="order-actions">
-                <a href="{% url 'checkout' %}" class="btn btn-back">Back</a>
-                {% if orders %}
-                <div class="btn-group">
-                    {% for order in orders %}
-                    <a href="{% url 'order_detail' order.id %}" class="btn btn-review">Review Order →</a>
-                    {% endfor %}
-                </div>
-                {% endif %}
+                <a href="{% url 'cart' %}" class="btn btn-outline">Back</a>
+                <a href="{% url 'order_detail' order.id %}" class="btn btn-primary">Review Order →</a>
             </div>
         </div>
-
-
+        {% endfor %}
+        {% else %}
+        <div class="empty-orders">
+            <p>No orders to review.</p>
+            <a href="{% url 'home' %}" class="btn btn-primary">Back to Shopping</a>
+        </div>
+        {% endif %}
     </div>
 </div>
-
-<script>
-    // Handle payment method selection
-    document.querySelectorAll('input[name="payment_method"]').forEach(radio => {
-        radio.addEventListener('change', function() {
-            console.log('Selected payment method:', this.value);
-        });
-    });
-</script>
 {% endblock body %}

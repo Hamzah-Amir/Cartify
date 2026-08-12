@@ -1,49 +1,100 @@
-.container {
-    width: 100%;
-    max-width: 400px;
-    margin: 100px auto;
-    padding: 20px;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
+/* Role selection page (buyer or seller) */
 
-.tagline {
+.container {
+    max-width: 520px;
+    margin: 40px auto;
+    padding: 0 20px;
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 18px;
-    color: #333;
 }
 
 .logo {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--blue);
+}
+
+.logo .img img {
+    width: 30px;
+    height: 30px;
+}
+
+.tagline {
     margin-bottom: 20px;
+    color: var(--muted);
+    font-size: 14px;
 }
 
 .role-selection {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
 }
 
-.role-option {
-    text-align: center;
+.role-option input {
+    display: none;
+}
+
+.role-option label {
+    display: block;
+    margin: 0;
+    padding: 22px 14px;
+    background-color: var(--white);
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
     cursor: pointer;
-    padding: 10px;
-    border: 2px solid transparent;
-    border-radius: 5px;
-    transition: border-color 0.3s;
+}
+
+.role-option label:hover {
+    border-color: var(--blue);
+}
+
+/* highlight the selected card */
+.role-option input:checked + label {
+    border-color: var(--blue);
+    background-color: var(--blue-light);
+}
+
+.role-icon {
+    display: block;
+    font-size: 28px;
+}
+
+.role-name {
+    display: block;
+    margin-top: 6px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.role-desc {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: normal;
 }
 
 .continue-button {
-    display: block;
     width: 100%;
-    padding: 10px;
-    margin-top: 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+    margin-top: 18px;
+    padding: 11px;
+    background-color: var(--blue);
+    border-radius: var(--radius);
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.continue-button:hover {
+    background-color: var(--blue-dark);
+}
+
+@media (max-width: 480px) {
+    .role-selection {
+        grid-template-columns: 1fr;
+    }
 }

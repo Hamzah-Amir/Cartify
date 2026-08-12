@@ -50,7 +50,7 @@
             </div>
 
             <div class="product-price-stock">
-                <span class="product-price">${{ product.price|floatformat:2 }}</span>
+                <span class="product-price">PKR {{ product.price|floatformat:2 }}</span>
                 <span class="product-stock {% if product.stock > 0 %}in-stock{% else %}out-of-stock{% endif %}">
                     {% if product.stock > 0 %}In Stock ({{ product.stock }} available){% else %}Out of Stock{% endif %}
                 </span>
@@ -92,16 +92,6 @@
                     <h3>Secure Payment</h3>
                     <p>100% protected checkout with multiple payment options.</p>
                 </div>
-            </div>
-
-            <div class="product-tabs">
-                <button type="button" class="tab active">Details</button>
-                <button type="button" class="tab">Specifications</button>
-                <button type="button" class="tab">Shipping Info</button>
-            </div>
-
-            <div class="tab-content">
-                <p>{{ product.description }}</p>
             </div>
 
             <div class="reviews-section">

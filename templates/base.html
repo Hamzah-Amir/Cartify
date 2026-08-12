@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock title %}</title>
+    <title>{% block title %}Cartify{% endblock title %}</title>
     {% load static %}
-    <link rel="stylesheet" href={% static "base.css" %}>
+    <link rel="stylesheet" href="{% static 'base.css' %}">
     {% block extra_head %}{% endblock extra_head %}
 </head>
 <body>
@@ -30,33 +30,41 @@
             {% else %}
             <!-- Right Navigation - Logged In State -->
             <div class="navbar-right navbar-user">
-                <a href="{% url "profile" %}" class="nav-link profile-link">
+                <a href="{% url 'profile' %}" class="nav-link profile-link">
                     <span class="icon">👤</span>
                     Profile
                 </a>
-                <a href="{% url "wishlist" %}" class="nav-link wishlist-link">
+                <a href="{% url 'wishlist' %}" class="nav-link wishlist-link">
                     <span class="icon">❤</span>
                     Wishlist
                     {% if wishlist_count %}
                     <span class="badge">{{ wishlist_count }}</span>
                     {% endif %}
                 </a>
-                <a href="{% url "cart" %}" class="nav-link cart-link">
+                <a href="{% url 'cart' %}" class="nav-link cart-link">
                     <span class="icon">🛒</span>
                     Cart
                     {% if cart_count %}
                     <span class="badge">{{ cart_count }}</span>
                     {% endif %}
                 </a>
-                <a href="{% url "dashboard" %}">
+                {% if user.role == 'seller' %}
+                <a href="{% url 'dashboard' %}">
                     <button class="toggle-seller">Switch to Selling</button>
                 </a>
+                {% endif %}
+                <a href="{% url 'logout' %}" class="nav-link">Logout</a>
             </div>
             {% endif %}
         </nav>
     </header>
+
     <main>
         {% block body %}{% endblock body %}
     </main>
+
+    <footer class="site-footer">
+        <p>© 2026 Cartify. Buy smart. Sell faster.</p>
+    </footer>
 </body>
 </html>

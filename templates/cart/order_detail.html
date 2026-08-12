@@ -31,14 +31,13 @@
                     <p class="info-text">{{ order.user.city }}, {{ order.user.state|default:"" }} {{ order.user.postal_code|default:"" }}</p>
                     <p class="info-text">{{ order.user.phone_number }}</p>
                 </div>
-                <a href="#" class="edit-link">Edit</a>
+                <a href="{% url 'profile' %}" class="edit-link">Edit</a>
             </div>
 
             <!-- Payment Method -->
             <div class="info-section">
                 <h2 class="section-title">Payment Method</h2>
-                <p class="payment-method-text">Credit / Debit Card (Stripe)</p>
-                <a href="#" class="edit-link">Edit</a>
+                <p class="payment-method-text">{{ order.get_payment_method_display }}</p>
             </div>
 
             <!-- Order Items -->
@@ -49,7 +48,7 @@
                     {% for item in order_items %}
                     <div class="order-item">
                         <div class="item-image">
-                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                            <img src="{{ item.product.image }}" alt="{{ item.product.name }}">
                         </div>
                         <div class="item-info">
                             <h3 class="item-title">{{ item.product.name }}</h3>
@@ -64,9 +63,7 @@
             <!-- Action Buttons -->
             <div class="action-buttons">
                 <a href="{% url 'checkout' %}" class="btn-back">Back</a>
-                <a href="{% url "order_placed" order.id %}">
-                    <button class="btn-place-order">Place Order</button>
-                </a>
+                <a href="{% url 'order_placed' order.id %}" class="btn-place-order">Place Order</a>
             </div>
         </div>
 

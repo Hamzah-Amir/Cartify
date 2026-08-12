@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}role - Cartify{% endblock title %}
+{% block title %}Choose Role - Cartify{% endblock title %}
 
 {% load static %}
 {% block extra_head %}
@@ -16,17 +16,27 @@
         <span>Cartify</span>
     </div>
     <div class="tagline">Choose Your Role</div>
+
     <form action="{% url "registerUser" %}" method="get">
         <div class="role-selection">
             <div class="role-option">
                 <input type="radio" id="buyer" name="role" value="buyer" required>
-                <label for="buyer">Buyer</label>
+                <label for="buyer">
+                    <span class="role-icon">🛍</span>
+                    <span class="role-name">Buyer</span>
+                    <span class="role-desc">Browse and buy products</span>
+                </label>
             </div>
             <div class="role-option">
                 <input type="radio" id="seller" name="role" value="seller" required>
-                <label for="seller">Seller</label>
+                <label for="seller">
+                    <span class="role-icon">🏪</span>
+                    <span class="role-name">Seller</span>
+                    <span class="role-desc">List and sell your products</span>
+                </label>
             </div>
         </div>
         <button type="submit" class="continue-button">Continue</button>
     </form>
+</div>
 {% endblock body  %}

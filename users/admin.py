@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.db.models import CharField
-from django.forms import Select, ModelForm
+from django.forms import ModelForm
 from .models import CustomUser, WishlistItem
 
 

@@ -63,20 +63,22 @@
 
 
                     <div>
-                        <span class="product-price">{{ order.total_price }}</span>
+                        <span class="product-price">PKR {{ order.total_price }}</span>
                     </div>
 
                     <div>
-                        <span class="product-created">{{ order.created_at }}</span>
+                        <span class="product-created">{{ order.created_at|date:"d M Y" }}</span>
                     </div>
 
                     <div>
                         <span class="status-pill status-{{ order.status }}">
-                            {{ order.status }}
+                            {{ order.get_status_display }}
                         </span>
                     </div>
                 </div>
                 </a>
+                {% empty %}
+                <p class="empty-text">No orders yet.</p>
                 {% endfor %}
             </div>
         </section>

@@ -5,7 +5,6 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static "cart/checkout.css" %}">
-{% comment %} <link rel="stylesheet" href="{% static "cart/process_checkout.css" %}"> {% endcomment %}
 {% endblock extra_head %}
 
 {% block body %}
@@ -30,30 +29,29 @@
                 <input type="text" id="shipping_address" name="shipping_address" required value="{{ user.address }}">
             </div>
 
-            <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required value="{{ user.email }}">
-            </div>
             <div class="city-state-post">
-                <div>
+                <div class="form-group">
                     <label for="city">City</label>
                     <input type="text" id="city" name="city" required value="{{ user.city }}">
                 </div>
 
-                <div>
+                <div class="form-group">
                     <label for="state">State</label>
                     <input type="text" id="state" name="state" required value="{{ user.state }}">
                 </div>
 
-                <div>
+                <div class="form-group">
                     <label for="post_code">Post Code</label>
                     <input type="number" id="post_code" name="post_code" value="{{ user.postal_code }}" required>
                 </div>
             </div>
+
             <div class="form-group">
                 <label for="phone_number">Phone Number</label>
                 <input type="tel" id="phone_number" name="phone_number" required value="{{ user.phone_number }}">
             </div>
+
+            <h2>Payment Method</h2>
             <div class="payment-options">
                 <!-- Credit/Debit Card -->
                 <label class="payment-option">
@@ -90,19 +88,12 @@
             </div>
 
             <div class="checkout-actions">
-                <a href="{% url 'checkout' %}" class="btn-back">Back</a>
-                {% if orders %}
-                {% for order in orders %}
-                <a href="{% url " order_detail" order.id %}">
-                    <button class="btn-review">Review Order →</button>
-                </a>
-                {% endfor %}
-                {% endif %}
+                <a href="{% url 'cart' %}" class="btn btn-outline">Back to Cart</a>
+                <button type="submit" class="btn btn-primary">Process Order</button>
             </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Process Order</button>
         </form>
     </section>
+
     <section class="checkout-summary">
         <div class="checkout-head">
             Order Summary

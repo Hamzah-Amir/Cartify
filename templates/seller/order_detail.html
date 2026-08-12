@@ -6,14 +6,6 @@
 <link rel="stylesheet" href="{% static "seller/dashboard.css" %}">
 {% endblock extra_head %}
 
-{# Sample context keys (replace with your real context in the view):
-   order: {
-     order_number, status, created_at, user: { username, email },
-     items: [{ product_name, quantity, price, subtotal }],
-     subtotal, shipping, total
-   }
-#}
-
 {% block body %}
 <section class="seller-dashboard">
     {% include "ui/sidebar.html" %}
@@ -21,27 +13,27 @@
     <main class="main-dashboard">
         <div class="order-detail-header">
             <div class="order-detail-back">
-                <button class="btn btn-outline order-back-btn">
+                <a href="{% url 'orders' %}" class="btn btn-outline order-back-btn">
                     ← Back to Orders
-                </button>
+                </a>
             </div>
 
             <div class="order-detail-title-row">
                 <div>
                     <h1 class="dashboard-title">
-                        Order {{ order.order_number|default:"ORD-00001" }}
+                        Order {{ order.order_number }}
                     </h1>
                     <p class="dashboard-subtitle">
-                        Order placed on {{ order.created_at|date:"Y-m-d"|default:"2024-01-20" }}
+                        Order placed on {{ order.created_at|date:"d M Y" }}
                     </p>
                 </div>
 
                 <div class="order-detail-actions">
-                    <span class="status-pill status-completed order-detail-status-pill">
-                        {{ order.status|default:"completed" }}
+                    <span class="status-pill status-{{ order.status }} order-detail-status-pill">
+                        {{ order.get_status_display }}
                     </span>
 
-                    {% if order.status != "completed" %}
+                    {% if order.status != "shipped" %}
                     <form method="post" action="{% url 'confirm_shipment' %}" class="confirm-shipment-form">
                         {% csrf_token %}
                         <input type="hidden" name="order_id" value="{{ order.id }}">
@@ -62,23 +54,23 @@
                 <div class="order-card-row">
                     <div>
                         <div class="order-card-label">Order ID</div>
-                        <div class="order-card-value">
-                            {{ order.order_number|default:"ORD-00001" }}
-                        </div>
+                        <div class="order-card-value">{{ order.order_number }}</div>
                     </div>
                     <div>
                         <div class="order-card-label">Order Date</div>
-                        <div class="order-card-value">
-                            {{ order.created_at|date:"Y-m-d"|default:"2024-01-20" }}
-                        </div>
+                        <div class="order-card-value">{{ order.created_at|date:"d M Y" }}</div>
                     </div>
                 </div>
 
                 <div class="order-card-row">
                     <div>
+                        <div class="order-card-label">Payment Method</div>
+                        <div class="order-card-value">{{ order.get_payment_method_display }}</div>
+                    </div>
+                    <div>
                         <div class="order-card-label">Status</div>
-                        <span class="status-pill status-completed">
-                            {{ order.status|default:"completed" }}
+                        <span class="status-pill status-{{ order.status }}">
+                            {{ order.get_status_display }}
                         </span>
                     </div>
                 </div>
@@ -90,17 +82,22 @@
                 <div class="order-card-row">
                     <div>
                         <div class="order-card-label">Name</div>
-                        <div class="order-card-value">
-                            {{ order.user.username|default:"John Smith" }}
-                        </div>
+                        <div class="order-card-value">{{ order.user.username }}</div>
                     </div>
                 </div>
 
                 <div class="order-card-row">
                     <div>
                         <div class="order-card-label">Email</div>
+                        <div class="order-card-value">{{ order.user.email }}</div>
+                    </div>
+                </div>
+
+                <div class="order-card-row">
+                    <div>
+                        <div class="order-card-label">Address</div>
                         <div class="order-card-value">
-                            {{ order.user.email|default:"john.smith@email.com" }}
+                            {{ order.user.address }}, {{ order.user.city }}
                         </div>
                     </div>
                 </div>
@@ -114,31 +111,18 @@
                 <div class="order-items-header">
                     <div>Product</div>
                     <div>Quantity</div>
-                    <div>Price</div>
-                    <div>Subtotal</div>
+                    <div>Unit Price</div>
                 </div>
 
                 <div class="order-items-rows">
                     {% for item in order.items.all %}
                     <div class="order-items-row">
-                        <div>{{ item.product_name|default:item.product.name }}</div>
-                        <div>{{ item.quantity|default:1 }}</div>
-                        <div>${{ item.price|default:"299.99" }}</div>
-                        <div>${{ item.subtotal|default:"299.99" }}</div>
+                        <div>{{ item.product.name }}</div>
+                        <div>{{ item.quantity }}</div>
+                        <div>PKR {{ item.price }}</div>
                     </div>
                     {% empty %}
-                    <div class="order-items-row">
-                        <div>Premium Wireless Headphones</div>
-                        <div>1</div>
-                        <div>$299.99</div>
-                        <div>$299.99</div>
-                    </div>
-                    <div class="order-items-row">
-                        <div>Minimalist Desk Lamp</div>
-                        <div>2</div>
-                        <div>$79.99</div>
-                        <div>$159.98</div>
-                    </div>
+                    <p class="empty-text">No items in this order.</p>
                     {% endfor %}
                 </div>
             </div>
@@ -149,24 +133,17 @@
 
             <div class="order-summary-row">
                 <span class="order-card-label">Subtotal</span>
-                <span class="order-card-value">
-                    ${{ order.subtotal|default:"459.97" }}
-                </span>
+                <span class="order-card-value">PKR {{ order.total_price }}</span>
             </div>
             <div class="order-summary-row">
-                <span class="order-card-label">Shipping</span>
-                <span class="order-card-value">
-                    ${{ order.shipping|default:"0.00" }}
-                </span>
+                <span class="order-card-label">Delivery Fee</span>
+                <span class="order-card-value">PKR {{ order.delivery_fee }}</span>
             </div>
             <div class="order-summary-row order-summary-total">
                 <span class="order-card-label">Total</span>
-                <span class="order-card-total">
-                    ${{ order.total|default:"459.97" }}
-                </span>
+                <span class="order-card-total">PKR {{ order.total_price|add:order.delivery_fee }}</span>
             </div>
         </section>
     </main>
 </section>
 {% endblock body %}
-

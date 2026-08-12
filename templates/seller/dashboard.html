@@ -52,14 +52,16 @@
                 <h2>Recent Activity</h2>
             </div>
 
-            {% for order in orders %}
             <div class="activity-list">
+                {% for order in orders %}
                 <div class="activity-item">
                     <div class="activity-main">
-                        <p class="activity-title">New order {{ order.order_number }} from {{ order.user.first_name }} {{ order.user.last_name }} </p>
-                        <p class="activity-date">{{ order.created_at }}</p>
+                        <p class="activity-title">New order {{ order.order_number }} from {{ order.user.first_name }} {{ order.user.last_name }}</p>
+                        <p class="activity-date">{{ order.created_at|date:"d M Y, H:i" }}</p>
                     </div>
                 </div>
+                {% empty %}
+                <p class="empty-text">No recent activity yet.</p>
                 {% endfor %}
             </div>
         </section>
