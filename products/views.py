@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from products.models import Product
+from products.models import Product, CATEGORY
 from users.models import WishlistItem
 from django.db.models import Q
 from django.core.paginator import Paginator
@@ -23,10 +23,12 @@ def home(request):
             )
         
         # Apply category filter if category is specified and valid
-        if category == 'grocery-essentials' or category == 'toys-games' or category == 'automotive' or category == 'electronics' or category == 'fashion-apparel' or category == 'home-kitchen' or category == 'beauty-personal-care' or category == 'sports-outdoor' or category == 'books-media' or category == 'misc/other':
+        valid_categories = [slug for slug, _ in CATEGORY]
+        if category in valid_categories:
             products = products.filter(category=category)
-        
-        # Pagination
+
+        # Pagination (ordered so pages stay stable for crawlers)
+        products = products.order_by('-created_at')
         paginator = Paginator(products, 24)  # Show 24 products per page
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)

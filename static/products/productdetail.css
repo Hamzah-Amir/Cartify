@@ -10,21 +10,41 @@
     margin-bottom: 18px;
 }
 
-.back-link {
-    display: inline-block;
-    padding: 8px 14px;
+/* Home / Category / Product trail */
+.breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
     background-color: var(--white);
     border: 1px solid var(--border);
     border-radius: 999px;
     box-shadow: var(--shadow-sm);
     font-size: 13.5px;
+    color: var(--muted);
+}
+
+.breadcrumb a {
     font-weight: 600;
     color: var(--muted);
 }
 
-.back-link:hover {
-    border-color: var(--blue);
+.breadcrumb a:hover {
     color: var(--blue);
+}
+
+.breadcrumb span[aria-hidden] {
+    color: #c3c9d6;
+}
+
+.breadcrumb-current {
+    max-width: 320px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--text);
+    font-weight: 600;
 }
 
 .product-detail-grid {
