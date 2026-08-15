@@ -10,7 +10,7 @@ class Product(models.Model):
     seller = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE, related_name='products')
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     name = models.CharField(max_length=200)
-    image = models.URLField(max_length=500)
+    image = models.ImageField(upload_to='products/', max_length=500)
     description = models.TextField()
     category = models.CharField(max_length=100, null=False, choices=CATEGORY)
     status = models.CharField(max_length=15, null=False, choices=STATUS, default="active")
@@ -24,7 +24,7 @@ class Product(models.Model):
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='additional_images')
-    image = models.URLField(max_length=500)
+    image = models.ImageField(upload_to='products/', max_length=500)
     created_at = models.DateTimeField(auto_now_add=True)
     
     class Meta:

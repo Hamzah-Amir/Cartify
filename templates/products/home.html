@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load static seo_extras %}
+{% load static seo_extras media_extras %}
 
 {% comment %}
 Titles change with the filter that is applied so every category page has its
@@ -73,7 +73,7 @@ own unique title / description instead of all of them looking the same.
 {% block body %}
 <section class='overview'>
     <div class='head'>
-        <span class="hero-tag">🎉 New arrivals every week</span>
+        <span class="hero-tag"><span class="icon icon-sparkle icon-sm"></span> New arrivals every week</span>
         <h1 class="heading">
             {% if search_query %}
             Search results for “{{ search_query }}”
@@ -97,7 +97,7 @@ own unique title / description instead of all of them looking the same.
                 {% if category %}
                 <input type="hidden" name="category" value="{{ category }}">
                 {% endif %}
-                <span class="search-icon">🔍</span>
+                <span class="search-icon icon icon-search"></span>
                 <input type="search" name="search" id="search" placeholder="Search products"
                     value="{{ search_query|default_if_none:'' }}">
                 <button type="submit" class="search-btn">Search</button>
@@ -105,9 +105,9 @@ own unique title / description instead of all of them looking the same.
         </div>
 
         <div class="hero-points">
-            <span>🚚 Fast delivery</span>
-            <span>🔒 Secure checkout</span>
-            <span>↩ Easy returns</span>
+            <span><span class="icon icon-truck icon-sm"></span> Fast delivery</span>
+            <span><span class="icon icon-lock icon-sm"></span> Secure checkout</span>
+            <span><span class="icon icon-refresh icon-sm"></span> Easy returns</span>
         </div>
     </div>
 </section>
@@ -193,7 +193,7 @@ own unique title / description instead of all of them looking the same.
         </div>
 
         {% if search_query %}
-        <a href="{% url 'home' %}" class="clear-filter">Clear search “{{ search_query }}” ✕</a>
+        <a href="{% url 'home' %}" class="clear-filter">Clear search “{{ search_query }}” <span class="icon icon-close icon-sm"></span></a>
         {% endif %}
     </div>
 
@@ -204,7 +204,7 @@ own unique title / description instead of all of them looking the same.
         <article class="product-card">
             <div class="product-img-wrapper">
                 <a href="{% url "productDetail" product.id %}" class="product-link" tabindex="-1" aria-hidden="true">
-                    <img src="{{ product.image }}"
+                    <img src="{{ product.image|image_url }}"
                         alt="{{ product.name }} — {{ product.get_category_display }} on Cartify"
                         width="300" height="195"
                         {% if forloop.counter > 4 %}loading="lazy"{% else %}fetchpriority="high"{% endif %}
@@ -219,7 +219,7 @@ own unique title / description instead of all of them looking the same.
                 <h2 class="title">
                     <a href="{% url "productDetail" product.id %}">{{ product.name }}</a>
                 </h2>
-                <div class="rating" aria-label="Rated 4.7 out of 5">★★★★★ <span>(4.7)</span></div>
+                <div class="rating" aria-label="Rated 4.7 out of 5"><span class="icon icon-star icon-sm"></span><span class="icon icon-star icon-sm"></span><span class="icon icon-star icon-sm"></span><span class="icon icon-star icon-sm"></span><span class="icon icon-star icon-sm"></span> <span>(4.7)</span></div>
                 <div class="price">PKR {{product.price}}</div>
                 <p class="desc">{{product.description|truncatechars:80}}</p>
             </div>
@@ -230,7 +230,7 @@ own unique title / description instead of all of them looking the same.
         {% endfor %}
         {% else %}
         <div class="no-products">
-            <div class="no-products-icon">📦</div>
+            <div class="no-products-icon"><span class="icon icon-box icon-xl"></span></div>
             <h3>No products found</h3>
             <p>Try another category or a different search term.</p>
             <a href="{% url 'home' %}" class="btn btn-primary">Browse all products</a>

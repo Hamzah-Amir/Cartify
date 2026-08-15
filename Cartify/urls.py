@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
+from django.views.static import serve
 
 from products.sitemaps import CategorySitemap, ProductSitemap, StaticViewSitemap
 
@@ -39,8 +40,21 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('seller/', include('seller.urls')),
     path('cart/', include('cart.urls')),
-]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
 
-# Serving Media Files during development
+# Serving uploaded media files.
+#
+# django.conf.urls.static.static() returns an EMPTY list when DEBUG is False,
+# so it only ever worked in development - which is why product images 404'd in
+# production. WhiteNoise does not serve MEDIA_ROOT either (it is for static
+# files only), so we add an explicit route.
+#
+# Django's serve() view is not built for high traffic. It is fine for a small
+# portfolio site; put the media directory behind nginx or a CDN before this
+# gets real traffic.
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    urlpatterns += [
+        re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    ]

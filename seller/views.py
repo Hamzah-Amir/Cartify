@@ -81,20 +81,24 @@ def add_listing(request):
         category = request.POST.get('category')
         price = request.POST.get('price')
         stock = request.POST.get('stock')
+        status = request.POST.get('status', 'active')
+
         image = request.FILES.get('image')
         additional_images = request.FILES.getlist('additional_images')
+
         product = Product.objects.create(
             name=name,
             description=description,
             category=category,
             price=price,
             stock=stock,
+            status=status,
             image=image,
             seller=request.user,
         )
-        for additional_image in additional_images:
+        for additional_image in additional_images[:4]:
             ProductImage.objects.create(
                 product=product,
                 image=additional_image,
             )
-        return redirect('dashboard')
+        return redirect('inventory')
