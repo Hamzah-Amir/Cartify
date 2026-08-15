@@ -1,28 +1,28 @@
 <aside class="sidebar">
     <div class="sidebar-logo">
-        <span class="logo-icon">🛒</span>
+        <span class="logo-icon"><span class="icon icon-cart"></span></span>
         <span class="logo-text">Cartify</span>
     </div>
 
     <nav class="sidebar-nav">
         <a href="{% url 'dashboard' %}" class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
-            <span class="nav-icon">▢</span>
+            <span class="nav-icon icon icon-grid"></span>
             <span class="nav-text">Dashboard</span>
         </a>
         <a href="{% url 'inventory' %}" class="nav-link {% if request.resolver_match.url_name == 'inventory' %}active{% endif %}">
-            <span class="nav-icon">📦</span>
+            <span class="nav-icon icon icon-box"></span>
             <span class="nav-text">Inventory</span>
         </a>
         <a href="{% url 'orders' %}" class="nav-link {% if request.resolver_match.url_name == 'orders' %}active{% endif %}">
-            <span class="nav-icon">🧾</span>
+            <span class="nav-icon icon icon-receipt"></span>
             <span class="nav-text">Orders</span>
         </a>
         <a href="{% url 'add_listing' %}" class="nav-link {% if request.resolver_match.url_name == 'add_listing' %}active{% endif %}">
-            <span class="nav-icon">➕</span>
+            <span class="nav-icon icon icon-plus"></span>
             <span class="nav-text">Add Product</span>
         </a>
         <a href="{% url 'home' %}" class="nav-link">
-            <span class="nav-icon">🏬</span>
+            <span class="nav-icon icon icon-store"></span>
             <span class="nav-text">Back to Store</span>
         </a>
     </nav>

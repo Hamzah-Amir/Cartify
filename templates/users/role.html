@@ -13,9 +13,7 @@
 {% block body  %}
 <div class="container">
     <div class="logo">
-        <div class='img'>
-            <img src="{% static "svgs/cart.svg" %}" alt="">
-        </div>
+        <div class='img'><span class="icon icon-cart icon-lg"></span></div>
         <span>Cartify</span>
     </div>
     <h1 class="tagline">Choose Your Role</h1>
@@ -25,7 +23,7 @@
             <div class="role-option">
                 <input type="radio" id="buyer" name="role" value="buyer" required>
                 <label for="buyer">
-                    <span class="role-icon">🛍</span>
+                    <span class="role-icon"><span class="icon icon-bag icon-lg"></span></span>
                     <span class="role-name">Buyer</span>
                     <span class="role-desc">Browse and buy products</span>
                 </label>
@@ -33,7 +31,7 @@
             <div class="role-option">
                 <input type="radio" id="seller" name="role" value="seller" required>
                 <label for="seller">
-                    <span class="role-icon">🏪</span>
+                    <span class="role-icon"><span class="icon icon-store icon-lg"></span></span>
                     <span class="role-name">Seller</span>
                     <span class="role-desc">List and sell your products</span>
                 </label>

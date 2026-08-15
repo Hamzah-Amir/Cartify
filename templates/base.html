@@ -20,7 +20,7 @@
     <meta property="og:title" content="{% block og_title %}Cartify | Online Shopping in Pakistan{% endblock og_title %}">
     <meta property="og:description" content="{% block og_description %}Shop electronics, fashion, home and kitchen, beauty and more on Cartify. Trusted sellers, secure checkout and fast delivery across Pakistan.{% endblock og_description %}">
     <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}">
-    <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'og-image.png' %}{% endblock og_image %}">
+    <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/og-image.png' %}{% endblock og_image %}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 
@@ -28,10 +28,10 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{% block twitter_title %}Cartify | Online Shopping in Pakistan{% endblock twitter_title %}">
     <meta name="twitter:description" content="{% block twitter_description %}Shop electronics, fashion, home and kitchen, beauty and more on Cartify.{% endblock twitter_description %}">
-    <meta name="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'og-image.png' %}{% endblock twitter_image %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/og-image.png' %}{% endblock twitter_image %}">
 
     <meta name="theme-color" content="#2f6fed">
-    <link rel="icon" type="image/svg+xml" href="{% static 'svgs/cart.svg' %}">
+    <link rel="icon" type="image/svg+xml" href="{% static 'icons/favicon.svg' %}">
 
     <link rel="stylesheet" href="{% static 'base.css' %}">
     {% block extra_head %}{% endblock extra_head %}
@@ -46,7 +46,7 @@
                 "@id": "{{ request.scheme }}://{{ request.get_host }}/#organization",
                 "name": "Cartify",
                 "url": "{{ request.scheme }}://{{ request.get_host }}/",
-                "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'og-image.png' %}",
+                "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'img/og-image.png' %}",
                 "description": "Cartify is an online marketplace where buyers shop from trusted sellers across Pakistan."
             },
             {
@@ -76,7 +76,7 @@
             <!-- Logo Section -->
             <div class="navbar-brand">
                 <a href="{% url 'home' %}" class="logo-link">
-                    <span class="logo-mark">🛒</span>
+                    <span class="logo-mark"><span class="icon icon-cart"></span></span>
                     Cartify
                 </a>
             </div>
@@ -97,18 +97,18 @@
             <!-- Right Navigation - Logged In State -->
             <div class="navbar-right navbar-user">
                 <a href="{% url 'profile' %}" class="nav-link profile-link {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
-                    <span class="icon">👤</span>
+                    <span class="icon icon-user"></span>
                     Profile
                 </a>
                 <a href="{% url 'wishlist' %}" class="nav-link wishlist-link {% if request.resolver_match.url_name == 'wishlist' %}active{% endif %}">
-                    <span class="icon">❤</span>
+                    <span class="icon icon-heart"></span>
                     Wishlist
                     {% if wishlist_count %}
                     <span class="badge">{{ wishlist_count }}</span>
                     {% endif %}
                 </a>
                 <a href="{% url 'cart' %}" class="nav-link cart-link {% if request.resolver_match.url_name == 'cart' %}active{% endif %}">
-                    <span class="icon">🛒</span>
+                    <span class="icon icon-cart"></span>
                     Cart
                     {% if cart_count %}
                     <span class="badge">{{ cart_count }}</span>
@@ -133,7 +133,7 @@
         <div class="footer-top">
             <div class="footer-col">
                 <div class="footer-brand">
-                    <span class="logo-mark">🛒</span>
+                    <span class="logo-mark"><span class="icon icon-cart"></span></span>
                     Cartify
                 </div>
                 <p class="footer-text">

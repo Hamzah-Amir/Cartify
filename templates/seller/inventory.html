@@ -4,7 +4,7 @@
 
 {# private / transactional page - keep it out of search results #}
 {% block robots %}noindex, nofollow{% endblock robots %}
-{% load static %}
+{% load static media_extras %}
 {% block extra_head %}
 <link rel="stylesheet" href="{% static "seller/dashboard.css" %}">
 {% endblock extra_head %}
@@ -29,7 +29,7 @@
 
         <section class="products-toolbar">
             <div class="products-search">
-                <span class="search-icon">🔍</span>
+                <span class="search-icon icon icon-search icon-sm"></span>
                 <input type="text" placeholder="Search products..." />
             </div>
 
@@ -59,7 +59,7 @@
                     <div class="column-product">
                         <div class="product-info">
                             <div class="product-image-placeholder">
-                                <img class="inventory-img" src="{{ product.image }}" alt="{{ product.name }}">
+                                <img class="inventory-img" src="{{ product.image|image_url }}" alt="{{ product.name }}">
                             </div>
                             <div class="product-text">
                                 <div class="product-name">{{ product.name }}</div>
@@ -89,7 +89,7 @@
                     </div>
 
                     <div class="column-actions">
-                        <a href="{% url 'productDetail' product.id %}" class="icon-button" title="View">👁</a>
+                        <a href="{% url 'productDetail' product.id %}" class="icon-button" title="View {{ product.name }}"><span class="icon icon-eye icon-sm"></span></a>
                     </div>
                 </div>
                 {% empty %}

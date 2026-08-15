@@ -38,15 +38,15 @@
     <div class="profile-tabs-section">
         <div class="tabs-nav">
             <button class="tab-button active" data-tab="personal-info">
-                <span class="tab-icon">👤</span>
+                <span class="tab-icon icon icon-user icon-sm"></span>
                 Personal Info
             </button>
             <button class="tab-button" data-tab="order-history">
-                <span class="tab-icon">📦</span>
+                <span class="tab-icon icon icon-box icon-sm"></span>
                 Order History
             </button>
             <button class="tab-button" data-tab="settings">
-                <span class="tab-icon">⚙️</span>
+                <span class="tab-icon icon icon-gear icon-sm"></span>
                 Settings
             </button>
         </div>
@@ -142,13 +142,13 @@
                 <!-- Wishlist Card -->
                 <a href="{% url 'wishlist' %}" class="wishlist-card">
                     <div class="wishlist-content">
-                        <div class="wishlist-icon">❤</div>
+                        <div class="wishlist-icon"><span class="icon icon-heart-filled"></span></div>
                         <div class="wishlist-info">
                             <div class="wishlist-title">My Wishlist</div>
                             <div class="wishlist-count">{{ wishlist_count }} items saved</div>
                         </div>
                     </div>
-                    <div class="wishlist-arrow">→</div>
+                    <div class="wishlist-arrow"><span class="icon icon-arrow-right"></span></div>
                 </a>
             </div>
 

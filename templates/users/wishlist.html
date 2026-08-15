@@ -5,7 +5,7 @@
 {# private / transactional page - keep it out of search results #}
 {% block robots %}noindex, nofollow{% endblock robots %}
 
-{% load static %}
+{% load static media_extras %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static "users/wishlist.css" %}">
@@ -30,7 +30,7 @@
         <div class="product-card" data-name="{{ item.product.name|lower }}">
             <div class="product-img-wrapper">
                 <div class="product-img">
-                    <img src="{{ item.product.image }}" alt="{{ item.product.name }}">
+                    <img src="{{ item.product.image|image_url }}" alt="{{ item.product.name }}">
                 </div>
                 <form action="{% url 'wishlist' %}" method="post" class="wishlist-remove-form">
                     {% csrf_token %}

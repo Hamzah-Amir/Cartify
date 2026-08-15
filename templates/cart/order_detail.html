@@ -4,7 +4,7 @@
 {# private / transactional page - keep it out of search results #}
 {% block robots %}noindex, nofollow{% endblock robots %}
 
-{% load static %}
+{% load static media_extras %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static "cart/order_detail.css" %}">
@@ -51,7 +51,7 @@
                     {% for item in order_items %}
                     <div class="order-item">
                         <div class="item-image">
-                            <img src="{{ item.product.image }}" alt="{{ item.product.name }}">
+                            <img src="{{ item.product.image|image_url }}" alt="{{ item.product.name }}">
                         </div>
                         <div class="item-info">
                             <h3 class="item-title">{{ item.product.name }}</h3>

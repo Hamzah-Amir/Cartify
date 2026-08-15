@@ -1,5 +1,5 @@
 ﻿{% extends 'base.html' %}
-{% load static seo_extras %}
+{% load static seo_extras media_extras %}
 
 {% block title %}{{ product.name }} - Buy Online in Pakistan | Cartify{% endblock title %}
 
@@ -85,21 +85,21 @@
     <div class="product-detail-grid">
         <div class="product-detail-gallery">
             <div class="product-main-image">
-                <img id="mainProductImage" src="{{ product.image }}"
+                <img id="mainProductImage" src="{{ product.image|image_url }}"
                     alt="{{ product.name }} - {{ product.get_category_display }} available on Cartify Pakistan"
                     width="520" height="420" fetchpriority="high" decoding="async">
             </div>
 
             <div class="product-thumbnails">
-                <button type="button" class="thumbnail active" data-src="{{ product.image }}"
+                <button type="button" class="thumbnail active" data-src="{{ product.image|image_url }}"
                     aria-label="Show main image of {{ product.name }}">
-                    <img src="{{ product.image }}" alt="{{ product.name }} main view"
+                    <img src="{{ product.image|image_url }}" alt="{{ product.name }} main view"
                         width="76" height="76" loading="lazy" decoding="async">
                 </button>
                 {% for image in product.additional_images.all %}
-                <button type="button" class="thumbnail" data-src="{{ image.image }}"
+                <button type="button" class="thumbnail" data-src="{{ image.image|image_url }}"
                     aria-label="Show image {{ forloop.counter }} of {{ product.name }}">
-                    <img src="{{ image.image }}" alt="{{ product.name }} view {{ forloop.counter }}"
+                    <img src="{{ image.image|image_url }}" alt="{{ product.name }} view {{ forloop.counter }}"
                         width="76" height="76" loading="lazy" decoding="async">
                 </button>
                 {% endfor %}
@@ -114,7 +114,7 @@
                 </div>
 
                 <div class="product-review-summary">
-                    <div class="rating-stars">★★★★★</div>
+                    <div class="rating-stars"><span class="icon icon-star icon-sm"></span><span class="icon icon-star icon-sm"></span><span class="icon icon-star icon-sm"></span><span class="icon icon-star icon-sm"></span><span class="icon icon-star icon-sm"></span></div>
                     <span class="rating-score">4.7</span>
                     <span class="review-count">(3 reviews)</span>
                 </div>
@@ -138,9 +138,9 @@
                     {% csrf_token %}
                     <input type="hidden" name="product_id" value="{{ product.id }}">
                     <div class="quantity-picker">
-                        <button type="button" class="qty-btn" onclick="updateQuantity(-1)">−</button>
+                        <button type="button" class="qty-btn" onclick="updateQuantity(-1)" aria-label="Decrease quantity"><span class="icon icon-minus icon-sm"></span></button>
                         <input id="quantityInput" type="number" name="quantity" min="1" value="1">
-                        <button type="button" class="qty-btn" onclick="updateQuantity(1)">+</button>
+                        <button type="button" class="qty-btn" onclick="updateQuantity(1)" aria-label="Increase quantity"><span class="icon icon-plus icon-sm"></span></button>
                     </div>
                     <button type="submit" class="add-cart-btn">Add to Cart</button>
                 </form>
@@ -149,7 +149,7 @@
                     {% csrf_token %}
                     <input type="hidden" name="product_id" value="{{ product.id }}">
                     <button type="submit" class="wishlist-btn {% if in_wishlist %}saved{% endif %}" title="{% if in_wishlist %}Remove from wishlist{% else %}Add to wishlist{% endif %}">
-                        <span class="heart">❤</span>
+                        <span class="icon icon-heart icon-lg"></span>
                     </button>
                 </form>
             </div>
@@ -183,7 +183,7 @@
                                 <p class="review-date">15/04/2026</p>
                             </div>
                         </div>
-                        <div class="review-stars">★★★★★</div>
+                        <div class="review-stars"><span class="icon icon-star icon-sm"></span><span class="icon icon-star icon-sm"></span><span class="icon icon-star icon-sm"></span><span class="icon icon-star icon-sm"></span><span class="icon icon-star icon-sm"></span></div>
                     </div>
                     <p class="review-text">Absolutely amazing sound quality! The noise cancellation works perfectly on flights.</p>
                 </div>
@@ -197,7 +197,7 @@
                                 <p class="review-date">10/04/2026</p>
                             </div>
                         </div>
-                        <div class="review-stars">★★★★☆</div>
+                        <div class="review-stars"><span class="icon icon-star icon-sm"></span><span class="icon icon-star icon-sm"></span><span class="icon icon-star icon-sm"></span><span class="icon icon-star icon-sm"></span><span class="icon icon-star icon-sm star-empty"></span></div>
                     </div>
                     <p class="review-text">Great headphones, very comfortable for long listening sessions. Battery life is excellent.</p>
                 </div>
@@ -211,7 +211,7 @@
                                 <p class="review-date">05/04/2026</p>
                             </div>
                         </div>
-                        <div class="review-stars">★★★★★</div>
+                        <div class="review-stars"><span class="icon icon-star icon-sm"></span><span class="icon icon-star icon-sm"></span><span class="icon icon-star icon-sm"></span><span class="icon icon-star icon-sm"></span><span class="icon icon-star icon-sm"></span></div>
                     </div>
                     <p class="review-text">Best purchase I've made this year. Worth every penny!</p>
                 </div>
