@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Cart{% endblock title %}
+{% block title %}Your Shopping Cart | Cartify{% endblock title %}
+
+{# private / transactional page - keep it out of search results #}
+{% block robots %}noindex, nofollow{% endblock robots %}
 
 {% load static %}
 
@@ -17,9 +20,7 @@
                 Continue to Shopping
             </a>
         </div>
-        <div class="heading">
-            Shopping Cart
-        </div>
+        <h1 class="heading">Shopping Cart</h1>
     </section>
 
     <section class='cart-hero'>

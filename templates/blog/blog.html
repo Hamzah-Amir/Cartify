@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 
-{% block title  %}Blog - Cartify{% endblock title  %}
+{% block title  %}Shopping Tips &amp; Guides | Cartify Blog{% endblock title  %}
+
+{% block meta_description %}Buying guides, product comparisons and selling tips from the Cartify team.{% endblock meta_description %}
+
+{# no posts published yet - keep it out of the index until there is real content #}
+{% block robots %}noindex, follow{% endblock robots %}
 
 {% block extra_head %}{% endblock extra_head %}
 

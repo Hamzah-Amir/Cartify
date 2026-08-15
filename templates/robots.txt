@@ -1,0 +1,20 @@
+User-agent: *
+
+# Private / transactional areas - no SEO value, keeps crawl budget on products
+Disallow: /admin/
+Disallow: /cart/
+Disallow: /seller/
+Disallow: /users/profile/
+Disallow: /users/wishlist
+Disallow: /users/logout/
+Disallow: /users/register/
+
+# Internal search results create thin, duplicate pages
+Disallow: /*?search=
+Disallow: /*&search=
+
+# Product listing pages should still be crawled
+Allow: /$
+Allow: /products/
+
+Sitemap: {{ request.scheme }}://{{ request.get_host }}/sitemap.xml

@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Checkout{% endblock title %}
+{% block title %}Checkout | Cartify{% endblock title %}
+
+{# private / transactional page - keep it out of search results #}
+{% block robots %}noindex, nofollow{% endblock robots %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static "cart/checkout.css" %}">
@@ -9,6 +12,7 @@
 
 {% block body %}
 <section class='checkout-section'>
+    <h1 class="sr-only">Checkout</h1>
     <section class="checkout-info">
         <h2>Shipping Information</h2>
         <form method="post" action="{% url 'process_checkout' %}" class="checkout-form">

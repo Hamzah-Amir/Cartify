@@ -50,6 +50,14 @@
     text-align: left;
 }
 
+.form-heading {
+    margin-bottom: 22px;
+    font-size: 20px;
+    text-align: center;
+    color: var(--navy);
+    text-transform: capitalize;
+}
+
 .form-group {
     margin-bottom: 16px;
 }

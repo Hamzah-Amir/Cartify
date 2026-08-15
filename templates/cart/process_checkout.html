@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Confirm Order{% endblock title %}
+{% block title %}Confirm Your Order | Cartify{% endblock title %}
+
+{# private / transactional page - keep it out of search results #}
+{% block robots %}noindex, nofollow{% endblock robots %}
 
 {% load static %}
 
