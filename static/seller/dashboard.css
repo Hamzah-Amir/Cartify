@@ -10,21 +10,35 @@
 
 .sidebar {
     flex-shrink: 0;
-    width: 220px;
-    padding: 20px 14px;
+    width: 240px;
+    padding: 22px 16px;
     background-color: var(--white);
     border-right: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
 }
 
 .sidebar-logo {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 20px;
+    gap: 10px;
+    margin-bottom: 24px;
     padding: 0 8px;
-    font-size: 18px;
-    font-weight: bold;
-    color: var(--blue);
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+    color: var(--navy);
+}
+
+.sidebar-logo .logo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    background: linear-gradient(135deg, var(--blue), #6b9bff);
+    border-radius: 10px;
+    box-shadow: var(--shadow-sm);
+    font-size: 16px;
 }
 
 .sidebar-nav {
@@ -36,11 +50,12 @@
 .sidebar .nav-link {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px 12px;
-    border-radius: var(--radius);
+    gap: 11px;
+    padding: 11px 13px;
+    border-radius: var(--radius-sm);
     color: var(--muted);
-    font-size: 14px;
+    font-size: 14.5px;
+    transition: all var(--speed);
 }
 
 .sidebar .nav-link:hover {
@@ -49,8 +64,9 @@
 }
 
 .sidebar .nav-link.active {
-    background-color: var(--blue-light);
-    color: var(--blue);
+    background: linear-gradient(135deg, var(--blue), #5b8bf5);
+    box-shadow: 0 4px 12px rgba(47, 111, 237, 0.28);
+    color: var(--white);
     font-weight: 600;
 }
 
@@ -58,7 +74,7 @@
 
 .main-dashboard {
     flex: 1;
-    padding: 24px;
+    padding: 28px;
     min-width: 0;
 }
 
@@ -67,16 +83,19 @@
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .dashboard-title {
-    font-size: 24px;
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--navy);
 }
 
 .dashboard-subtitle {
     color: var(--muted);
-    font-size: 14px;
+    font-size: 14.5px;
 }
 
 /* ---------- Stat cards ---------- */
@@ -84,53 +103,94 @@
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
+    gap: 16px;
 }
 
 .stat-card {
-    padding: 16px;
+    position: relative;
+    padding: 20px;
     background-color: var(--white);
     border: 1px solid var(--border);
     border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: transform var(--speed), box-shadow var(--speed);
+}
+
+.stat-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+}
+
+/* thin colored bar on the left of each card */
+.stat-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--blue);
+}
+
+.stats-grid .stat-card:nth-child(2)::before {
+    background-color: var(--green);
+}
+
+.stats-grid .stat-card:nth-child(3)::before {
+    background-color: var(--star);
+}
+
+.stats-grid .stat-card:nth-child(4)::before {
+    background-color: #7c5cf0;
 }
 
 .stat-label {
     color: var(--muted);
     font-size: 13px;
+    font-weight: 500;
 }
 
 .stat-value {
-    font-size: 26px;
-    font-weight: bold;
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--navy);
 }
 
 .dashboard-actions {
     display: flex;
-    gap: 10px;
-    margin: 20px 0;
+    gap: 12px;
+    margin: 24px 0;
 }
 
 /* ---------- Recent activity ---------- */
 
 .recent-activity {
-    padding: 20px;
+    padding: 24px;
     background-color: var(--white);
     border: 1px solid var(--border);
     border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
 }
 
 .recent-header h2 {
-    margin-bottom: 14px;
-    font-size: 18px;
+    margin-bottom: 8px;
+    font-size: 19px;
+    color: var(--navy);
 }
 
 .activity-item {
-    padding: 12px 0;
+    padding: 14px 0;
     border-bottom: 1px solid var(--border);
 }
 
+.activity-item:last-child {
+    border-bottom: none;
+}
+
 .activity-title {
-    font-size: 14px;
+    font-size: 14.5px;
+    font-weight: 500;
 }
 
 .activity-date {
@@ -139,7 +199,7 @@
 }
 
 .empty-text {
-    padding: 20px 0;
+    padding: 26px 0;
     color: var(--muted);
     font-size: 14px;
     text-align: center;
@@ -149,8 +209,8 @@
 
 .products-toolbar {
     display: flex;
-    gap: 10px;
-    margin-bottom: 16px;
+    gap: 12px;
+    margin-bottom: 18px;
 }
 
 .products-search {
@@ -158,10 +218,11 @@
     align-items: center;
     gap: 8px;
     flex: 1;
-    padding: 0 12px;
+    padding: 0 14px;
     background-color: var(--white);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
 }
 
 .products-search input {
@@ -169,8 +230,13 @@
     padding-left: 0;
 }
 
+.products-search input:focus {
+    box-shadow: none;
+}
+
 .products-filters select {
-    width: 160px;
+    width: 175px;
+    box-shadow: var(--shadow-sm);
 }
 
 /* ---------- Tables ---------- */
@@ -179,6 +245,7 @@
     background-color: var(--white);
     border: 1px solid var(--border);
     border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
     overflow: hidden;
 }
 
@@ -186,26 +253,29 @@
 .product-row {
     display: grid;
     grid-template-columns: 2.5fr 1fr 0.8fr 1fr 1.3fr 1fr;
-    gap: 10px;
+    gap: 12px;
     align-items: center;
-    padding: 12px 16px;
+    padding: 14px 18px;
 }
 
 .products-header-row {
-    background-color: var(--bg);
+    background-color: #f7f9fc;
     border-bottom: 1px solid var(--border);
     color: var(--muted);
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 12.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
 }
 
 .product-row {
     border-bottom: 1px solid var(--border);
     font-size: 14px;
+    transition: background-color var(--speed);
 }
 
 .product-row:hover {
-    background-color: var(--bg);
+    background-color: #fafbfe;
 }
 
 /* orders table has 5 columns instead of 6 */
@@ -217,15 +287,15 @@
 .product-info {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 .product-image-placeholder {
     flex-shrink: 0;
-    width: 42px;
-    height: 42px;
-    background-color: var(--bg);
-    border-radius: var(--radius);
+    width: 46px;
+    height: 46px;
+    background-color: #f0f3f9;
+    border-radius: var(--radius-sm);
     overflow: hidden;
 }
 
@@ -246,21 +316,23 @@
 }
 
 .product-price {
-    font-weight: 600;
+    font-weight: 700;
+    color: var(--navy);
 }
 
 .stock-zero {
     color: var(--red);
-    font-weight: 600;
+    font-weight: 700;
 }
 
 /* ---------- Status pills ---------- */
 
 .status-pill {
     display: inline-block;
-    padding: 3px 10px;
-    border-radius: 20px;
+    padding: 4px 12px;
+    border-radius: 999px;
     font-size: 12px;
+    font-weight: 600;
     text-transform: capitalize;
 }
 
@@ -286,14 +358,15 @@
 /* ---------- Row buttons ---------- */
 
 .icon-button {
-    padding: 5px 7px;
+    display: inline-block;
+    padding: 6px 9px;
     background-color: transparent;
-    border-radius: var(--radius);
+    border-radius: var(--radius-sm);
     font-size: 14px;
 }
 
 .icon-button:hover {
-    background-color: var(--bg);
+    background-color: var(--blue-light);
 }
 
 .icon-danger:hover {
@@ -303,45 +376,50 @@
 /* ---------- Add product form ---------- */
 
 .add-product-form {
-    max-width: 700px;
+    max-width: 760px;
 }
 
 .product-form-card {
-    margin-bottom: 16px;
-    padding: 20px;
+    margin-bottom: 18px;
+    padding: 24px;
     background-color: var(--white);
     border: 1px solid var(--border);
     border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
 }
 
 .product-form-title {
-    margin-bottom: 16px;
-    font-size: 16px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 16.5px;
+    color: var(--navy);
 }
 
 .form-field {
-    margin-bottom: 14px;
+    margin-bottom: 16px;
 }
 
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 14px;
+    gap: 16px;
 }
 
 .input-with-prefix {
     display: flex;
     align-items: center;
     gap: 6px;
-    padding-left: 12px;
+    padding-left: 13px;
     background-color: var(--white);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border-radius: var(--radius-sm);
 }
 
 .input-prefix {
     color: var(--muted);
     font-size: 14px;
+    font-weight: 600;
 }
 
 .input-with-prefix .form-input {
@@ -349,26 +427,40 @@
     padding-left: 0;
 }
 
+.input-with-prefix .form-input:focus {
+    box-shadow: none;
+}
+
 .image-upload-dropzone {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 6px;
-    padding: 24px;
-    background-color: var(--bg);
-    border: 2px dashed var(--border);
+    padding: 30px;
+    background-color: #fafbfe;
+    border: 2px dashed #ccd6ea;
     border-radius: var(--radius);
     font-weight: normal;
     cursor: pointer;
     text-align: center;
+    transition: all var(--speed);
 }
 
 .image-upload-dropzone:hover {
     border-color: var(--blue);
+    background-color: var(--blue-light);
 }
 
 .upload-icon {
-    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background-color: var(--white);
+    border-radius: 50%;
+    box-shadow: var(--shadow-sm);
+    font-size: 20px;
     color: var(--blue);
 }
 
@@ -379,13 +471,13 @@
 
 .form-actions {
     display: flex;
-    gap: 10px;
+    gap: 12px;
 }
 
 /* ---------- Order detail ---------- */
 
 .order-detail-back {
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 
 .order-detail-title-row {
@@ -393,38 +485,42 @@
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
 .order-detail-actions {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
 
 .order-detail-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 18px;
 }
 
 .order-card {
-    margin-bottom: 16px;
-    padding: 20px;
+    margin-bottom: 18px;
+    padding: 24px;
     background-color: var(--white);
     border: 1px solid var(--border);
     border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
 }
 
 .order-card-title {
-    margin-bottom: 14px;
-    font-size: 16px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 16.5px;
+    color: var(--navy);
 }
 
 .order-card-row {
     display: flex;
-    gap: 30px;
-    margin-bottom: 12px;
+    gap: 40px;
+    margin-bottom: 14px;
 }
 
 .order-card-label {
@@ -434,22 +530,25 @@
 
 .order-card-value {
     font-size: 15px;
+    font-weight: 600;
 }
 
 .order-items-header,
 .order-items-row {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
-    gap: 10px;
-    padding: 10px 0;
+    gap: 12px;
+    padding: 12px 0;
     font-size: 14px;
 }
 
 .order-items-header {
     border-bottom: 1px solid var(--border);
     color: var(--muted);
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 12.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
 }
 
 .order-items-row {
@@ -459,14 +558,15 @@
 .order-summary-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .order-summary-total {
-    padding-top: 10px;
-    border-top: 1px solid var(--border);
-    font-size: 17px;
-    font-weight: bold;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+    font-size: 19px;
+    font-weight: 800;
+    color: var(--navy);
 }
 
 .order-card-total {
@@ -475,7 +575,7 @@
 
 /* ---------- Small screens ---------- */
 
-@media (max-width: 1000px) {
+@media (max-width: 1050px) {
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -485,7 +585,7 @@
     }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 850px) {
     .seller-dashboard {
         flex-direction: column;
     }
@@ -508,7 +608,7 @@
 
     .products-header-row,
     .product-row {
-        min-width: 700px;
+        min-width: 760px;
     }
 
     .form-row {
@@ -519,6 +619,10 @@
 @media (max-width: 600px) {
     .stats-grid {
         grid-template-columns: 1fr;
+    }
+
+    .main-dashboard {
+        padding: 20px 16px;
     }
 
     .dashboard-header,

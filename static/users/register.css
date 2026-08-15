@@ -1,8 +1,8 @@
 /* Register page */
 
 .container {
-    max-width: 480px;
-    margin: 40px auto;
+    max-width: 540px;
+    margin: 45px auto;
     padding: 0 20px;
     text-align: center;
 }
@@ -11,39 +11,53 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    font-size: 24px;
-    font-weight: bold;
-    color: var(--blue);
+    gap: 10px;
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+    color: var(--navy);
+}
+
+.logo .img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--blue), #6b9bff);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
 }
 
 .logo .img img {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
 }
 
 .tagline {
-    margin-bottom: 20px;
+    margin-bottom: 26px;
     color: var(--muted);
-    font-size: 14px;
+    font-size: 14.5px;
 }
 
 .register-form {
-    padding: 24px;
+    padding: 30px 28px;
     background-color: var(--white);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
     text-align: left;
 }
 
 .form-group {
-    margin-bottom: 14px;
+    margin-bottom: 16px;
 }
 
 /* first name + last name side by side */
 .form-row {
     display: flex;
-    gap: 10px;
+    gap: 12px;
 }
 
 .input-group {
@@ -51,23 +65,30 @@
 }
 
 .error-text {
-    margin-top: 4px;
+    margin-top: 5px;
+    padding: 6px 10px;
+    background-color: var(--red-bg);
+    border-radius: var(--radius-sm);
     color: var(--red);
     font-size: 13px;
 }
 
 .register-btn {
     width: 100%;
-    padding: 11px;
+    margin-top: 6px;
+    padding: 12px;
     background-color: var(--blue);
-    border-radius: var(--radius);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
     color: var(--white);
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
 }
 
 .register-btn:hover {
     background-color: var(--blue-dark);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
 }
 
 @media (max-width: 480px) {

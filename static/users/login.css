@@ -1,8 +1,8 @@
 /* Login page */
 
 .login-page {
-    max-width: 400px;
-    margin: 40px auto;
+    max-width: 430px;
+    margin: 50px auto;
     padding: 0 20px;
     text-align: center;
 }
@@ -11,57 +11,76 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    font-size: 24px;
-    font-weight: bold;
-    color: var(--blue);
+    gap: 10px;
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: -0.6px;
+    color: var(--navy);
+}
+
+.login-page .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--blue), #6b9bff);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
 }
 
 .login-page .logo img {
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
 }
 
 .tagline {
-    margin-bottom: 20px;
+    margin-bottom: 26px;
     color: var(--muted);
-    font-size: 14px;
+    font-size: 14.5px;
 }
 
 .login-page form {
-    padding: 24px;
+    padding: 30px 28px;
     background-color: var(--white);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
     text-align: left;
 }
 
 .login-page h2 {
-    margin-bottom: 18px;
-    font-size: 18px;
+    margin-bottom: 22px;
+    font-size: 20px;
     text-align: center;
+    color: var(--navy);
 }
 
 .form-group {
-    margin-bottom: 14px;
+    margin-bottom: 16px;
 }
 
 .login-btn {
     width: 100%;
-    padding: 11px;
+    margin-top: 6px;
+    padding: 12px;
     background-color: var(--blue);
-    border-radius: var(--radius);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
     color: var(--white);
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
 }
 
 .login-btn:hover {
     background-color: var(--blue-dark);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
 }
 
 .signup-link {
-    margin-top: 16px;
+    margin-top: 18px;
     color: var(--muted);
     font-size: 14px;
 }

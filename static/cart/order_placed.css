@@ -1,42 +1,59 @@
 /* Order confirmed page */
 
 .order-placed-container {
-    max-width: 700px;
+    max-width: 760px;
     margin: 0 auto;
-    padding: 24px 20px;
+    padding: 26px 20px;
 }
 
 /* ---------- Success message ---------- */
 
 .success-header {
-    padding: 20px;
+    padding: 34px 20px;
     text-align: center;
 }
 
+.success-icon {
+    display: inline-block;
+    animation: pop 0.4s ease;
+}
+
+@keyframes pop {
+    from { transform: scale(0.7); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
 .success-title {
-    margin-top: 10px;
-    font-size: 26px;
+    margin-top: 12px;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--navy);
 }
 
 .success-subtitle {
     color: var(--muted);
+    font-size: 15px;
 }
 
 /* ---------- Details box ---------- */
 
 .order-details-container {
-    padding: 20px;
+    padding: 26px;
     background-color: var(--white);
     border: 1px solid var(--border);
     border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
 }
 
 .order-header-info {
     display: flex;
     justify-content: space-between;
     gap: 16px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
+    padding: 16px 18px;
+    background-color: #fbfcfe;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
 }
 
 .info-item {
@@ -50,11 +67,13 @@
 }
 
 .info-value {
-    font-weight: 600;
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--navy);
 }
 
 .info-section {
-    padding: 16px 0;
+    padding: 20px 0;
     border-bottom: 1px solid var(--border);
 }
 
@@ -66,9 +85,9 @@
 }
 
 .section-title {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     font-size: 16px;
-    color: var(--text);
+    color: var(--navy);
 }
 
 .section-header .section-title {
@@ -76,11 +95,11 @@
 }
 
 .shipping-details {
-    margin-top: 10px;
+    margin-top: 12px;
 }
 
 .detail-name {
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .detail-text {
@@ -99,15 +118,19 @@
 .order-item-row {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
+    padding: 10px;
+    background-color: #fbfcfe;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
 }
 
 .item-image {
     flex-shrink: 0;
-    width: 60px;
-    height: 60px;
-    background-color: var(--bg);
-    border-radius: var(--radius);
+    width: 64px;
+    height: 64px;
+    background-color: #f0f3f9;
+    border-radius: var(--radius-sm);
     overflow: hidden;
 }
 
@@ -131,60 +154,67 @@
 }
 
 .item-price {
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--navy);
 }
 
 /* ---------- Summary ---------- */
 
 .order-summary {
-    padding: 16px 0;
+    padding: 20px 0;
 }
 
 .summary-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     color: var(--muted);
-    font-size: 14px;
+    font-size: 14.5px;
 }
 
 .summary-divider {
-    margin: 12px 0;
-    border-top: 1px solid var(--border);
+    margin: 14px 0;
+    border-top: 1px dashed var(--border);
 }
 
 .summary-row.total {
-    color: var(--text);
-    font-size: 17px;
-    font-weight: bold;
+    color: var(--navy);
+    font-size: 19px;
+    font-weight: 800;
 }
 
 .confirmation-message {
-    padding: 12px;
+    padding: 14px;
     background-color: var(--green-bg);
-    border-radius: var(--radius);
+    border: 1px solid #cbe9d8;
+    border-radius: var(--radius-sm);
     color: var(--green);
     font-size: 14px;
     text-align: center;
 }
 
 .action-button {
-    margin-top: 16px;
+    margin-top: 20px;
     text-align: center;
 }
 
 .btn-shopping {
     display: inline-block;
-    padding: 11px 22px;
+    padding: 13px 28px;
     background-color: var(--blue);
-    border-radius: var(--radius);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
     color: var(--white);
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
+    transition: all var(--speed);
 }
 
 .btn-shopping:hover {
     background-color: var(--blue-dark);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
 }
 
 /* ---------- Small screens ---------- */
@@ -192,6 +222,6 @@
 @media (max-width: 550px) {
     .order-header-info {
         flex-direction: column;
-        gap: 10px;
+        gap: 12px;
     }
 }

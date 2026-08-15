@@ -11,6 +11,7 @@
 {% block body %}
 <section class='overview'>
     <div class='head'>
+        <span class="hero-tag">🎉 New arrivals every week</span>
         <div class="heading">
             <span>
                 Discover Premium Products.
@@ -21,88 +22,107 @@
         </div>
         <div class="search-bar">
             <form action="{% url "home" %}" method="get">
-                <input type="search" name="search" id="search" placeholder="Search products">
+                {% if category %}
+                <input type="hidden" name="category" value="{{ category }}">
+                {% endif %}
+                <span class="search-icon">🔍</span>
+                <input type="search" name="search" id="search" placeholder="Search products"
+                    value="{{ search_query|default_if_none:'' }}">
+                <button type="submit" class="search-btn">Search</button>
             </form>
+        </div>
+
+        <div class="hero-points">
+            <span>🚚 Fast delivery</span>
+            <span>🔒 Secure checkout</span>
+            <span>↩ Easy returns</span>
         </div>
     </div>
 </section>
 
 <section class="categories">
     <div class="cat-capsules">
-        <a href="{% url "home" %}?category=all">
+        <a href="{% url "home" %}?category=all" class="{% if not category or category == 'all' %}active{% endif %}">
             <span>All</span>
         </a>
     </div>
 
     <div class="cat-capsules">
-        <a href="{% url "home" %}?category=electronics">
+        <a href="{% url "home" %}?category=electronics" class="{% if category == 'electronics' %}active{% endif %}">
             <span>Electronics</span>
         </a>
     </div>
 
     <div class="cat-capsules">
-        <a href="{% url "home" %}?category=fashion-apparel">
+        <a href="{% url "home" %}?category=fashion-apparel" class="{% if category == 'fashion-apparel' %}active{% endif %}">
             <span>Fashion & Apparel</span>
         </a>
     </div>
 
     <div class="cat-capsules">
-        <a href="{% url "home" %}?category=home-kitchen">
+        <a href="{% url "home" %}?category=home-kitchen" class="{% if category == 'home-kitchen' %}active{% endif %}">
             <span>Home & Kitchen</span>
         </a>
     </div>
 
     <div class="cat-capsules">
-        <a href="{% url "home" %}?category=toys-games">
+        <a href="{% url "home" %}?category=toys-games" class="{% if category == 'toys-games' %}active{% endif %}">
             <span>Toys & Games</span>
         </a>
     </div>
 
     <div class="cat-capsules">
-        <a href="{% url "home" %}?category=beauty-personal-care">
+        <a href="{% url "home" %}?category=beauty-personal-care" class="{% if category == 'beauty-personal-care' %}active{% endif %}">
             <span>Beauty & Personal Care</span>
         </a>
     </div>
 
     <div class="cat-capsules">
-        <a href="{% url "home" %}?category=sports-outdoor">
+        <a href="{% url "home" %}?category=sports-outdoor" class="{% if category == 'sports-outdoor' %}active{% endif %}">
             <span>Sports & Outdoors</span>
         </a>
     </div>
 
     <div class="cat-capsules">
-        <a href="{% url "home" %}?category=books-media">
+        <a href="{% url "home" %}?category=books-media" class="{% if category == 'books-media' %}active{% endif %}">
             <span>Books & Media</span>
         </a>
     </div>
 
     <div class="cat-capsules">
-        <a href="{% url "home" %}?category=grocery-essentials">
+        <a href="{% url "home" %}?category=grocery-essentials" class="{% if category == 'grocery-essentials' %}active{% endif %}">
             <span>Grocery & Essentials</span>
         </a>
     </div>
 
     <div class="cat-capsules">
-        <a href="{% url "home" %}?category=automotive">
+        <a href="{% url "home" %}?category=automotive" class="{% if category == 'automotive' %}active{% endif %}">
             <span>Automotive</span>
         </a>
     </div>
 
     <div class="cat-capsules">
-        <a href="{% url "home" %}?category=misc/other">
+        <a href="{% url "home" %}?category=misc/other" class="{% if category == 'misc/other' %}active{% endif %}">
             <span>Misc/Other</span>
         </a>
     </div>
 </section>
 
 <section class="products-listing">
-    <div class="product-qty">
-        {% if total_products %}
-        Showing {{ page_obj.start_index }} - {{ page_obj.end_index }} of {{ total_products }} products
-        {% else %}
-        No products found
+    <div class="listing-head">
+        <div class="product-qty">
+            {% if total_products %}
+            Showing {{ page_obj.start_index }} - {{ page_obj.end_index }} of {{ total_products }} products
+            {% else %}
+            No products found
+            {% endif %}
+        </div>
+
+        {% if search_query %}
+        <a href="{% url 'home' %}" class="clear-filter">Clear search “{{ search_query }}” ✕</a>
         {% endif %}
     </div>
+
     <div class="product-container">
 
         {% if products %}
@@ -112,9 +132,14 @@
                 <a href="{% url "productDetail" product.id %}" class="product-link">
                     <img src="{{product.image}}" alt="{{product.name}}">
                 </a>
+                <span class="card-tag">{{ product.get_category_display }}</span>
+                {% if product.stock < 5 %}
+                <span class="card-stock-tag">Only {{ product.stock }} left</span>
+                {% endif %}
             </div>
             <div class="product-info">
                 <div class="title">{{product.name}}</div>
+                <div class="rating">★★★★★ <span>(4.7)</span></div>
                 <div class="price">PKR {{product.price}}</div>
                 <div class="desc">{{product.description|truncatechars:80}}</div>
             </div>
@@ -124,7 +149,12 @@
         </div>
         {% endfor %}
         {% else %}
-        <div>No products found</div>
+        <div class="no-products">
+            <div class="no-products-icon">📦</div>
+            <h3>No products found</h3>
+            <p>Try another category or a different search term.</p>
+            <a href="{% url 'home' %}" class="btn btn-primary">Browse all products</a>
+        </div>
         {% endif %}
 
     </div>

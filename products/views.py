@@ -14,6 +14,7 @@ def home(request):
         
         # Start with base query - only products with stock > 0
         products = Product.objects.filter(stock__gt=0)
+        print("Image URL",products[0].image)
         
         # Apply search filter if search query exists
         if search_query:

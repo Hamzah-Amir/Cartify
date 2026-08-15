@@ -2,40 +2,44 @@
 
 .checkout-section {
     display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 20px;
+    grid-template-columns: 1fr 340px;
+    gap: 22px;
     align-items: start;
-    max-width: 1100px;
+    max-width: 1150px;
     margin: 0 auto;
-    padding: 24px 20px;
+    padding: 26px 20px;
 }
 
 /* ---------- Shipping form ---------- */
 
 .checkout-info {
-    padding: 20px;
+    padding: 26px;
     background-color: var(--white);
     border: 1px solid var(--border);
     border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
 }
 
 .checkout-info h2 {
-    margin-bottom: 16px;
-    font-size: 18px;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    font-size: 19px;
+    color: var(--navy);
 }
 
-.checkout-info h2 + .form-group {
-    margin-top: 0;
+.checkout-info h2 ~ h2 {
+    margin-top: 26px;
 }
 
 .form-group {
-    margin-bottom: 14px;
+    margin-bottom: 16px;
 }
 
 .city-state-post {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 12px;
 }
 
 /* ---------- Payment options ---------- */
@@ -43,38 +47,49 @@
 .payment-options {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 12px;
+    margin-bottom: 24px;
 }
 
 .payment-option {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 12px;
-    border: 1px solid var(--border);
+    gap: 12px;
+    padding: 15px;
+    border: 2px solid var(--border);
     border-radius: var(--radius);
     font-weight: normal;
     cursor: pointer;
+    transition: all var(--speed);
 }
 
 .payment-option:hover {
+    border-color: #b9cdf5;
+    background-color: #fbfcff;
+}
+
+/* highlight whichever payment is picked */
+.payment-option:has(input:checked) {
     border-color: var(--blue);
+    background-color: var(--blue-light);
 }
 
 .payment-option input {
     width: auto;
+    accent-color: var(--blue);
 }
 
 .payment-method {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 9px;
     font-size: 15px;
     font-weight: 600;
+    color: var(--navy);
 }
 
 .payment-subtitle {
+    margin-left: 33px;
     color: var(--muted);
     font-size: 13px;
 }
@@ -83,54 +98,73 @@
 
 .checkout-actions {
     display: flex;
-    gap: 10px;
+    gap: 12px;
+}
+
+.checkout-actions .btn {
+    flex: 1;
 }
 
 /* ---------- Order summary ---------- */
 
 .checkout-summary {
-    padding: 20px;
+    position: sticky;
+    top: 90px;
+    padding: 22px;
     background-color: var(--white);
     border: 1px solid var(--border);
     border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
 }
 
 .checkout-head {
-    margin-bottom: 14px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 700;
+    color: var(--navy);
 }
 
 .sub-total {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     color: var(--muted);
-    font-size: 14px;
+    font-size: 14.5px;
 }
 
 .seperation {
-    margin: 12px 0;
-    border-top: 1px solid var(--border);
+    margin: 14px 0;
+    border-top: 1px dashed var(--border);
 }
 
 .total {
     display: flex;
     justify-content: space-between;
-    font-size: 17px;
-    font-weight: bold;
+    font-size: 19px;
+    font-weight: 800;
+    color: var(--navy);
 }
 
 /* ---------- Small screens ---------- */
 
-@media (max-width: 850px) {
+@media (max-width: 900px) {
     .checkout-section {
         grid-template-columns: 1fr;
+    }
+
+    .checkout-summary {
+        position: static;
     }
 }
 
 @media (max-width: 550px) {
     .city-state-post {
         grid-template-columns: 1fr;
+    }
+
+    .checkout-actions {
+        flex-direction: column;
     }
 }
