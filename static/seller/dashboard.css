@@ -38,7 +38,7 @@
     background: linear-gradient(135deg, var(--blue), #6b9bff);
     border-radius: 10px;
     box-shadow: var(--shadow-sm);
-    font-size: 16px;
+    color: var(--white);
 }
 
 .sidebar-nav {
@@ -223,6 +223,10 @@
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     box-shadow: var(--shadow-sm);
+}
+
+.products-search .search-icon {
+    color: var(--muted);
 }
 
 .products-search input {
@@ -460,13 +464,18 @@
     background-color: var(--white);
     border-radius: 50%;
     box-shadow: var(--shadow-sm);
-    font-size: 20px;
     color: var(--blue);
 }
 
 .upload-subtext {
     color: var(--muted);
     font-size: 13px;
+}
+
+.form-hint {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 12.5px;
 }
 
 .form-actions {

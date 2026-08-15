@@ -29,10 +29,8 @@
     box-shadow: var(--shadow-md);
 }
 
-.logo .img img {
-    width: 24px;
-    height: 24px;
-    filter: brightness(0) invert(1);
+.logo .img .icon {
+    color: var(--white);
 }
 
 .tagline {
@@ -85,7 +83,7 @@
     margin: 0 auto;
     background-color: var(--blue-light);
     border-radius: 50%;
-    font-size: 24px;
+    color: var(--blue);
 }
 
 .role-name {

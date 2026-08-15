@@ -108,8 +108,14 @@ h1, h2, h3 {
     height: 34px;
     background: linear-gradient(135deg, var(--blue), #6b9bff);
     border-radius: 10px;
-    font-size: 17px;
+    color: var(--white);
     box-shadow: var(--shadow-sm);
+}
+
+.logo-mark .icon {
+    width: 19px;
+    height: 19px;
+    vertical-align: 0;
 }
 
 .navbar-center {
@@ -317,6 +323,60 @@ label {
     margin-bottom: 8px;
     color: var(--text);
 }
+
+
+/* ---------- Icons ----------
+   Every icon is a real SVG file in static/icons/. The file is applied as a CSS
+   mask, so the icon is painted with `currentColor` - it picks up the text colour
+   of whatever it sits in. That means one file works on light and dark
+   backgrounds, and hover states just work. */
+
+.icon {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    vertical-align: -3px;
+    background-color: currentColor;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+}
+
+.icon-sm { width: 14px; height: 14px; vertical-align: -2px; }
+.star-empty { color: #d3d8e2; }
+.icon-lg { width: 22px; height: 22px; }
+.icon-xl { width: 30px; height: 30px; vertical-align: -6px; }
+
+/* one line per icon file */
+.icon-arrow-left { -webkit-mask-image: url("icons/arrow-left.svg"); mask-image: url("icons/arrow-left.svg"); }
+.icon-arrow-right { -webkit-mask-image: url("icons/arrow-right.svg"); mask-image: url("icons/arrow-right.svg"); }
+.icon-bag { -webkit-mask-image: url("icons/bag.svg"); mask-image: url("icons/bag.svg"); }
+.icon-box { -webkit-mask-image: url("icons/box.svg"); mask-image: url("icons/box.svg"); }
+.icon-cart { -webkit-mask-image: url("icons/cart.svg"); mask-image: url("icons/cart.svg"); }
+.icon-check-circle { -webkit-mask-image: url("icons/check-circle.svg"); mask-image: url("icons/check-circle.svg"); }
+.icon-close { -webkit-mask-image: url("icons/close.svg"); mask-image: url("icons/close.svg"); }
+.icon-eye { -webkit-mask-image: url("icons/eye.svg"); mask-image: url("icons/eye.svg"); }
+.icon-gear { -webkit-mask-image: url("icons/gear.svg"); mask-image: url("icons/gear.svg"); }
+.icon-grid { -webkit-mask-image: url("icons/grid.svg"); mask-image: url("icons/grid.svg"); }
+.icon-heart { -webkit-mask-image: url("icons/heart.svg"); mask-image: url("icons/heart.svg"); }
+.icon-heart-filled { -webkit-mask-image: url("icons/heart-filled.svg"); mask-image: url("icons/heart-filled.svg"); }
+.icon-lock { -webkit-mask-image: url("icons/lock.svg"); mask-image: url("icons/lock.svg"); }
+.icon-minus { -webkit-mask-image: url("icons/minus.svg"); mask-image: url("icons/minus.svg"); }
+.icon-plus { -webkit-mask-image: url("icons/plus.svg"); mask-image: url("icons/plus.svg"); }
+.icon-receipt { -webkit-mask-image: url("icons/receipt.svg"); mask-image: url("icons/receipt.svg"); }
+.icon-refresh { -webkit-mask-image: url("icons/refresh.svg"); mask-image: url("icons/refresh.svg"); }
+.icon-search { -webkit-mask-image: url("icons/search.svg"); mask-image: url("icons/search.svg"); }
+.icon-sparkle { -webkit-mask-image: url("icons/sparkle.svg"); mask-image: url("icons/sparkle.svg"); }
+.icon-star { -webkit-mask-image: url("icons/star.svg"); mask-image: url("icons/star.svg"); }
+.icon-store { -webkit-mask-image: url("icons/store.svg"); mask-image: url("icons/store.svg"); }
+.icon-trash { -webkit-mask-image: url("icons/trash.svg"); mask-image: url("icons/trash.svg"); }
+.icon-truck { -webkit-mask-image: url("icons/truck.svg"); mask-image: url("icons/truck.svg"); }
+.icon-upload { -webkit-mask-image: url("icons/upload.svg"); mask-image: url("icons/upload.svg"); }
+.icon-user { -webkit-mask-image: url("icons/user.svg"); mask-image: url("icons/user.svg"); }
 
 /* ---------- Footer ---------- */
 

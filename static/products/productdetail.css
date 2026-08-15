@@ -144,8 +144,9 @@
 
 .rating-stars,
 .review-stars {
+    display: inline-flex;
+    gap: 2px;
     color: var(--star);
-    letter-spacing: 1px;
 }
 
 .rating-score {

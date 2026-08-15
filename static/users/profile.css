@@ -245,7 +245,6 @@
     background-color: var(--white);
     border-radius: 50%;
     box-shadow: var(--shadow-sm);
-    font-size: 19px;
     color: var(--red);
 }
 
@@ -260,7 +259,6 @@
 }
 
 .wishlist-arrow {
-    font-size: 18px;
     color: var(--red);
 }
 

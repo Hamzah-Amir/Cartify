@@ -29,10 +29,8 @@
     box-shadow: var(--shadow-md);
 }
 
-.logo .img img {
-    width: 24px;
-    height: 24px;
-    filter: brightness(0) invert(1);
+.logo .img .icon {
+    color: var(--white);
 }
 
 .tagline {
