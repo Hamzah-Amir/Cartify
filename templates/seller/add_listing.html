@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Add Product{% endblock title %}
+{% block title %}Add a Product | Cartify Seller{% endblock title %}
+
+{# private / transactional page - keep it out of search results #}
+{% block robots %}noindex, nofollow{% endblock robots %}
 {% load static %}
 {% block extra_head %}
 <link rel="stylesheet" href="{% static "seller/dashboard.css" %}">

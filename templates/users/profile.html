@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}User Profile{% endblock title %}
+{% block title %}My Account | Cartify{% endblock title %}
+
+{# private / transactional page - keep it out of search results #}
+{% block robots %}noindex, nofollow{% endblock robots %}
 
 {% load static %}
 {% block extra_head %}
@@ -9,6 +12,7 @@
 
 {% block body %}
 <div class="profile-container">
+    <h1 class="sr-only">My Cartify Account</h1>
     <!-- Profile Header -->
     <section class="profile-head">
         <div class="user-details">

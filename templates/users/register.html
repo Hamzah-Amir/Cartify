@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
-{% block title  %}Register - Cartify{% endblock title  %}
+{% block title %}Create Your Cartify Account{% endblock title %}
+
+{# private / transactional page - keep it out of search results #}
+{% block robots %}noindex, nofollow{% endblock robots %}
 
 {% load static %}
 
@@ -19,6 +22,7 @@
     <div class="tagline">Buy smart. Sell faster.</div>
     <form class='register-form' action="{% url "registerUser" %}" method="post">
         {% csrf_token %}
+        <h1 class="form-heading">Create your {{ role|default:'Cartify' }} account</h1>
         <div class="form-group form-row">
             <div class='input-group'>
                 

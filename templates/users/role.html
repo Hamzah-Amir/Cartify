@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Choose Role - Cartify{% endblock title %}
+{% block title %}Join Cartify as a Buyer or Seller{% endblock title %}
+
+{# private / transactional page - keep it out of search results #}
+{% block robots %}noindex, nofollow{% endblock robots %}
 
 {% load static %}
 {% block extra_head %}
@@ -15,7 +18,7 @@
         </div>
         <span>Cartify</span>
     </div>
-    <div class="tagline">Choose Your Role</div>
+    <h1 class="tagline">Choose Your Role</h1>
 
     <form action="{% url "registerUser" %}" method="get">
         <div class="role-selection">

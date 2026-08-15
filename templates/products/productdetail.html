@@ -1,31 +1,106 @@
 ﻿{% extends 'base.html' %}
-{% load static %}
+{% load static seo_extras %}
 
-{% block title %}{{ product.name }} | Cartify{% endblock title %}
+{% block title %}{{ product.name }} - Buy Online in Pakistan | Cartify{% endblock title %}
+
+{% block meta_description %}Buy {{ product.name }} online in Pakistan for PKR {{ product.price }}. {{ product.description|meta_text:100 }}{% endblock meta_description %}
+
+{% block og_type %}product{% endblock og_type %}
+{% block og_title %}{{ product.name }} - PKR {{ product.price }} | Cartify{% endblock og_title %}
+{% block og_description %}{{ product.description|meta_text }}{% endblock og_description %}
+{% block og_image %}{{ product.image }}{% endblock og_image %}
+{% block twitter_title %}{{ product.name }} | Cartify{% endblock twitter_title %}
+{% block twitter_description %}{{ product.description|meta_text }}{% endblock twitter_description %}
+{% block twitter_image %}{{ product.image }}{% endblock twitter_image %}
 
 {% block extra_head %}
 <link rel="stylesheet" href="{% static 'products/productdetail.css' %}">
 {% endblock extra_head %}
 
+{% block structured_data %}
+<!-- Product data for Google rich results (price, stock, category) -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "{{ product.name|json_string }}",
+    "description": "{{ product.description|meta_text:300|json_string }}",
+    "image": ["{{ product.image|json_string }}"{% for image in product.additional_images.all %}, "{{ image.image|json_string }}"{% endfor %}],
+    "sku": "{{ product.id }}",
+    "category": "{{ product.get_category_display|json_string }}",
+    "url": "{{ request.scheme }}://{{ request.get_host }}{% url 'productDetail' product.id %}",
+    "offers": {
+        "@type": "Offer",
+        "url": "{{ request.scheme }}://{{ request.get_host }}{% url 'productDetail' product.id %}",
+        "price": "{{ product.price }}",
+        "priceCurrency": "PKR",
+        "itemCondition": "https://schema.org/NewCondition",
+        "availability": "{% if product.stock > 0 %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+        "seller": {
+            "@type": "Organization",
+            "name": "{{ product.seller.first_name|default:product.seller.username|json_string }}"
+        }
+    }
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "{{ request.scheme }}://{{ request.get_host }}/"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "{{ product.get_category_display|json_string }}",
+            "item": "{{ request.scheme }}://{{ request.get_host }}/?category={{ product.category|urlencode }}"
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "{{ product.name|json_string }}"
+        }
+    ]
+}
+</script>
+{% endblock structured_data %}
+
 {% block body %}
 <section class="product-detail-page">
     <div class="product-detail-header">
-        <a href="{% url 'home' %}" class="back-link">← Back to Products</a>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="{% url 'home' %}">Home</a>
+            <span aria-hidden="true">/</span>
+            <a href="{% url 'home' %}?category={{ product.category|urlencode }}">{{ product.get_category_display }}</a>
+            <span aria-hidden="true">/</span>
+            <span class="breadcrumb-current" aria-current="page">{{ product.name }}</span>
+        </nav>
     </div>
 
     <div class="product-detail-grid">
         <div class="product-detail-gallery">
             <div class="product-main-image">
-                <img id="mainProductImage" src="{{ product.image }}" alt="{{ product.name }}">
+                <img id="mainProductImage" src="{{ product.image }}"
+                    alt="{{ product.name }} - {{ product.get_category_display }} available on Cartify Pakistan"
+                    width="520" height="420" fetchpriority="high" decoding="async">
             </div>
 
             <div class="product-thumbnails">
-                <button type="button" class="thumbnail active" data-src="{{ product.image }}">
-                    <img src="{{ product.image }}" alt="{{ product.name }}">
+                <button type="button" class="thumbnail active" data-src="{{ product.image }}"
+                    aria-label="Show main image of {{ product.name }}">
+                    <img src="{{ product.image }}" alt="{{ product.name }} main view"
+                        width="76" height="76" loading="lazy" decoding="async">
                 </button>
                 {% for image in product.additional_images.all %}
-                <button type="button" class="thumbnail" data-src="{{ image.image }}">
-                    <img src="{{ image.image }}" alt="{{ product.name }}">
+                <button type="button" class="thumbnail" data-src="{{ image.image }}"
+                    aria-label="Show image {{ forloop.counter }} of {{ product.name }}">
+                    <img src="{{ image.image }}" alt="{{ product.name }} view {{ forloop.counter }}"
+                        width="76" height="76" loading="lazy" decoding="async">
                 </button>
                 {% endfor %}
             </div>
